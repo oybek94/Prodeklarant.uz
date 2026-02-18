@@ -20,7 +20,7 @@
       "servicesList": {
         "export": "Fruit & vegetable export",
         "import": "Phytosanitary & certificates",
-        "certification": "Quality inspection",
+        "certification": "Phytosanitary & certificate of origin",
         "logistics": "Export logistics",
         "warehouse": "Storage & packaging"
       },
@@ -111,22 +111,22 @@
       "export": {
         "title": "Export Customs Clearance",
         "desc": "Preparation of all necessary documents, filling out and completing customs declaration ( customs declaration) for transferring goods to export regime. We help conduct export quickly and smoothly.",
-        "features": ["Analysis of export contracts", "Service across Tashkent city and region", "24/7 online declaration"]
+        "features": ["Analysis of export contracts", "Service across Uzbekistan", "24/7 online declaration"]
       },
       "import": {
         "title": "Product traceability document preparation",
-        "desc": "Preparation of TIR carnet, SMR, packing lists and similar documents.",
-        "features": ["TIR carnet", "SMR", "Packing list"]
+        "desc": "Preparation of TIR carnet, SMR, invoices, packing lists and similar documents.",
+        "features": ["TIR carnet", "SMR", "Invoice", "Packing list"]
       },
       "transit": {
-        "title": "Transit Cargo Clearance",
-        "desc": "Control and documentation of transit cargo passing through Uzbekistan. Ensuring compliance with international transit rules.",
-        "features": ["Transit declaration", "Route tracking", "Assistance at border posts"]
+        "title": "Contract preparation and electronic database entry",
+        "desc": "Preparation of export contracts and their entry into the electronic database.",
+        "features": ["Contract drafting", "Electronic database entry", "Legal advice in contract preparation"]
       },
       "certification": {
-        "title": "Certification Services",
-        "desc": "Assistance in obtaining certificates and permits required for customs clearance of goods.",
-        "features": ["Certificate of conformity", "Sanitary-epidemiological conclusion", "Environmental certificate", "Veterinary permit"]
+        "title": "Certification",
+        "desc": "Professional assistance in obtaining phytosanitary certificate and certificate of origin for fruit and vegetable export.",
+        "features": ["Phytosanitary certificate", "Certificate of origin", "Online applications to certification authorities"]
       },
       "warehouse": {
         "title": "Customs Warehouse Services",

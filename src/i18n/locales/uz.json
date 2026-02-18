@@ -20,7 +20,7 @@
       "servicesList": {
         "export": "Meva-sabzavot eksporti",
         "import": "Fitosanitariya va sertifikatlar",
-        "certification": "Sifat tekshiruvi",
+        "certification": "Fitosanitariya va Kelib chiqish sertifikati",
         "logistics": "Eksport logistikasi",
         "warehouse": "Saqlash va qadoqlash"
       },
@@ -58,18 +58,18 @@
     },
     "services": {
       "title": "Bizning Xizmatlar",
-      "subtitle": "Meva-sabzavot eksportchilari uchun to'liq bojxona xizmatlari",
+      "subtitle": "Meva-sabzavot eksportchilari uchun to'liq bojxona xizmatlari majmui",
       "export": {
-        "title": "Bojxona Yuk Deklaratsiyasini rasmiylashtirish",
-        "desc": "Meva, sabzavot va bog' mahsulotlari uchun bojxona yuk deklaratsiyasini (GTD) to'ldirish, hujjatlarni tayyorlash va rasmiylashtirish."
+        "title": "Bojxona yuk deklaratsiyasini rasmiylashtirish",
+        "desc": "Meva, sabzavot va qishloq xo'jaligi mahsulotlari uchun bojxona yuk deklaratsiyasini (GTD) to'ldirish, hujjatlarni tayyorlash va rasmiylashtirish."
       },
       "import": {
         "title": "Tovar kuzatuv hujjatlari tayyorlash",
-        "desc": "TIR carnet, SMR, qadoq listi va shunga o'xshash hujjatlarni tayyorlash."
+        "desc": "TIR carnet, SMR, qadoq listlari va shunga o'xshash hujjatlarni tayyorlash."
       },
       "certification": {
         "title": "Sertifikatlashtirish",
-        "desc": "Meva-sabzavot eksporti uchun muvofiqlik sertifikatlari, sanitariya xulosalari va xalqaro ruxsatnomalarni olish."
+        "desc": "Muvofiqlik sertifikatlari, sanitariya-epidemiologiya xulosalari va boshqa ruxsatnomalarni olishda professional yordam."
       },
       "more": "Batafsil",
       "viewAll": "Barcha Xizmatlarni Ko'rish"
@@ -106,37 +106,37 @@
   },
   "services": {
     "title": "Bizning Xizmatlar",
-    "subtitle": "Meva-sabzavot eksportchilari uchun to'liq bojxona va logistika xizmatlari. Har bir fermer va tadbirkorga individual yondashuv.",
+    "subtitle": "Biznesingiz uchun to'liq bojxona va logistika yechimlari. Har bir mijozga individual yondashuv.",
     "items": {
       "export": {
-        "title": "Bojxona Yuk Deklaratsiyasini rasmiylashtirish",
-        "desc": "Meva, sabzavot va bog' mahsulotlari uchun bojxona yuk deklaratsiyasini (GTD) to'ldirish va rasmiylashtirish. Tez va muammosiz eksport.",
-        "features": ["Eksport shartnomalarini tahlil qilish", "O'zbekiston bo'ylab xizmat", "24/7 deklaratsiya"]
+        "title": "Eksport bojxona rasmiylashtiruvi",
+        "desc": "Barcha zarur hujjatlarni tayyorlash, bojxona deklaratsiyasini (GTD) to'ldirish va tovarlarni eksport rejimiga o'tkazish. Eksportni tez va muammosiz amalga oshirishda yordam beramiz.",
+        "features": ["Eksport shartnomalarini tahlil qilish", "O'zbekiston bo'ylab xizmat", "24/7 onlayn deklaratsiya"]
       },
       "import": {
         "title": "Tovar kuzatuv hujjatlari tayyorlash",
-        "desc": "TIR carnet, SMR, qadoq listi va shunga o'xshash hujjatlarni tayyorlash.",
-        "features": ["TIR carnet", "SMR", "Qadoq listi"]
+        "desc": "TIR carnet, SMR, Invoys, qadoq listi va shunga o'xshash hujjatlarni tayyorlash.",
+        "features": ["TIR carnet", "SMR", "Invoys", "Qadoq listi"]
       },
       "transit": {
-        "title": "Eksport Logistikasi",
-        "desc": "Meva-sabzavotlarni chegara postlariga yetkazish, sovuq zanjir va xalqaro transport standartlariga moslashtirish.",
-        "features": ["Yuk tashish tashkiloti", "Sovuq zanjir logistikasi", "Chegara rasmiylashtiruvi"]
+        "title": "Shartnomalar tayyorlash va elektron bazaga qo'shish",
+        "desc": "Eksport shartnomalarini tayyorlash va ularni elektron bazaga kiritish xizmatlari.",
+        "features": ["Shartnoma tuzish", "Elektron bazaga qo'shish", "Shartnoma tayyorlashda yuridik maslahatlar berish"]
       },
       "certification": {
-        "title": "Sertifikatlash Xizmatlari",
-        "desc": "Meva-sabzavot eksporti uchun zarur sertifikatlar, muvofiqlik va sanitariya ruxsatnomalarini olishda ko'mak.",
-        "features": ["Muvofiqlik sertifikati", "Sanitariya-epidemiologiya xulosasi", "Ekologiya sertifikati", "Veterinariya ruxsatnomasi"]
+        "title": "Sertifikatlashtirish",
+        "desc": "Meva-sabzavot eksporti uchun fitosanitariya sertifikati va kelib chiqish sertifikatini olishda professional yordam.",
+        "features": ["Fitosanitariya sertifikati", "Kelib chiqish sertifikati", "Sertifikatlash idoralariga onlayn arizalar berish"]
       },
       "warehouse": {
-        "title": "Saqlash va Qadoqlash",
-        "desc": "Meva-sabzavotlarni eksport uchun saqlash, qadoqlash va xalqaro standartlarga moslashtirish xizmatlari.",
-        "features": ["Sovuq xona saqlash", "Eksport qadoqlash", "Markirovka va sertifikatlar"]
+        "title": "Bojxona ombori xizmatlari",
+        "desc": "Yuklarni bojxona nazorati ostida vaqtincha saqlash. Yuklarni tushirish, ortish va saqlash uchun sharoitlarni ta'minlash.",
+        "features": ["Xavfsiz saqlash", "Ombor hisoboti", "Yuklarni markirovkalash"]
       },
       "consulting": {
-        "title": "Eksport Konsaltingi",
-        "desc": "Meva-sabzavot eksportchilariga bojxona qonunchiligi, bozorlar va imtiyozlar bo'yicha professional maslahatlar.",
-        "features": ["Eksport bozorlarini tanlash", "Shartnomalar bo'yicha maslahat", "Bojxona imtiyozlari"]
+        "title": "Bojxona konsaltingi",
+        "desc": "Tashqi iqtisodiy faoliyat ishtirokchilariga bojxona qonunchiligi, soliqlar va imtiyozlar bo'yicha professional maslahatlar.",
+        "features": ["TIF TN kodlarini aniqlash", "Shartnomalarni ekspertiza qilish", "Bojxona audit"]
       }
     },
     "process": {
@@ -151,10 +151,10 @@
   },
   "about": {
     "title": "Biz Haqimizda",
-    "subtitle": "PRO DEKLARANT - Meva-sabzavot eksportchilari uchun ishonchli hamkor",
+    "subtitle": "PRO DEKLARANT - Sizning ishonchli bojxona hamkoringiz",
     "history": {
       "title": "Kompaniya Tarixi",
-      "p1": "PRO DEKLARANT 2014-yilda tashkil topgan bo'lib, O'zbekistondagi meva-sabzavot eksportchilari uchun ixtisoslashtirilgan yetakchi bojxona brokerlik kompaniyasiga aylandi. Bizning asosiy faoliyatimiz — fermerlar va tadbirkorlarga meva-sabzavot eksportini rasmiylashtirishda professional yordam ko'rsatishdir.",
+      "p1": "PRO DEKLARANT kompaniyasi 2014-yilda tashkil topgan bo'lib, bugungi kunda O'zbekistondagi yetakchi bojxona brokerlik firmalaridan biriga aylandi. Bizning asosiy faoliyatimiz — tadbirkorlarga eksport va import operatsiyalarini amalga oshirishda professional yordam ko'rsatishdir.",
       "p2": "Bizning jamoamiz bojxona qonunchiligi bo'yicha chuqur bilimga ega bo'lgan malakali mutaxassislardan iborat. Biz mijozlarimizga nafaqat hujjatlarni rasmiylashtirishda, balki tashqi iqtisodiy faoliyatni rejalashtirishda ham maslahatlar beramiz.",
       "quote": "Bizning muvaffaqiyatimiz — mijozlarimizning muvaffaqiyatiga bog'liq. Shuning uchun biz har bir buyurtmaga mas'uliyat bilan yondashamiz."
     },
@@ -201,10 +201,10 @@
       "service": "Xizmat turi",
       "servicePlaceholder": "Tanlang...",
       "serviceOptions": {
-        "export": "Meva-sabzavot eksporti",
-        "import": "Fitosanitariya va sertifikatlar",
+        "export": "Eksport bojxona rasmiylashtiruvi",
+        "import": "Import bojxona rasmiylashtiruvi",
         "certification": "Sertifikatlash",
-        "consulting": "Eksport maslahati",
+        "consulting": "Konsultatsiya",
         "other": "Boshqa"
       },
       "message": "Xabar matni",
@@ -214,7 +214,7 @@
   },
   "blog": {
     "title": "Yangiliklar va Maqolalar",
-    "subtitle": "Meva-sabzavot eksporti, bojxona qonunchiligi va fermerlar uchun foydali maslahatlar.",
+    "subtitle": "Bojxona qonunchiligi, eksport-import yangiliklari va foydali maslahatlar.",
     "search": "Qidiruv",
     "searchPlaceholder": "Kalit so'zni kiriting...",
     "categories": "Ruknlar",
