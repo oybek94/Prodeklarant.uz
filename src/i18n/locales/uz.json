@@ -1,0 +1,263 @@
+{
+  "layout": {
+    "address": "Toshkent sh., Chilonzor tumani",
+    "nav": {
+      "home": "Bosh sahifa",
+      "services": "Xizmatlar",
+      "about": "Kompaniya haqida",
+      "blog": "Blog",
+      "contact": "Aloqa"
+    },
+    "contactBtn": "Bog'lanish",
+    "footer": {
+      "aboutDesc": "Meva-sabzavot eksportchilari uchun professional bojxona rasmiylashtiruvi. Mahsulotingizni jahon bozoriga yetkazamiz.",
+      "pages": "Sahifalar",
+      "home": "Bosh sahifa",
+      "about": "Biz haqimizda",
+      "services": "Xizmatlar",
+      "news": "Yangiliklar",
+      "contact": "Aloqa",
+      "servicesList": {
+        "export": "Meva-sabzavot eksporti",
+        "import": "Fitosanitariya va sertifikatlar",
+        "certification": "Sifat tekshiruvi",
+        "logistics": "Eksport logistikasi",
+        "warehouse": "Saqlash va qadoqlash"
+      },
+      "contactTitle": "Bog'lanish",
+      "address": "Toshkent shahri, Chilonzor tumani, Bunyodkor ko'chasi 15-uy",
+      "copyright": "© 2024 PRO DEKLARANT. Barcha huquqlar himoyalangan.",
+      "privacy": "Maxfiylik siyosati",
+      "terms": "Foydalanish shartlari"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv xizmatlari",
+      "subtitle": "Meva-sabzavot eksportchilari uchun ixtisoslashtirilgan bojxona brokerlik xizmatlari.",
+      "consultation": "Bepul Konsultatsiya",
+      "services": "Xizmatlarimiz"
+    },
+    "features": {
+      "fast": {
+        "title": "Tezkor Rasmiylashtirish",
+        "desc": "Hujjatlarni eng qisqa muddatlarda tayyorlash va bojxona nazoratidan o'tkazish."
+      },
+      "legal": {
+        "title": "Qonuniy Kafolat",
+        "desc": "Barcha jarayonlar O'zbekiston Respublikasi qonunchiligiga to'liq mos keladi."
+      },
+      "team": {
+        "title": "Professional Jamoa",
+        "desc": "Ko'p yillik tajribaga ega malakali mutaxassislar xizmatingizda."
+      },
+      "global": {
+        "title": "Xalqaro Tajriba",
+        "desc": "Meva-sabzavotni Rossiya, Yevropa, Osiyo bozorlariga eksport qilishda professional yordam."
+      }
+    },
+    "services": {
+      "title": "Bizning Xizmatlar",
+      "subtitle": "Meva-sabzavot eksportchilari uchun to'liq bojxona xizmatlari",
+      "export": {
+        "title": "Bojxona Yuk Deklaratsiyasini rasmiylashtirish",
+        "desc": "Meva, sabzavot va bog' mahsulotlari uchun bojxona yuk deklaratsiyasini (GTD) to'ldirish, hujjatlarni tayyorlash va rasmiylashtirish."
+      },
+      "import": {
+        "title": "Tovar kuzatuv hujjatlari tayyorlash",
+        "desc": "TIR carnet, SMR, qadoq listi va shunga o'xshash hujjatlarni tayyorlash."
+      },
+      "certification": {
+        "title": "Sertifikatlashtirish",
+        "desc": "Meva-sabzavot eksporti uchun muvofiqlik sertifikatlari, sanitariya xulosalari va xalqaro ruxsatnomalarni olish."
+      },
+      "more": "Batafsil",
+      "viewAll": "Barcha Xizmatlarni Ko'rish"
+    },
+    "partners": {
+      "title": "Hamkorlarimiz",
+      "subtitle": "Ishonchli hamkorlarimiz bilan birga",
+      "items": ["Hamkor 1", "Hamkor 2", "Hamkor 3", "Hamkor 4", "Hamkor 5", "Hamkor 6"]
+    },
+    "cta": {
+      "title": "Meva-sabzavotingizni jahon bozoriga yetkazing",
+      "desc": "Eksportchilar uchun barcha bojxona ishlarini o'zimiz bajaramiz. Siz faqat sifatli mahsulot tayyorlang — qolganini bizga topshiring.",
+      "btn": "Bog'lanish"
+    },
+    "blog": {
+      "title": "So'nggi Yangiliklar",
+      "readAll": "Barchasini o'qish",
+      "date": "15 Fevral, 2026",
+      "posts": {
+        "1": {
+          "title": "Meva-sabzavot eksportida yangi imtiyozlar",
+          "excerpt": "Eksport qiluvchi fermerlar va tadbirkorlar uchun bojxona to'lovlarida chegirmalar va soddalashtirilgan tartib..."
+        },
+        "2": {
+          "title": "Fitosanitariya talablari 2025",
+          "excerpt": "Rossiya, Yevropa va boshqa mamlakatlarga meva-sabzavot eksporti uchun yangi sertifikat talablari..."
+        },
+        "3": {
+          "title": "O'zbekiston mevalari jahon bozorida",
+          "excerpt": "O'zbekiston uzumi, olmasi va boshqa mevalarining xalqaro bozordagi o'rni va imkoniyatlari haqida..."
+        }
+      }
+    }
+  },
+  "services": {
+    "title": "Bizning Xizmatlar",
+    "subtitle": "Meva-sabzavot eksportchilari uchun to'liq bojxona va logistika xizmatlari. Har bir fermer va tadbirkorga individual yondashuv.",
+    "items": {
+      "export": {
+        "title": "Bojxona Yuk Deklaratsiyasini rasmiylashtirish",
+        "desc": "Meva, sabzavot va bog' mahsulotlari uchun bojxona yuk deklaratsiyasini (GTD) to'ldirish va rasmiylashtirish. Tez va muammosiz eksport.",
+        "features": ["Eksport shartnomalarini tahlil qilish", "O'zbekiston bo'ylab xizmat", "24/7 deklaratsiya"]
+      },
+      "import": {
+        "title": "Tovar kuzatuv hujjatlari tayyorlash",
+        "desc": "TIR carnet, SMR, qadoq listi va shunga o'xshash hujjatlarni tayyorlash.",
+        "features": ["TIR carnet", "SMR", "Qadoq listi"]
+      },
+      "transit": {
+        "title": "Eksport Logistikasi",
+        "desc": "Meva-sabzavotlarni chegara postlariga yetkazish, sovuq zanjir va xalqaro transport standartlariga moslashtirish.",
+        "features": ["Yuk tashish tashkiloti", "Sovuq zanjir logistikasi", "Chegara rasmiylashtiruvi"]
+      },
+      "certification": {
+        "title": "Sertifikatlash Xizmatlari",
+        "desc": "Meva-sabzavot eksporti uchun zarur sertifikatlar, muvofiqlik va sanitariya ruxsatnomalarini olishda ko'mak.",
+        "features": ["Muvofiqlik sertifikati", "Sanitariya-epidemiologiya xulosasi", "Ekologiya sertifikati", "Veterinariya ruxsatnomasi"]
+      },
+      "warehouse": {
+        "title": "Saqlash va Qadoqlash",
+        "desc": "Meva-sabzavotlarni eksport uchun saqlash, qadoqlash va xalqaro standartlarga moslashtirish xizmatlari.",
+        "features": ["Sovuq xona saqlash", "Eksport qadoqlash", "Markirovka va sertifikatlar"]
+      },
+      "consulting": {
+        "title": "Eksport Konsaltingi",
+        "desc": "Meva-sabzavot eksportchilariga bojxona qonunchiligi, bozorlar va imtiyozlar bo'yicha professional maslahatlar.",
+        "features": ["Eksport bozorlarini tanlash", "Shartnomalar bo'yicha maslahat", "Bojxona imtiyozlari"]
+      }
+    },
+    "process": {
+      "title": "Ish Jarayoni",
+      "steps": {
+        "1": { "title": "Murojaat", "desc": "Hujjatlarni yuboring va bepul maslahat oling" },
+        "2": { "title": "Tahlil", "desc": "Mutaxassislarimiz hujjatlarni tekshiradi va kodlarni aniqlaydi" },
+        "3": { "title": "Rasmiylashtirish", "desc": "Deklaratsiya to'ldiriladi va bojxona organiga yuboriladi" },
+        "4": { "title": "Natija", "desc": "Yukingiz bojxonadan o'tadi va hujjatlar sizga taqdim etiladi" }
+      }
+    }
+  },
+  "about": {
+    "title": "Biz Haqimizda",
+    "subtitle": "PRO DEKLARANT - Meva-sabzavot eksportchilari uchun ishonchli hamkor",
+    "history": {
+      "title": "Kompaniya Tarixi",
+      "p1": "PRO DEKLARANT 2014-yilda tashkil topgan bo'lib, O'zbekistondagi meva-sabzavot eksportchilari uchun ixtisoslashtirilgan yetakchi bojxona brokerlik kompaniyasiga aylandi. Bizning asosiy faoliyatimiz — fermerlar va tadbirkorlarga meva-sabzavot eksportini rasmiylashtirishda professional yordam ko'rsatishdir.",
+      "p2": "Bizning jamoamiz bojxona qonunchiligi bo'yicha chuqur bilimga ega bo'lgan malakali mutaxassislardan iborat. Biz mijozlarimizga nafaqat hujjatlarni rasmiylashtirishda, balki tashqi iqtisodiy faoliyatni rejalashtirishda ham maslahatlar beramiz.",
+      "quote": "Bizning muvaffaqiyatimiz — mijozlarimizning muvaffaqiyatiga bog'liq. Shuning uchun biz har bir buyurtmaga mas'uliyat bilan yondashamiz."
+    },
+    "stats": {
+      "experience": "Yillik Tajriba",
+      "clients": "Doimiy Mijozlar",
+      "cargo": "Rasmiylashtirilgan Yuklar",
+      "countries": "Hamkor Davlatlar"
+    },
+    "guarantee": "Kafolat",
+    "service24": "Xizmat",
+    "mission": {
+      "title": "Bizning Missiyamiz",
+      "text": "O'zbekiston tadbirkorlariga jahon bozoriga chiqishda ko'maklashish, bojxona to'siqlarini bartaraf etish va tashqi savdo jarayonlarini soddalashtirish orqali mamlakat iqtisodiyoti rivojiga hissa qo'shish."
+    },
+    "vision": {
+      "title": "Bizning Viziyamiz",
+      "text": "Markaziy Osiyo mintaqasidagi eng ishonchli va innovatsion bojxona brokerlik kompaniyasiga aylanish. Raqamli texnologiyalarni qo'llash orqali mijozlarga eng tezkor xizmat ko'rsatish tizimini yaratish."
+    }
+  },
+  "contact": {
+    "title": "Bog'lanish",
+    "subtitle": "Savollaringiz bormi? Bizga murojaat qiling va mutaxassislarimizdan bepul maslahat oling.",
+    "info": {
+      "title": "Aloqa Ma'lumotlari",
+      "address": "Manzil",
+      "addressValue": "Toshkent shahri, Chilonzor tumani, Bunyodkor ko'chasi 15-uy",
+      "addressHint": "(Mo'ljal: \"Novza\" metro bekati)",
+      "phones": "Telefonlar",
+      "email": "Email",
+      "hours": "Ish vaqti",
+      "hours1": "Dushanba - Juma: 09:00 - 18:00",
+      "hours2": "Shanba: 10:00 - 14:00",
+      "hours3": "Yakshanba: Dam olish kuni"
+    },
+    "form": {
+      "title": "Xabar Yuborish",
+      "name": "Ismingiz",
+      "namePlaceholder": "Ismingizni kiriting",
+      "phone": "Telefon raqam",
+      "phonePlaceholder": "+998 __ ___ __ __",
+      "emailLabel": "Email Manzil",
+      "emailPlaceholder": "example@mail.com",
+      "service": "Xizmat turi",
+      "servicePlaceholder": "Tanlang...",
+      "serviceOptions": {
+        "export": "Meva-sabzavot eksporti",
+        "import": "Fitosanitariya va sertifikatlar",
+        "certification": "Sertifikatlash",
+        "consulting": "Eksport maslahati",
+        "other": "Boshqa"
+      },
+      "message": "Xabar matni",
+      "messagePlaceholder": "Qisqacha mazmun...",
+      "submit": "Yuborish"
+    }
+  },
+  "blog": {
+    "title": "Yangiliklar va Maqolalar",
+    "subtitle": "Meva-sabzavot eksporti, bojxona qonunchiligi va fermerlar uchun foydali maslahatlar.",
+    "search": "Qidiruv",
+    "searchPlaceholder": "Kalit so'zni kiriting...",
+    "categories": "Ruknlar",
+    "subscribe": "Yangiliklarga obuna bo'ling",
+    "subscribeDesc": "Eng so'nggi bojxona yangiliklarini o'tkazib yubormang.",
+    "subscribePlaceholder": "Email manzilingiz",
+    "subscribeBtn": "Obuna bo'lish",
+    "readMore": "Batafsil o'qish",
+    "posts": {
+      "1": {
+        "title": "Eksport bojxona to'lovlarida yangi imtiyozlar joriy etildi",
+        "excerpt": "2024-yil 1-martdan boshlab eksport qiluvchilar uchun bojxona rasmiylashtiruvi jarayonida yangi soliq va bojxona imtiyozlari kuchga kirdi. Ushbu o'zgarishlar tadbirkorlarga qanday foyda keltiradi?",
+        "date": "15 Fevral, 2026",
+        "category": "Qonunchilik"
+      },
+      "2": {
+        "title": "Tashqi iqtisodiy faoliyat (TIF) qatnashchilari uchun eslatma",
+        "excerpt": "Import shartnomalarini tuzishda nimalarga e'tibor berish kerak? INKOTERMS-2020 qoidalari va ularning bojxona qiymatiga ta'siri haqida batafsil to'xtalamiz.",
+        "date": "10 Fevral, 2026",
+        "category": "Maslahatlar"
+      },
+      "3": {
+        "title": "Logistika va transport sohasidagi so'nggi yangiliklar",
+        "excerpt": "Xalqaro yuk tashish yo'nalishlarida o'zgarishlar. Yangi transport koridorlari va ularning O'zbekiston eksport salohiyatiga ta'siri.",
+        "date": "05 Fevral, 2026",
+        "category": "Logistika"
+      },
+      "4": {
+        "title": "Bojxona ombori: turlari va talablari",
+        "excerpt": "Ochiq va yopiq turdagi bojxona omborlari o'rtasidagi farq nima? Tovar saqlash muddatlari va shartlari haqida to'liq ma'lumot.",
+        "date": "28 Yanvar, 2026",
+        "category": "Ma'lumotnoma"
+      }
+    }
+  },
+  "blogPost": {
+    "back": "Blogga qaytish",
+    "notFound": "Maqola topilmadi",
+    "mainRules": "Asosiy qoidalar va talablar",
+    "exportBenefits": "Eksportchilar uchun qulayliklar",
+    "quote": "Bojxona rasmiylashtiruvi jarayonida eng muhim omil - bu hujjatlarning to'g'ri va to'liq taqdim etilishidir.",
+    "share": "Ulashish:",
+    "related": "O'xshash Maqolalar",
+    "tags": "Teglar"
+  }
+}

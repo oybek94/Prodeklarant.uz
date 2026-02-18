@@ -1,0 +1,263 @@
+{
+  "layout": {
+    "address": "Tashkent, Chilanzar District",
+    "nav": {
+      "home": "Home",
+      "services": "Services",
+      "about": "About Us",
+      "blog": "Blog",
+      "contact": "Contact"
+    },
+    "contactBtn": "Contact",
+    "footer": {
+      "aboutDesc": "Professional customs clearance for fruit and vegetable exporters. We deliver your produce to the world market.",
+      "pages": "Pages",
+      "home": "Home",
+      "about": "About Us",
+      "services": "Services",
+      "news": "News",
+      "contact": "Contact",
+      "servicesList": {
+        "export": "Fruit & vegetable export",
+        "import": "Phytosanitary & certificates",
+        "certification": "Quality inspection",
+        "logistics": "Export logistics",
+        "warehouse": "Storage & packaging"
+      },
+      "contactTitle": "Contact",
+      "address": "Tashkent, Chilanzar District, Bunyodkor Street 15",
+      "copyright": "© 2024 PRO DEKLARANT. All rights reserved.",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Use"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Customs clearance services for fruit and vegetable export",
+      "subtitle": "Specialized customs brokerage services for fruit and vegetable exporters.",
+      "consultation": "Free Consultation",
+      "services": "Our Services"
+    },
+    "features": {
+      "fast": {
+        "title": "Fast Clearance",
+        "desc": "Document preparation in the shortest time and customs control clearance."
+      },
+      "legal": {
+        "title": "Legal Guarantee",
+        "desc": "All processes fully comply with the legislation of the Republic of Uzbekistan."
+      },
+      "team": {
+        "title": "Professional Team",
+        "desc": "Experienced specialists with years of expertise at your service."
+      },
+      "global": {
+        "title": "International Experience",
+        "desc": "Professional assistance exporting fruits and vegetables to Russia, Europe and Asian markets."
+      }
+    },
+    "services": {
+      "title": "Our Services",
+      "subtitle": "Complete customs services for fruit and vegetable exporters",
+      "export": {
+        "title": "Customs cargo declaration clearance",
+        "desc": "Filling out customs cargo declaration (GTD), document preparation and clearance for fruits, vegetables and agricultural produce."
+      },
+      "import": {
+        "title": "Product traceability document preparation",
+        "desc": "Preparation of TIR carnet, SMR, packing lists and similar documents."
+      },
+      "certification": {
+        "title": "Certification",
+        "desc": "Obtaining certificates of conformity, sanitary-epidemiological conclusions and other permits."
+      },
+      "more": "Details",
+      "viewAll": "View All Services"
+    },
+    "partners": {
+      "title": "Our Partners",
+      "subtitle": "Trusted partners we work with",
+      "items": ["Partner 1", "Partner 2", "Partner 3", "Partner 4", "Partner 5", "Partner 6"]
+    },
+    "cta": {
+      "title": "Get your fruits and vegetables to world markets",
+      "desc": "We handle all customs for exporters. You just prepare quality produce — leave the rest to us.",
+      "btn": "Contact"
+    },
+    "blog": {
+      "title": "Latest News",
+      "readAll": "Read All",
+      "date": "February 15, 2026",
+      "posts": {
+        "1": {
+          "title": "New benefits in export customs payments",
+          "excerpt": "Detailed information about new opportunities and advantages for exporters this year..."
+        },
+        "2": {
+          "title": "Recent changes in the logistics sector",
+          "excerpt": "New rules and transport routes in the logistics industry..."
+        },
+        "3": {
+          "title": "Amendments to the customs code",
+          "excerpt": "Changes in customs legislation for 2024-2025..."
+        }
+      }
+    }
+  },
+  "services": {
+    "title": "Our Services",
+    "subtitle": "Complete customs and logistics solutions for your business. Individual approach to each client.",
+    "items": {
+      "export": {
+        "title": "Export Customs Clearance",
+        "desc": "Preparation of all necessary documents, filling out and completing customs declaration ( customs declaration) for transferring goods to export regime. We help conduct export quickly and smoothly.",
+        "features": ["Analysis of export contracts", "Service across Tashkent city and region", "24/7 online declaration"]
+      },
+      "import": {
+        "title": "Product traceability document preparation",
+        "desc": "Preparation of TIR carnet, SMR, packing lists and similar documents.",
+        "features": ["TIR carnet", "SMR", "Packing list"]
+      },
+      "transit": {
+        "title": "Transit Cargo Clearance",
+        "desc": "Control and documentation of transit cargo passing through Uzbekistan. Ensuring compliance with international transit rules.",
+        "features": ["Transit declaration", "Route tracking", "Assistance at border posts"]
+      },
+      "certification": {
+        "title": "Certification Services",
+        "desc": "Assistance in obtaining certificates and permits required for customs clearance of goods.",
+        "features": ["Certificate of conformity", "Sanitary-epidemiological conclusion", "Environmental certificate", "Veterinary permit"]
+      },
+      "warehouse": {
+        "title": "Customs Warehouse Services",
+        "desc": "Temporary storage of cargo under customs control. Ensuring conditions for unloading, loading and storage of cargo.",
+        "features": ["Secure storage", "Warehouse reporting", "Cargo labeling"]
+      },
+      "consulting": {
+        "title": "Customs Consulting",
+        "desc": "Professional advice on customs legislation, taxes and benefits for participants in foreign economic activity.",
+        "features": ["HS code determination", "Contract expertise", "Customs audit"]
+      }
+    },
+    "process": {
+      "title": "Work Process",
+      "steps": {
+        "1": { "title": "Application", "desc": "Submit documents and get free consultation" },
+        "2": { "title": "Analysis", "desc": "Our specialists will review documents and determine codes" },
+        "3": { "title": "Clearance", "desc": "Declaration is filled and submitted to customs authority" },
+        "4": { "title": "Result", "desc": "Your cargo passes customs and documents are delivered to you" }
+      }
+    }
+  },
+  "about": {
+    "title": "About Us",
+    "subtitle": "PRO DEKLARANT - Your reliable customs partner",
+    "history": {
+      "title": "Company History",
+      "p1": "PRO DEKLARANT was founded in 2014 and has become one of the leading customs brokerage firms in Uzbekistan. Our main activity is providing professional assistance to entrepreneurs in carrying out export-import operations.",
+      "p2": "Our team consists of qualified specialists with deep knowledge of customs legislation. We advise clients not only on document processing but also on planning foreign economic activity.",
+      "quote": "Our success depends on the success of our clients. Therefore, we approach each order responsibly."
+    },
+    "stats": {
+      "experience": "Years of Experience",
+      "clients": "Regular Clients",
+      "cargo": "Cleared Cargo",
+      "countries": "Partner Countries"
+    },
+    "guarantee": "Guarantee",
+    "service24": "Service",
+    "mission": {
+      "title": "Our Mission",
+      "text": "To assist Uzbek entrepreneurs in entering the global market, eliminate customs barriers and simplify foreign trade processes for the country's economic development."
+    },
+    "vision": {
+      "title": "Our Vision",
+      "text": "To become the most reliable and innovative customs brokerage company in Central Asia. Create a system for providing the fastest services to clients through the application of digital technologies."
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "Have questions? Contact us and get free consultation from our specialists.",
+    "info": {
+      "title": "Contact Information",
+      "address": "Address",
+      "addressValue": "Tashkent, Chilanzar District, Bunyodkor Street 15",
+      "addressHint": "(Landmark: Novza metro station)",
+      "phones": "Phones",
+      "email": "Email",
+      "hours": "Working Hours",
+      "hours1": "Monday - Friday: 09:00 - 18:00",
+      "hours2": "Saturday: 10:00 - 14:00",
+      "hours3": "Sunday: Day off"
+    },
+    "form": {
+      "title": "Send Message",
+      "name": "Your Name",
+      "namePlaceholder": "Enter your name",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+998 __ ___ __ __",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "example@mail.com",
+      "service": "Service Type",
+      "servicePlaceholder": "Select...",
+      "serviceOptions": {
+        "export": "Export customs clearance",
+        "import": "Import customs clearance",
+        "certification": "Certification",
+        "consulting": "Consultation",
+        "other": "Other"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Brief content...",
+      "submit": "Send"
+    }
+  },
+  "blog": {
+    "title": "News and Articles",
+    "subtitle": "Customs legislation, export-import news and helpful tips.",
+    "search": "Search",
+    "searchPlaceholder": "Enter keyword...",
+    "categories": "Categories",
+    "subscribe": "Subscribe to News",
+    "subscribeDesc": "Don't miss the latest customs news.",
+    "subscribePlaceholder": "Your email",
+    "subscribeBtn": "Subscribe",
+    "readMore": "Read More",
+    "posts": {
+      "1": {
+        "title": "New benefits in export customs payments introduced",
+        "excerpt": "From March 1, 2024, new tax and customs benefits came into force in the customs clearance process for exporters. What benefits will these changes bring to entrepreneurs?",
+        "date": "February 15, 2026",
+        "category": "Legislation"
+      },
+      "2": {
+        "title": "Reminder for foreign economic activity participants",
+        "excerpt": "What to pay attention to when concluding import contracts? We will discuss in detail the INCOTERMS-2020 rules and their impact on customs value.",
+        "date": "February 10, 2026",
+        "category": "Tips"
+      },
+      "3": {
+        "title": "Latest news in logistics and transport",
+        "excerpt": "Changes in international freight directions. New transport corridors and their impact on Uzbekistan's export potential.",
+        "date": "February 5, 2026",
+        "category": "Logistics"
+      },
+      "4": {
+        "title": "Customs warehouse: types and requirements",
+        "excerpt": "What is the difference between open and closed customs warehouses? Full information on storage periods and conditions for goods.",
+        "date": "January 28, 2026",
+        "category": "Reference"
+      }
+    }
+  },
+  "blogPost": {
+    "back": "Back to blog",
+    "notFound": "Article not found",
+    "mainRules": "Main rules and requirements",
+    "exportBenefits": "Benefits for exporters",
+    "quote": "The most important factor in the customs clearance process is the correct and complete submission of documents.",
+    "share": "Share:",
+    "related": "Related Articles",
+    "tags": "Tags"
+  }
+}
