@@ -41,7 +41,7 @@ export default function Layout() {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex space-x-6">
             <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-              <Phone size={14} className="text-yellow-500" /> +998 71 200 00 00
+              <Phone size={14} className="text-yellow-500" /> +998 91 118 70 07
             </span>
             <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
               <Mail size={14} className="text-yellow-500" /> info@prodeklarant.uz
@@ -202,7 +202,7 @@ export default function Layout() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone size={18} className="text-yellow-500 flex-shrink-0" />
-                  <span>+998 71 200 00 00</span>
+                  <span>+998 91 118 70 07</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail size={18} className="text-yellow-500 flex-shrink-0" />

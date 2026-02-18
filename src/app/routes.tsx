@@ -6,6 +6,9 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import AdminLogin from './pages/AdminLogin';
+import AdminBlog from './pages/AdminBlog';
+import AdminPostForm from './pages/AdminPostForm';
 
 export const router = createBrowserRouter([
   {
@@ -35,6 +38,22 @@ export const router = createBrowserRouter([
       {
         path: 'blog/:id',
         Component: BlogPost,
+      },
+      {
+        path: 'admin',
+        Component: AdminLogin,
+      },
+      {
+        path: 'admin/blog',
+        Component: AdminBlog,
+      },
+      {
+        path: 'admin/blog/new',
+        Component: AdminPostForm,
+      },
+      {
+        path: 'admin/blog/:id/edit',
+        Component: AdminPostForm,
       },
     ],
   },

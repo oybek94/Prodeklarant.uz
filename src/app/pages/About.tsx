@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { Award, Users, FileCheck, Globe } from 'lucide-react';
+import { Award, Users, FileCheck, Globe, Check } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export default function About() {
@@ -17,8 +17,8 @@ export default function About() {
       <div className="relative h-[400px] flex items-center justify-center text-white">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1566385103102-619cb6425f20?q=80&w=1920&auto=format&fit=crop" 
-            alt="Meva-sabzavot eksporti" 
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop" 
+            alt="Hujjatlar bilan ishlash" 
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-slate-900/80"></div>
@@ -31,26 +31,25 @@ export default function About() {
         </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content - Intro */}
       <div className="container mx-auto px-4 py-20">
         <div className="flex flex-col md:flex-row gap-16 items-center">
           <div className="md:w-1/2">
-            <h2 className="text-3xl font-bold text-slate-900 mb-6 uppercase border-l-4 border-yellow-500 pl-4">{t('about.history.title')}</h2>
             <p className="text-slate-600 mb-6 leading-relaxed text-justify">
-              {t('about.history.p1')}
+              {t('about.intro.p1')}
             </p>
             <p className="text-slate-600 mb-6 leading-relaxed text-justify">
-              {t('about.history.p2')}
+              {t('about.intro.p2')}
             </p>
             <div className="bg-slate-50 p-6 border-l-4 border-blue-900 italic text-slate-700">
-              "{t('about.history.quote')}"
+              "{t('about.quote')}"
             </div>
           </div>
           
           <div className="md:w-1/2 grid grid-cols-2 gap-6">
             <img 
-              src="https://images.unsplash.com/photo-1574484284002-9520c62fd34f?q=80&w=600&auto=format&fit=crop" 
-              alt="Meva qadoqlash" 
+              src="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=600" 
+              alt="Qadoqlangan meva" 
               className="rounded-sm shadow-lg w-full h-48 object-cover"
             />
             <div className="bg-slate-900 p-6 flex items-center justify-center text-white text-center rounded-sm">
@@ -66,11 +65,41 @@ export default function About() {
               </div>
             </div>
             <img 
-              src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop" 
-              alt="Sabzavotlar" 
+              src="https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600" 
+              alt="Meva-sabzavotlar" 
               className="rounded-sm shadow-lg w-full h-48 object-cover"
             />
           </div>
+        </div>
+
+        {/* Directions */}
+        <div className="mt-20">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 uppercase border-l-4 border-yellow-500 pl-4">
+            {t('about.directions.title')}
+          </h2>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-600">
+            {(t('about.directions.items', { returnObjects: true }) as string[]).map((item, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-yellow-500 mt-0.5">•</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Why Prodeklarant */}
+        <div className="mt-20">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 uppercase border-l-4 border-yellow-500 pl-4">
+            {t('about.why.title')}
+          </h2>
+          <ul className="space-y-4">
+            {(t('about.why.items', { returnObjects: true }) as string[]).map((item, i) => (
+              <li key={i} className="flex items-center gap-3 text-slate-700">
+                <Check className="flex-shrink-0 text-green-600" size={20} strokeWidth={2.5} />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
@@ -96,7 +125,7 @@ export default function About() {
         </div>
       </div>
 
-      {/* Mission & Vision */}
+      {/* Mission & Goal */}
       <div className="container mx-auto px-4 py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
@@ -106,12 +135,15 @@ export default function About() {
             </p>
           </div>
           <div>
-            <h3 className="text-2xl font-bold text-slate-900 mb-6 uppercase">{t('about.vision.title')}</h3>
+            <h3 className="text-2xl font-bold text-slate-900 mb-6 uppercase">{t('about.goal.title')}</h3>
             <p className="text-slate-600 leading-relaxed">
-              {t('about.vision.text')}
+              {t('about.goal.text')}
             </p>
           </div>
         </div>
+        <p className="text-center text-xl font-semibold text-slate-800 mt-12">
+          {t('about.closing')}
+        </p>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 {
   "layout": {
-    "address": "Toshkent sh., Chilonzor tumani",
+    "address": "Farg'ona viloyati, Oltiariq tumani",
     "nav": {
       "home": "Bosh sahifa",
       "services": "Xizmatlar",
@@ -25,7 +25,7 @@
         "warehouse": "Saqlash va qadoqlash"
       },
       "contactTitle": "Bog'lanish",
-      "address": "Toshkent shahri, Chilonzor tumani, Bunyodkor ko'chasi 15-uy",
+      "address": "Farg'ona viloyati, Oltiariq tumani, Oltiariq shaharchasi Mustaqillik ko'chasi, 124-uy",
       "copyright": "© 2024 PRO DEKLARANT. Barcha huquqlar himoyalangan.",
       "privacy": "Maxfiylik siyosati",
       "terms": "Foydalanish shartlari"
@@ -151,13 +151,33 @@
   },
   "about": {
     "title": "Biz Haqimizda",
-    "subtitle": "PRO DEKLARANT - Sizning ishonchli bojxona hamkoringiz",
-    "history": {
-      "title": "Kompaniya Tarixi",
-      "p1": "PRO DEKLARANT kompaniyasi 2014-yilda tashkil topgan bo'lib, bugungi kunda O'zbekistondagi yetakchi bojxona brokerlik firmalaridan biriga aylandi. Bizning asosiy faoliyatimiz — tadbirkorlarga eksport va import operatsiyalarini amalga oshirishda professional yordam ko'rsatishdir.",
-      "p2": "Bizning jamoamiz bojxona qonunchiligi bo'yicha chuqur bilimga ega bo'lgan malakali mutaxassislardan iborat. Biz mijozlarimizga nafaqat hujjatlarni rasmiylashtirishda, balki tashqi iqtisodiy faoliyatni rejalashtirishda ham maslahatlar beramiz.",
-      "quote": "Bizning muvaffaqiyatimiz — mijozlarimizning muvaffaqiyatiga bog'liq. Shuning uchun biz har bir buyurtmaga mas'uliyat bilan yondashamiz."
+    "subtitle": "Prodeklarant — bojxona brokerlik xizmatlari sohasida professional va ishonchli hamkor.",
+    "intro": {
+      "p1": "Kompaniyamiz eksport va import jarayonlarini soddalashtirish, bojxona rasmiylashtiruvidagi xatolar va kechikishlarning oldini olish hamda mijozlarimiz biznesini xavfsiz va barqaror rivojlantirish maqsadida tashkil etilgan.",
+      "p2": "Zamonaviy tashqi savdo sharoitida tezkorlik va aniqlik hal qiluvchi ahamiyatga ega. Har bir hujjat, har bir kod va har bir rasmiylashtirish bosqichi alohida e'tibor talab qiladi. Prodeklarant jamoasi bojxona qonunchiligini chuqur bilgan mutaxassislardan iborat bo'lib, har bir jarayonni professional yondashuv asosida amalga oshiradi."
     },
+    "directions": {
+      "title": "Bizning asosiy yo'nalishlarimiz",
+      "items": [
+        "Eksport va import bojxona deklaratsiyalarini rasmiylashtirish",
+        "Tovarlarni to'g'ri TN VED (HS) kodlari bo'yicha tasniflash",
+        "Sertifikat va ruxsatnoma hujjatlari bilan ishlash",
+        "Meva-sabzavot eksporti bo'yicha kompleks xizmatlar",
+        "Tashqi savdo hujjatlarini tayyorlash va tekshirish",
+        "Bojxona jarayonlari bo'yicha professional maslahat"
+      ]
+    },
+    "why": {
+      "title": "Nega aynan Prodeklarant?",
+      "items": [
+        "Qonunchilikka to'liq muvofiqlik",
+        "Hujjatlarda aniqlik va tartib",
+        "Tezkor rasmiylashtirish",
+        "Jarayon ustidan doimiy nazorat",
+        "Mijoz bilan ochiq va shaffof hamkorlik"
+      ]
+    },
+    "quote": "Biz mijozlarimizning vaqtini va moliyaviy xavfsizligini qadrlaymiz. Har bir loyiha — bu biz uchun alohida mas'uliyat.",
     "stats": {
       "experience": "Yillik Tajriba",
       "clients": "Doimiy Mijozlar",
@@ -167,28 +187,30 @@
     "guarantee": "Kafolat",
     "service24": "Xizmat",
     "mission": {
-      "title": "Bizning Missiyamiz",
-      "text": "O'zbekiston tadbirkorlariga jahon bozoriga chiqishda ko'maklashish, bojxona to'siqlarini bartaraf etish va tashqi savdo jarayonlarini soddalashtirish orqali mamlakat iqtisodiyoti rivojiga hissa qo'shish."
+      "title": "Bizning missiyamiz",
+      "text": "Eksportyorlar uchun bojxona jarayonlarini sodda, tushunarli va xavfsiz qilish."
     },
-    "vision": {
-      "title": "Bizning Viziyamiz",
-      "text": "Markaziy Osiyo mintaqasidagi eng ishonchli va innovatsion bojxona brokerlik kompaniyasiga aylanish. Raqamli texnologiyalarni qo'llash orqali mijozlarga eng tezkor xizmat ko'rsatish tizimini yaratish."
-    }
+    "goal": {
+      "title": "Bizning maqsadimiz",
+      "text": "Mahalliy tadbirkorlarning xalqaro bozorlarga ishonch bilan chiqishiga ko'maklashish va bojxona sohasida ishonchli professional xizmat ko'rsatish standartini shakllantirish."
+    },
+    "closing": "Prodeklarant — bojxonadagi ishonchli vakilingiz."
   },
   "contact": {
     "title": "Bog'lanish",
     "subtitle": "Savollaringiz bormi? Bizga murojaat qiling va mutaxassislarimizdan bepul maslahat oling.",
     "info": {
       "title": "Aloqa Ma'lumotlari",
+      "location": "Joylashuv",
       "address": "Manzil",
-      "addressValue": "Toshkent shahri, Chilonzor tumani, Bunyodkor ko'chasi 15-uy",
-      "addressHint": "(Mo'ljal: \"Novza\" metro bekati)",
+      "addressValue": "Farg'ona viloyati, Oltiariq tumani, Oltiariq shaharchasi Mustaqillik ko'chasi, 124-uy",
+      "addressHint": "",
       "phones": "Telefonlar",
       "email": "Email",
       "hours": "Ish vaqti",
-      "hours1": "Dushanba - Juma: 09:00 - 18:00",
-      "hours2": "Shanba: 10:00 - 14:00",
-      "hours3": "Yakshanba: Dam olish kuni"
+      "hours1": "24/7",
+      "hours2": "",
+      "hours3": ""
     },
     "form": {
       "title": "Xabar Yuborish",
@@ -252,6 +274,7 @@
   },
   "blogPost": {
     "back": "Blogga qaytish",
+    "views": "ko'rilgan",
     "notFound": "Maqola topilmadi",
     "mainRules": "Asosiy qoidalar va talablar",
     "exportBenefits": "Eksportchilar uchun qulayliklar",

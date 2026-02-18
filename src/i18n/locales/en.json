@@ -1,6 +1,6 @@
 {
   "layout": {
-    "address": "Tashkent, Chilanzar District",
+    "address": "Fergana region, Oltiariq district",
     "nav": {
       "home": "Home",
       "services": "Services",
@@ -25,7 +25,7 @@
         "warehouse": "Storage & packaging"
       },
       "contactTitle": "Contact",
-      "address": "Tashkent, Chilanzar District, Bunyodkor Street 15",
+      "address": "Fergana region, Oltiariq district, Oltiariq town, Mustaqillik Street, 124",
       "copyright": "© 2024 PRO DEKLARANT. All rights reserved.",
       "privacy": "Privacy Policy",
       "terms": "Terms of Use"
@@ -151,13 +151,33 @@
   },
   "about": {
     "title": "About Us",
-    "subtitle": "PRO DEKLARANT - Your reliable customs partner",
-    "history": {
-      "title": "Company History",
-      "p1": "PRO DEKLARANT was founded in 2014 and has become one of the leading customs brokerage firms in Uzbekistan. Our main activity is providing professional assistance to entrepreneurs in carrying out export-import operations.",
-      "p2": "Our team consists of qualified specialists with deep knowledge of customs legislation. We advise clients not only on document processing but also on planning foreign economic activity.",
-      "quote": "Our success depends on the success of our clients. Therefore, we approach each order responsibly."
+    "subtitle": "Prodeklarant — a professional and reliable partner in customs brokerage services.",
+    "intro": {
+      "p1": "Our company was established to simplify export and import processes, prevent errors and delays in customs clearance, and to ensure the safe and sustainable development of our clients' businesses.",
+      "p2": "In modern foreign trade conditions, speed and accuracy are crucial. Every document, every code and every clearance step requires special attention. The Prodeklarant team consists of specialists with deep knowledge of customs legislation and carries out each process based on a professional approach."
     },
+    "directions": {
+      "title": "Our main directions",
+      "items": [
+        "Customs clearance of export and import declarations",
+        "Classification of goods by correct HS codes",
+        "Working with certificates and permits",
+        "Comprehensive fruit and vegetable export services",
+        "Preparation and verification of foreign trade documentation",
+        "Professional advice on customs procedures"
+      ]
+    },
+    "why": {
+      "title": "Why Prodeklarant?",
+      "items": [
+        "Full compliance with legislation",
+        "Accuracy and order in documents",
+        "Fast clearance",
+        "Continuous process control",
+        "Open and transparent cooperation with the client"
+      ]
+    },
+    "quote": "We value our clients' time and financial security. Every project is a special responsibility for us.",
     "stats": {
       "experience": "Years of Experience",
       "clients": "Regular Clients",
@@ -168,27 +188,29 @@
     "service24": "Service",
     "mission": {
       "title": "Our Mission",
-      "text": "To assist Uzbek entrepreneurs in entering the global market, eliminate customs barriers and simplify foreign trade processes for the country's economic development."
+      "text": "To make customs procedures simple, clear and safe for exporters."
     },
-    "vision": {
-      "title": "Our Vision",
-      "text": "To become the most reliable and innovative customs brokerage company in Central Asia. Create a system for providing the fastest services to clients through the application of digital technologies."
-    }
+    "goal": {
+      "title": "Our Goal",
+      "text": "To assist local entrepreneurs in confidently entering international markets and to establish a standard of reliable professional service in the customs sphere."
+    },
+    "closing": "Prodeklarant — your reliable representative at customs."
   },
   "contact": {
     "title": "Contact",
     "subtitle": "Have questions? Contact us and get free consultation from our specialists.",
     "info": {
       "title": "Contact Information",
+      "location": "Location",
       "address": "Address",
-      "addressValue": "Tashkent, Chilanzar District, Bunyodkor Street 15",
-      "addressHint": "(Landmark: Novza metro station)",
+      "addressValue": "Fergana region, Oltiariq district, Oltiariq town, Mustaqillik Street, 124",
+      "addressHint": "",
       "phones": "Phones",
       "email": "Email",
       "hours": "Working Hours",
-      "hours1": "Monday - Friday: 09:00 - 18:00",
-      "hours2": "Saturday: 10:00 - 14:00",
-      "hours3": "Sunday: Day off"
+      "hours1": "24/7",
+      "hours2": "",
+      "hours3": ""
     },
     "form": {
       "title": "Send Message",
@@ -252,6 +274,7 @@
   },
   "blogPost": {
     "back": "Back to blog",
+    "views": "views",
     "notFound": "Article not found",
     "mainRules": "Main rules and requirements",
     "exportBenefits": "Benefits for exporters",

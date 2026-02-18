@@ -7,8 +7,16 @@ export default function Contact() {
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-slate-900 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
+      <div className="relative py-16 text-white overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+            alt="" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-slate-900/85" />
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl font-bold mb-4 uppercase">{t('contact.title')}</h1>
           <p className="text-slate-300 max-w-2xl mx-auto">
             {t('contact.subtitle')}
@@ -16,62 +24,71 @@ export default function Contact() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 mt-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="container mx-auto px-4 mt-12 lg:mt-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-stretch">
           {/* Contact Info */}
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6 uppercase">{t('contact.info.title')}</h2>
-            <div className="bg-white p-8 rounded-sm shadow-sm border border-slate-100 space-y-8">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                  <MapPin size={24} />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col min-h-0"
+          >
+            <h2 className="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-wide border-l-4 border-yellow-500 pl-4 flex-shrink-0">{t('contact.info.title')}</h2>
+            <div className="bg-white p-8 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 border-t-4 border-yellow-500 space-y-6 flex-1">
+              <div className="flex items-start gap-5 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                <div className="w-14 h-14 bg-blue-900 text-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <MapPin size={26} />
                 </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 mb-1 uppercase text-sm tracking-wide">{t('contact.info.address')}</h3>
-                  <p className="text-slate-600">{t('contact.info.addressValue')}</p>
-                  <p className="text-slate-500 text-sm mt-1">{t('contact.info.addressHint')}</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Phone size={24} />
-                </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 mb-1 uppercase text-sm tracking-wide">{t('contact.info.phones')}</h3>
-                  <p className="text-slate-600 font-bold text-lg">+998 71 200 00 00</p>
-                  <p className="text-slate-600">+998 90 123 45 67</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-slate-900 mb-2 uppercase text-xs tracking-widest text-blue-900">{t('contact.info.address')}</h3>
+                  <p className="text-slate-700 leading-relaxed">{t('contact.info.addressValue')}</p>
+                  {t('contact.info.addressHint') && <p className="text-slate-500 text-sm mt-1">{t('contact.info.addressHint')}</p>}
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Mail size={24} />
+              <div className="flex items-start gap-5 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                <div className="w-14 h-14 bg-blue-900 text-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Phone size={26} />
                 </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 mb-1 uppercase text-sm tracking-wide">{t('contact.info.email')}</h3>
-                  <p className="text-slate-600">info@prodeklarant.uz</p>
-                  <p className="text-slate-600">sales@prodeklarant.uz</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-slate-900 mb-2 uppercase text-xs tracking-widest text-blue-900">{t('contact.info.phones')}</h3>
+                  <a href="tel:+998911187007" className="text-slate-700 font-semibold text-lg hover:text-yellow-600 transition-colors">+998 91 118 70 07</a>
                 </div>
               </div>
 
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                  <Clock size={24} />
+              <div className="flex items-start gap-5 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                <div className="w-14 h-14 bg-blue-900 text-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Mail size={26} />
                 </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 mb-1 uppercase text-sm tracking-wide">{t('contact.info.hours')}</h3>
-                  <p className="text-slate-600">{t('contact.info.hours1')}</p>
-                  <p className="text-slate-600">{t('contact.info.hours2')}</p>
-                  <p className="text-red-500 text-sm mt-1">{t('contact.info.hours3')}</p>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-slate-900 mb-2 uppercase text-xs tracking-widest text-blue-900">{t('contact.info.email')}</h3>
+                  <a href="mailto:info@prodeklarant.uz" className="text-slate-700 hover:text-yellow-600 transition-colors">info@prodeklarant.uz</a>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-5 p-4 rounded-lg hover:bg-slate-50 transition-colors">
+                <div className="w-14 h-14 bg-blue-900 text-yellow-500 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Clock size={26} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-slate-900 mb-2 uppercase text-xs tracking-widest text-blue-900">{t('contact.info.hours')}</h3>
+                  <p className="text-slate-700">{t('contact.info.hours1')}</p>
                 </div>
               </div>
             </div>
+          </motion.div>
 
-            {/* Map Placeholder */}
-            <div className="mt-8 bg-slate-200 h-64 rounded-sm overflow-hidden relative">
+          {/* Map */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-col min-h-0"
+          >
+            <h2 className="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-wide border-l-4 border-yellow-500 pl-4 flex-shrink-0">{t('contact.info.location')}</h2>
+            <div className="bg-white h-64 lg:flex-1 lg:min-h-[400px] rounded-lg shadow-md overflow-hidden border border-slate-100">
               <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2998.072897210664!2d69.24056231572528!3d41.28551417927357!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38ae8b0cc379e9c3%3A0xa5a9323b4aa5cb98!2sTashkent%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1647856743840!5m2!1sen!2s" 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58279!2d71.48!3d40.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb84d62a1f8f1f%3A0x0!2sOltiariq%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1647856743840!5m2!1sen!2s" 
                 width="100%" 
                 height="100%" 
                 style={{ border: 0 }} 
@@ -80,71 +97,7 @@ export default function Contact() {
                 title="Google Maps"
               ></iframe>
             </div>
-          </div>
-
-          {/* Contact Form */}
-          <div>
-            <h2 className="text-2xl font-bold text-slate-900 mb-6 uppercase">{t('contact.form.title')}</h2>
-            <div className="bg-white p-8 rounded-sm shadow-lg border-t-4 border-yellow-500">
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">{t('contact.form.name')}</label>
-                    <input 
-                      type="text" 
-                      className="w-full px-4 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 transition-colors bg-slate-50"
-                      placeholder={t('contact.form.namePlaceholder')}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">{t('contact.form.phone')}</label>
-                    <input 
-                      type="tel" 
-                      className="w-full px-4 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 transition-colors bg-slate-50"
-                      placeholder={t('contact.form.phonePlaceholder')}
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">{t('contact.form.emailLabel')}</label>
-                  <input 
-                    type="email" 
-                    className="w-full px-4 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 transition-colors bg-slate-50"
-                    placeholder={t('contact.form.emailPlaceholder')}
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">{t('contact.form.service')}</label>
-                  <select className="w-full px-4 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 transition-colors bg-slate-50 text-slate-600">
-                    <option value="">{t('contact.form.servicePlaceholder')}</option>
-                    <option value="export">{t('contact.form.serviceOptions.export')}</option>
-                    <option value="import">{t('contact.form.serviceOptions.import')}</option>
-                    <option value="certification">{t('contact.form.serviceOptions.certification')}</option>
-                    <option value="consulting">{t('contact.form.serviceOptions.consulting')}</option>
-                    <option value="other">{t('contact.form.serviceOptions.other')}</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">{t('contact.form.message')}</label>
-                  <textarea 
-                    rows={5}
-                    className="w-full px-4 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 transition-colors bg-slate-50"
-                    placeholder={t('contact.form.messagePlaceholder')}
-                  ></textarea>
-                </div>
-
-                <button 
-                  type="submit" 
-                  className="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-4 uppercase tracking-wider transition-colors shadow-lg"
-                >
-                  {t('contact.form.submit')}
-                </button>
-              </form>
-            </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
