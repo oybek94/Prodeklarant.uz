@@ -128,12 +128,35 @@ sudo systemctl reload nginx
 
 ## 8. DNS
 
-Domen yozuvlarida:
+Domen **prodeklarant.uz** ni serveringizga yo‘naltirish uchun DNS yozuvlarini sozlashingiz kerak. Buning uchun domen qayerda ro‘yxatdan o‘tgan bo‘lsa (Uzinfocom, Reg.ru, Cloudflare va boshqalar), u yerning "DNS sozlamalari" / "Domain management" / "Yozuvlar" bo‘limiga kirasiz.
 
-- `prodeklarant.uz` — A yozuvi server IP ga.
-- `www.prodeklarant.uz` — A yoki CNAME server IP ga.
+### Nima qo‘shish kerak?
 
-Propagatsiya bir necha daqiqa yoki soatgacha davom etishi mumkin.
+| Turi | Name / Host | Qiymat (Value) | Izoh |
+|------|-------------|----------------|------|
+| **A** | `@` yoki `prodeklarant.uz` yoki bo‘sh qoldirish | **Server IP manzilingiz** (masalan `123.45.67.89`) | Asosiy domen (prodeklarant.uz) shu IP ga yo‘naladi. |
+| **A** yoki **CNAME** | `www` | **Server IP** (A uchun) yoki `prodeklarant.uz` (CNAME uchun) | www.prodeklarant.uz ham shu serverga boradi. |
+
+- **A yozuvi** — domen yoki subdomenni **to‘g‘ridan-to‘g‘ri IP manzilga** bog‘laydi. Asosiy domen uchun A yozuvi kerak.
+- **CNAME yozuvi** — bir domenni **boshqa domen nomiga** yo‘naltiradi. `www` uchun CNAME qilsangiz, qiymat: `prodeklarant.uz` (nuqta bo‘lmasa ham bo‘ladi, provider qo‘shib beradi).
+
+### Qadamlar (umumiy)
+
+1. Serveringizning **tashqi (public) IP** manzilini biling: `curl -4 ifconfig.me` yoki VPS panelida ko‘rsatiladi.
+2. Domen provayderingizda DNS boshqaruviga kiring.
+3. **A yozuvi** qo‘shing: Name = `@` (yoki "prodeklarant.uz" / blank), Type = A, Value = server IP.
+4. **www** uchun:
+   - **A yozuvi**: Name = `www`, Type = A, Value = xuddi shu server IP;
+   - **yoki CNAME**: Name = `www`, Type = CNAME, Value = `prodeklarant.uz`.
+5. Saqlang. O‘zgarishlar 5–60 daqiqa (ba’zan bir necha soat) ichida butun internetga tarqaladi — buni **propagatsiya** deyiladi.
+
+### Misol (so‘zlar provider’dan farq qilishi mumkin)
+
+- **Uzinfocom** (uz domenlar): "DNS records" / "Yozuvlar" → A: host `@` → IP; yana A yoki CNAME: host `www` → IP yoki `prodeklarant.uz`.
+- **Cloudflare**: DNS → Add record → Type A, Name `@`, IPv4 address = server IP; yana A yoki CNAME, Name `www`.
+- **Reg.ru, Nic.ru**: "Zona yozuvlari" / "DNS records" → A yozuvi qo‘shish, keyin www uchun A yoki CNAME.
+
+Saqlagach, bir necha daqiqa yoki soatdan keyin brauzerda `http://prodeklarant.uz` va `http://www.prodeklarant.uz` serveringizdagi saytni ko‘rsatishi kerak. Keyin 9-qadamda SSL (HTTPS) ni yoqasiz.
 
 ---
 
