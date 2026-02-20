@@ -82,8 +82,9 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" aria-labelledby="features-heading">
         <div className="container mx-auto px-4">
+          <h2 id="features-heading" className="sr-only">{t('home.features.title')}</h2>
           <motion.div 
             variants={stagger}
             initial="initial"
@@ -200,11 +201,18 @@ export default function Home() {
                 key={i} 
                 className="w-full max-w-[160px] h-20 flex items-center justify-center p-4 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
               >
-                <img 
-                  src={partner.src} 
-                  alt={partner.alt} 
-                  className="max-h-full max-w-full w-auto h-auto object-contain"
-                />
+                <picture>
+                  <source type="image/webp" srcSet={partner.src.replace(/\.png$/i, '.webp')} />
+                  <img 
+                    src={partner.src} 
+                    alt={partner.alt} 
+                    width={160}
+                    height={80}
+                    className="max-h-full max-w-full w-auto h-auto object-contain"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
             ))}
           </motion.div>
@@ -253,9 +261,9 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
              {[1, 2, 3].map((i) => {
                const blogImages = [
-                 "https://images.unsplash.com/photo-1466692479798-4f32f60a3147?q=80&w=600&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1518843875459-e438adba4292?q=80&w=600&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=600&auto=format&fit=crop"
+                 "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
+                 "https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600",
+                 "https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=600"
                ];
                return (
                <Link key={i} to={`/blog/${i}`} className="group block cursor-pointer">
@@ -263,7 +271,10 @@ export default function Home() {
                    <img 
                      src={blogImages[i - 1]} 
                      alt="Meva-sabzavot eksporti yangiliklari" 
+                     width={600}
+                     height={288}
                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                     loading="lazy"
                    />
                  </div>
                  <div className="text-xs text-slate-500 font-bold mb-2 uppercase">{t('home.blog.date')}</div>

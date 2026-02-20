@@ -83,6 +83,8 @@ pnpm install
 pnpm build
 ```
 
+**Rasmlarni optimallashtirish (ixtiyoriy):** LCP va trafikni kamaytirish uchun **loyiha root** da (`/var/www/prodeklarant.uz`, `server/` emas) build oldidan `pnpm run optimize-images` ishlating — logo va hamkorlar logotiplari uchun WebP va qisqargan o‘lchamlar yaratiladi (~969 KiB tejash).
+
 Server papkasida:
 
 ```bash

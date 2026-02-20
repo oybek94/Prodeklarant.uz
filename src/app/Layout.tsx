@@ -69,9 +69,12 @@ export default function Layout() {
       <header className="sticky top-0 z-50 bg-white shadow-md border-b border-slate-100">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
+            {/* Logo: WebP when available, PNG fallback; sized to avoid layout shift */}
             <Link to="/" className="flex items-center gap-2 group">
-              <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" className="h-10 w-auto object-contain" />
+              <picture>
+                <source type="image/webp" srcSet="/logo.webp" />
+                <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" width={168} height={40} className="h-10 w-auto object-contain" decoding="async" fetchPriority="high" />
+              </picture>
             </Link>
 
             {/* Desktop Navigation */}
@@ -155,7 +158,10 @@ export default function Layout() {
             {/* Column 1: About */}
             <div>
               <div className="flex items-center gap-2 mb-6">
-                <img src="/logo.png" alt="PRO DEKLARANT" className="h-8 w-auto object-contain" />
+                <picture>
+                  <source type="image/webp" srcSet="/logo.webp" />
+                  <img src="/logo.png" alt="PRO DEKLARANT" width={128} height={32} className="h-8 w-auto object-contain" decoding="async" />
+                </picture>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed mb-6">
                 {t('layout.footer.aboutDesc')}

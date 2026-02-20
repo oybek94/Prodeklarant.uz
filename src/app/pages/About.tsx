@@ -50,7 +50,10 @@ export default function About() {
             <img 
               src="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=600" 
               alt="Qadoqlangan meva" 
+              width={600}
+              height={400}
               className="rounded-sm shadow-lg w-full h-48 object-cover"
+              loading="lazy"
             />
             <div className="bg-slate-900 p-6 flex items-center justify-center text-white text-center rounded-sm">
               <div>
@@ -67,7 +70,10 @@ export default function About() {
             <img 
               src="https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600" 
               alt="Meva-sabzavotlar" 
+              width={600}
+              height={400}
               className="rounded-sm shadow-lg w-full h-48 object-cover"
+              loading="lazy"
             />
           </div>
         </div>
