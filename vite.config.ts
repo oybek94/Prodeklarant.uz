@@ -20,18 +20,6 @@ export default defineConfig({
   assetsInclude: ['**/*.svg', '**/*.csv'],
 
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('react-dom') || id.includes('react/')) return 'vendor-react';
-            if (id.includes('motion/') || id.includes('motion-react')) return 'vendor-motion';
-            if (id.includes('react-router')) return 'vendor-router';
-            return 'vendor';
-          }
-        },
-      },
-    },
     chunkSizeWarningLimit: 400,
   },
 
