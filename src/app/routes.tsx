@@ -1,14 +1,25 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router';
 import Layout from './Layout';
-import Home from './pages/Home';
-import Services from './pages/Services';
-import About from './pages/About';
-import Contact from './pages/Contact';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
-import AdminLogin from './pages/AdminLogin';
-import AdminBlog from './pages/AdminBlog';
-import AdminPostForm from './pages/AdminPostForm';
+
+// Lazy-load pages so initial bundle is smaller (~234 KiB savings)
+const Home = lazy(() => import('./pages/Home'));
+const Services = lazy(() => import('./pages/Services'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Blog = lazy(() => import('./pages/Blog'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminBlog = lazy(() => import('./pages/AdminBlog'));
+const AdminPostForm = lazy(() => import('./pages/AdminPostForm'));
+
+function PageFallback() {
+  return (
+    <div className="min-h-[60vh] flex items-center justify-center">
+      <div className="w-8 h-8 border-2 border-yellow-500 border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
 
 export const router = createBrowserRouter([
   {
@@ -17,43 +28,83 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <Home />
+          </Suspense>
+        ),
       },
       {
         path: 'services',
-        Component: Services,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <Services />
+          </Suspense>
+        ),
       },
       {
         path: 'about',
-        Component: About,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: 'contact',
-        Component: Contact,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <Contact />
+          </Suspense>
+        ),
       },
       {
         path: 'blog',
-        Component: Blog,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <Blog />
+          </Suspense>
+        ),
       },
       {
         path: 'blog/:id',
-        Component: BlogPost,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <BlogPost />
+          </Suspense>
+        ),
       },
       {
         path: 'admin',
-        Component: AdminLogin,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <AdminLogin />
+          </Suspense>
+        ),
       },
       {
         path: 'admin/blog',
-        Component: AdminBlog,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <AdminBlog />
+          </Suspense>
+        ),
       },
       {
         path: 'admin/blog/new',
-        Component: AdminPostForm,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <AdminPostForm />
+          </Suspense>
+        ),
       },
       {
         path: 'admin/blog/:id/edit',
-        Component: AdminPostForm,
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <AdminPostForm />
+          </Suspense>
+        ),
       },
     ],
   },

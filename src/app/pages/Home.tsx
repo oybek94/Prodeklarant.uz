@@ -33,14 +33,19 @@ export default function Home() {
     <div className="flex flex-col w-full">
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center justify-center text-white overflow-hidden">
-        <div className="absolute inset-0 z-0">
+        {/* Orqa fon rasm — pastdagi qatlam */}
+        <div className="absolute inset-0 z-0 bg-slate-800">
           <img 
-            src="https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=1920&auto=format&fit=crop" 
+            src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920" 
             alt="Meva va sabzavotlar eksporti" 
-            className="w-full h-full object-cover"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-slate-900/70"></div>
         </div>
+        {/* Ustki qorong‘u qatlam (matn o‘qilishi uchun) */}
+        <div className="absolute inset-0 z-[1] bg-slate-900/70" aria-hidden="true" />
 
         <div className="container mx-auto px-4 z-10 relative text-center">
           <motion.h1 
