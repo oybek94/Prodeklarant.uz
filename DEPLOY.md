@@ -182,6 +182,118 @@ Ko'rsatmalarga amal qiling. Nginx avtomatik 443 sozlanadi.
 
 ---
 
+## 502 Bad Gateway — nima qilish
+
+Nginx 502 berayotgan bo‘lsa, odatda **Node ilovasi ishlamayapti** yoki **port mos kelmayapti**. Serverni SSH orqali ulang va quyidagilarni ketma-ket bajaring.
+
+### 1. PM2 va portni tekshirish
+
+```bash
+pm2 status
+```
+
+**prodeklarant** `online` bo‘lishi kerak. Agar `stopped` yoki `errored` bo‘lsa:
+
+```bash
+pm2 logs prodeklarant --lines 50
+```
+
+Xatolik matniga qarang (masalan, `EADDRINUSE`, `Cannot find module`, `better-sqlite3` binding).
+
+### 2. Portni tekshirish
+
+Ilova qaysi portda tinglayotganini bilish:
+
+```bash
+sudo ss -tlnp | grep -E '3001|3002'
+# yoki
+sudo lsof -i :3002
+```
+
+Nginx konfigida qaysi port ko‘rsatilganini tekshiring:
+
+```bash
+grep proxy_pass /etc/nginx/sites-enabled/prodeklarant.uz
+```
+
+`proxy_pass http://127.0.0.1:3002` bo‘lishi kerak. Agar Nginx **3002** ga yo‘naltirsa, Node ham **3002** da ishlashi kerak.
+
+### 3. Node porti — server/.env
+
+```bash
+cat /var/www/prodeklarant.uz/server/.env | grep PORT
+```
+
+`PORT=3002` bo‘lishi kerak. Agar yo‘q yoki boshqa port bo‘lsa:
+
+```bash
+cd /var/www/prodeklarant.uz/server
+echo "PORT=3002" >> .env
+# yoki .env ni tahrirlab PORT=3002 qiling
+```
+
+Keyin PM2 ni qayta ishga tushiring:
+
+```bash
+cd /var/www/prodeklarant.uz
+pm2 restart prodeklarant
+pm2 save
+```
+
+### 4. Lokalda ilova javob beradimi?
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:3002
+```
+
+`200` yoki `304` bo‘lishi kerak. Agar ulanish rad etilsa yoki javob bo‘lmasa — ilova 3002 da ishlamayapti; `pm2 logs prodeklarant` da xatolikni ko‘ring.
+
+### 5. Ilovani qo‘lda ishga tushirib xatolikni ko‘rish
+
+```bash
+cd /var/www/prodeklarant.uz/server
+node index.js
+```
+
+Terminalda xato chiqsa (masalan, `Error: Cannot find module 'better-sqlite3'` yoki `bind EADDRINUSE`), shu xatoni bartaraf eting. Keyin Ctrl+C bilan to‘xtatib, yana PM2 orqali ishga tushiring: `pm2 restart prodeklarant`.
+
+### 6. Nginx ni qayta yuklash
+
+Port va PM2 to‘g‘ri bo‘lsa ham Nginx cache tufayli 502 berishi mumkin:
+
+```bash
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+### 7. better-sqlite3: "Could not locate the bindings file"
+
+Agar logda `better_sqlite3.node` topilmayapti degan xato chiqsa — native modul Windows yoki boshqa mashinada o‘rnatilgan, server (Linux) da qayta compile qilinmagan. **server** papkasida `node_modules` ni o‘chirib, dependency’larni serverni ulab qayta o‘rnating:
+
+```bash
+cd /var/www/prodeklarant.uz/server
+rm -rf node_modules
+pnpm install
+# agar serverda pnpm yo‘q bo‘lsa: npm install
+```
+
+Keyin PM2 ni qayta ishga tushiring:
+
+```bash
+cd /var/www/prodeklarant.uz
+pm2 restart prodeklarant
+pm2 save
+```
+
+Serverni yangilaganda (git pull) `node_modules` ni Windows’dan nusxalamang — har doim serverda `cd server && pnpm install` (yoki `npm install`) bajarilishi kerak, shunda better-sqlite3 Linux uchun compile bo‘ladi.
+
+**Agar pnpm "Ignored build scripts: better-sqlite3" deb chiqarsa** — pnpm build skriptlarni ishga tushirmaydi. Ikki yo‘l:
+
+1. **Bir martalik:** `server` papkasida `pnpm approve-builds` bajarib, ro‘yxatdan `better-sqlite3` ni tanlang; keyin `pnpm install` qayta ishlating (native modul compile bo‘ladi).
+2. **Loyihada:** `server/package.json` da `"pnpm": { "onlyBuiltDependencies": ["better-sqlite3"] }` qo‘shilgan bo‘lsa, keyingi `pnpm install` da build avtomatik ruxsat etiladi. Kodni yangilab (git pull) qayta `pnpm install` bajarishingiz yetarli.
+
+---
+
 ## Keyingi deploylar (kod yangilanganda)
 
 Kodni yangilangach (git pull yoki fayllarni almashtirgach), serverda:
