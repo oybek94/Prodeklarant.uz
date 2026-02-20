@@ -184,7 +184,7 @@ export default function AdminPostForm() {
             </div>
             {form.image && (
               <div className="mt-2 flex items-center gap-2">
-                <img src={form.image} alt="" className="h-16 w-24 object-cover border border-slate-200" />
+                <img src={form.image} alt="" width={96} height={64} className="h-16 w-24 object-cover border border-slate-200" />
                 <span className="text-sm text-slate-500 truncate max-w-[200px]">{form.image}</span>
               </div>
             )}

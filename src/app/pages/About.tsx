@@ -17,9 +17,14 @@ export default function About() {
       <div className="relative h-[400px] flex items-center justify-center text-white">
         <div className="absolute inset-0">
           <img 
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1920&auto=format&fit=crop" 
+            src="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+            srcSet="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+            sizes="100vw"
             alt="Hujjatlar bilan ishlash" 
-            className="w-full h-full object-cover"
+            width={1920}
+            height={1080}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-slate-900/80"></div>
         </div>

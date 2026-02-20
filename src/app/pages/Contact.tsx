@@ -7,12 +7,17 @@ export default function Contact() {
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
       {/* Header */}
-      <div className="relative py-16 text-white overflow-hidden">
+      <div className="relative min-h-[280px] py-12 md:py-16 text-white overflow-hidden">
         <div className="absolute inset-0">
           <img 
             src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+            srcSet="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+            sizes="100vw"
             alt="" 
-            className="w-full h-full object-cover"
+            width={1920}
+            height={1080}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
           />
           <div className="absolute inset-0 bg-slate-900/85" />
         </div>

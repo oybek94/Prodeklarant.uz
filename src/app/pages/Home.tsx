@@ -31,12 +31,13 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full">
-      {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center justify-center text-white overflow-hidden">
-        {/* Orqa fon rasm — pastdagi qatlam */}
+      {/* Hero Section — mobilda pastroq (LCP tezroq), srcset orqali kichik rasm */}
+      <section className="relative h-[400px] md:h-[600px] flex items-center justify-center text-white overflow-hidden">
         <div className="absolute inset-0 z-0 bg-slate-800">
           <img 
             src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+            srcSet="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+            sizes="100vw"
             alt="Meva va sabzavotlar eksporti" 
             width={1920}
             height={1080}
@@ -49,25 +50,25 @@ export default function Home() {
 
         <div className="container mx-auto px-4 z-10 relative text-center">
           <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-6xl font-bold mb-6 leading-tight max-w-4xl mx-auto"
+            transition={{ duration: 0.4 }}
+            className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight max-w-4xl mx-auto"
           >
             {t('home.hero.title')}
           </motion.h1>
           <motion.p 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl mx-auto"
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className="text-base md:text-xl text-slate-200 mb-8 md:mb-10 max-w-2xl mx-auto"
           >
             {t('home.hero.subtitle')}
           </motion.p>
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.35, delay: 0.15 }}
             className="flex flex-col sm:flex-row justify-center gap-4"
           >
             <Link 

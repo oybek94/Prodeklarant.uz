@@ -77,7 +77,7 @@ export default function Blog() {
                 {blogPosts.map((post) => (
                   <div key={post.id} className="bg-white rounded-sm shadow-sm overflow-hidden flex flex-col md:flex-row hover:shadow-lg transition-shadow border border-slate-100">
                     <div className="md:w-1/3 h-48 md:h-auto relative">
-                      <img src={post.image} alt={post.title} className="w-full h-full object-cover absolute inset-0" />
+                      <img src={post.image} alt={post.title} width={400} height={300} className="w-full h-full object-cover absolute inset-0" loading="lazy" />
                     </div>
                     <div className="p-6 md:w-2/3 flex flex-col justify-between">
                       <div>
