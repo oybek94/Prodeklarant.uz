@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router';
 import { ArrowLeft, Calendar, User, Tag, Share2, Eye } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import i18n from '../../i18n';
 import { getPost, getPosts, type BlogPost } from '../api';
 
@@ -83,14 +85,16 @@ export default function BlogPost() {
       <div className="container mx-auto px-4 py-12">
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="lg:w-2/3">
-            <div className="prose prose-lg max-w-none text-slate-700">
+            <article className="markdown-body">
               <p className="lead text-xl font-medium text-slate-900 mb-8 italic border-l-4 border-yellow-500 pl-4">{excerpt}</p>
               {body ? (
-                <div className="whitespace-pre-wrap">{body}</div>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {body}
+                </ReactMarkdown>
               ) : (
                 <p>{t('blogPost.quote')}</p>
               )}
-            </div>
+            </article>
             <div className="mt-12 pt-8 border-t border-slate-200 flex items-center justify-between">
               <span className="font-bold text-slate-900 uppercase text-sm">{t('blogPost.share')}</span>
               <div className="flex space-x-4">

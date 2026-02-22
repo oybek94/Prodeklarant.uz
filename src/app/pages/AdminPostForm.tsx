@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
+import MDEditor from '@uiw/react-md-editor';
+import '@uiw/react-md-editor/markdown-editor.css';
 
 function useAuthGuard() {
   const navigate = useNavigate();
@@ -112,13 +114,17 @@ export default function AdminPostForm() {
                   required
                 />
               </div>
-              <div>
-                <label className="block text-sm text-slate-600 mb-1">Asosiy matn</label>
-                <textarea
+              <div data-color-mode="light">
+                <label className="block text-sm text-slate-600 mb-2">Asosiy matn</label>
+                <MDEditor
                   value={form.body[lang]}
-                  onChange={(e) => update(lang, 'body', e.target.value)}
-                  rows={6}
-                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-blue-900"
+                  onChange={(v) => update(lang, 'body', v ?? '')}
+                  height={300}
+                  preview="live"
+                  hideToolbar={false}
+                  visibleDragbar={false}
+                  enableScroll={true}
+                  className="border border-slate-300"
                 />
               </div>
               <div>
