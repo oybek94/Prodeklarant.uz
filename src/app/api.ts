@@ -115,7 +115,20 @@ export async function translatePost(
       category: fields.category,
     }),
   });
-  const data = await res.json();
+  const text = await res.text();
+  if (res.status === 504) {
+    throw new Error(
+      "Tarjima vaqti tugadi (504). Matnni qisqartirib yoki keyinroq qayta urinib ko'ring."
+    );
+  }
+  let data: TranslateResult & { error?: string };
+  try {
+    data = JSON.parse(text);
+  } catch {
+    throw new Error(
+      "Tarjima xatosi: server javob bermadi. Keyinroq qayta urinib ko'ring."
+    );
+  }
   if (!res.ok) throw new Error(data.error || 'Tarjima xatosi');
   return data;
 }

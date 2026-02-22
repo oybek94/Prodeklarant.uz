@@ -21,6 +21,7 @@ export default defineConfig({
 
   build: {
     chunkSizeWarningLimit: 400,
+    modulePreload: false,
   },
 
   server: {

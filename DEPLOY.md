@@ -182,6 +182,30 @@ Ko'rsatmalarga amal qiling. Nginx avtomatik 443 sozlanadi.
 
 ---
 
+## 504 Gateway Timeout — tarjima / API
+
+Katta maqolani tarjima qilganda `/api/translate` 504 qaytarsa — Nginx proxy vaqti (odatda 60 s) tugadi. **Nginx** da API uchun timeout ni oshiring.
+
+`/etc/nginx/sites-available/prodeklarant.uz` (yoki prodeklarant.uz server bloki) ichida `location /` yoki proxy qiladigan `location` da quyidagilarni qo‘shing:
+
+```nginx
+location / {
+  proxy_pass http://127.0.0.1:3002;
+  proxy_http_version 1.1;
+  proxy_set_header Host $host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_connect_timeout 120s;
+  proxy_send_timeout 120s;
+  proxy_read_timeout 120s;
+}
+```
+
+Keyin: `sudo nginx -t` va `sudo systemctl reload nginx`. 120 s dan ko‘p vaqt kerak bo‘lsa, `120s` ni masalan `180s` qiling.
+
+---
+
 ## 502 Bad Gateway — nima qilish
 
 Nginx 502 berayotgan bo‘lsa, odatda **Node ilovasi ishlamayapti** yoki **port mos kelmayapti**. Serverni SSH orqali ulang va quyidagilarni ketma-ket bajaring.
