@@ -95,6 +95,31 @@ export async function deletePost(id: number): Promise<void> {
   if (!res.ok) throw new Error('Failed to delete post');
 }
 
+export type TranslateResult = {
+  uz: { title: string; excerpt: string; body: string; category: string } | null;
+  ru: { title: string; excerpt: string; body: string; category: string } | null;
+  en: { title: string; excerpt: string; body: string; category: string } | null;
+};
+
+export async function translatePost(
+  sourceLang: 'uz' | 'ru' | 'en',
+  fields: { title: string; excerpt: string; body: string; category: string }
+): Promise<TranslateResult> {
+  const res = await apiFetch('/translate', {
+    method: 'POST',
+    body: JSON.stringify({
+      sourceLang,
+      title: fields.title,
+      excerpt: fields.excerpt,
+      body: fields.body,
+      category: fields.category,
+    }),
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Tarjima xatosi');
+  return data;
+}
+
 export async function uploadImage(file: File): Promise<string> {
   const token = getToken();
   if (!token) throw new Error('Avtorizatsiya talab qilinadi');

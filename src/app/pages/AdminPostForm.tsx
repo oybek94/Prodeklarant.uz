@@ -9,8 +9,8 @@ function useAuthGuard() {
     if (!localStorage.getItem('admin_token')) navigate('/admin', { replace: true });
   }, [navigate]);
 }
-import { ArrowLeft, Upload } from 'lucide-react';
-import { getPost, createPost, updatePost, uploadImage, type BlogPost } from '../api';
+import { ArrowLeft, Upload, Languages } from 'lucide-react';
+import { getPost, createPost, updatePost, uploadImage, translatePost, type BlogPost } from '../api';
 
 const emptyPost: Omit<BlogPost, 'id' | 'created_at'> = {
   title: { uz: '', ru: '', en: '' },
@@ -31,6 +31,7 @@ export default function AdminPostForm() {
   const [loading, setLoading] = useState(isEdit);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [translating, setTranslating] = useState<'uz' | 'ru' | 'en' | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -54,6 +55,48 @@ export default function AdminPostForm() {
 
   const update = (lang: 'uz' | 'ru' | 'en', field: 'title' | 'excerpt' | 'body' | 'category', value: string) => {
     setForm((f) => ({ ...f, [field]: { ...f[field], [lang]: value } }));
+  };
+
+  const handleTranslate = async (sourceLang: 'uz' | 'ru' | 'en') => {
+    const title = form.title[sourceLang]?.trim() || '';
+    const excerpt = form.excerpt[sourceLang]?.trim() || '';
+    const body = form.body[sourceLang]?.trim() || '';
+    const category = form.category[sourceLang]?.trim() || '';
+    if (!title && !excerpt && !body && !category) {
+      setError('Kamida bitta maydonni to\'ldiring');
+      return;
+    }
+    setError('');
+    setTranslating(sourceLang);
+    try {
+      const result = await translatePost(sourceLang, { title, excerpt, body, category });
+      setForm((f) => {
+        const next = { ...f };
+        if (result.uz) {
+          next.title = { ...next.title, uz: result.uz.title };
+          next.excerpt = { ...next.excerpt, uz: result.uz.excerpt };
+          next.body = { ...next.body, uz: result.uz.body };
+          next.category = { ...next.category, uz: result.uz.category };
+        }
+        if (result.ru) {
+          next.title = { ...next.title, ru: result.ru.title };
+          next.excerpt = { ...next.excerpt, ru: result.ru.excerpt };
+          next.body = { ...next.body, ru: result.ru.body };
+          next.category = { ...next.category, ru: result.ru.category };
+        }
+        if (result.en) {
+          next.title = { ...next.title, en: result.en.title };
+          next.excerpt = { ...next.excerpt, en: result.en.excerpt };
+          next.body = { ...next.body, en: result.en.body };
+          next.category = { ...next.category, en: result.en.category };
+        }
+        return next;
+      });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Tarjima xatosi');
+    } finally {
+      setTranslating(null);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -91,9 +134,20 @@ export default function AdminPostForm() {
 
         {(['uz', 'ru', 'en'] as const).map((lang) => (
           <div key={lang} className="bg-white p-6 border border-slate-200 rounded-sm">
-            <h3 className="font-bold text-slate-900 mb-4 uppercase text-sm">
-              {lang === 'uz' ? "O'zbek" : lang === 'ru' ? 'Rus' : 'Ingliz'}
-            </h3>
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-bold text-slate-900 uppercase text-sm">
+                {lang === 'uz' ? "O'zbek" : lang === 'ru' ? 'Rus' : 'Ingliz'}
+              </h3>
+              <button
+                type="button"
+                onClick={() => handleTranslate(lang)}
+                disabled={!!translating || (!form.title[lang]?.trim() && !form.excerpt[lang]?.trim() && !form.body[lang]?.trim())}
+                className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-blue-900 border border-blue-900 hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Languages size={16} />
+                {translating === lang ? 'Tarjilanmoqda...' : 'Tarjima qilish'}
+              </button>
+            </div>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm text-slate-600 mb-1">Sarlavha</label>
