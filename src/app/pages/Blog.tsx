@@ -61,10 +61,19 @@ export default function Blog() {
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
-      <div className="bg-slate-900 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
+      <div className="relative text-white py-16 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <div className="absolute inset-0 z-[1] bg-slate-900/75" aria-hidden="true" />
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl font-bold mb-4 uppercase">{t('blog.title')}</h1>
-          <p className="text-slate-300 max-w-2xl mx-auto">{t('blog.subtitle')}</p>
+          <p className="text-slate-200 max-w-2xl mx-auto">{t('blog.subtitle')}</p>
         </div>
       </div>
 

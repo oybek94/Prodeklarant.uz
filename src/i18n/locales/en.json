@@ -1,4 +1,26 @@
 {
+  "seo": {
+    "home": {
+      "title": "PRO DEKLARANT — Customs clearance for fruit and vegetable export",
+      "description": "Professional customs brokerage for fruit and vegetable exporters. GTD clearance, certificates, logistics. Fergana region, Uzbekistan."
+    },
+    "services": {
+      "title": "Services — PRO DEKLARANT",
+      "description": "Customs cargo declaration, phytosanitary, certification and export logistics. Full range of services for fruit and vegetable export."
+    },
+    "about": {
+      "title": "About Us — PRO DEKLARANT",
+      "description": "PRO DEKLARANT — customs services for fruit and vegetable export. Professional team, legal guarantee, international experience."
+    },
+    "blog": {
+      "title": "Blog — PRO DEKLARANT",
+      "description": "Useful articles and news on export, customs clearance, certificates and fruit and vegetable markets."
+    },
+    "contact": {
+      "title": "Contact — PRO DEKLARANT",
+      "description": "Contact PRO DEKLARANT: Fergana region, Oltiariq. Free consultation and assistance with customs services."
+    }
+  },
   "layout": {
     "address": "Fergana region, Oltiariq district",
     "nav": {
@@ -87,6 +109,8 @@
     "blog": {
       "title": "Latest News",
       "readAll": "Read All",
+      "loading": "Loading...",
+      "noPosts": "No posts yet.",
       "date": "February 15, 2026",
       "posts": {
         "1": {

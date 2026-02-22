@@ -1,4 +1,26 @@
 {
+  "seo": {
+    "home": {
+      "title": "PRO DEKLARANT — Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv",
+      "description": "Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. GTD rasmiylashtirish, sertifikatlar, logistika. Farg'ona viloyati."
+    },
+    "services": {
+      "title": "Xizmatlar — PRO DEKLARANT",
+      "description": "Bojxona yuk deklaratsiyasi, fitosanitariya, sertifikatlashtirish va eksport logistikasi. Meva-sabzavot eksporti bo'yicha to'liq xizmatlar."
+    },
+    "about": {
+      "title": "Kompaniya haqida — PRO DEKLARANT",
+      "description": "PRO DEKLARANT — meva va sabzavot eksporti uchun ixtisoslashtirilgan bojxona xizmatlari. Professional jamoa, qonuniy kafolat, xalqaro tajriba."
+    },
+    "blog": {
+      "title": "Blog — PRO DEKLARANT",
+      "description": "Eksport, bojxona rasmiylashtirish, sertifikatlar va meva-sabzavot bozorlari haqida foydali maqolalar va yangiliklar."
+    },
+    "contact": {
+      "title": "Aloqa — PRO DEKLARANT",
+      "description": "PRO DEKLARANT bilan bog'laning: Farg'ona viloyati, Oltiariq. Bepul konsultatsiya va bojxona xizmatlari bo'yicha yordam."
+    }
+  },
   "layout": {
     "address": "Farg'ona viloyati, Oltiariq tumani",
     "nav": {
@@ -87,6 +109,8 @@
     "blog": {
       "title": "So'nggi Yangiliklar",
       "readAll": "Barchasini o'qish",
+      "loading": "Yuklanmoqda...",
+      "noPosts": "Hozircha maqolalar yo'q.",
       "date": "15 Fevral, 2026",
       "posts": {
         "1": {

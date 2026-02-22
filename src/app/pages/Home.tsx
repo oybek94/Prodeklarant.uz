@@ -1,11 +1,48 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { motion } from 'motion/react';
 import { CheckCircle, Clock, Globe, ShieldCheck, ArrowRight, FileText, Truck, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../i18n';
+import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
+
+const BLOG_IMAGES = [
+  'https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600',
+  'https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=600',
+];
+
+function formatPostDate(dateStr: string): string {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}.${month}.${year}`;
+}
 
 export default function Home() {
   const { t } = useTranslation();
+  const [latestPosts, setLatestPosts] = useState<{ id: number; title: string; excerpt: string; date: string; image: string }[]>([]);
+  const [postsLoading, setPostsLoading] = useState(true);
+  const lang = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
+
+  useEffect(() => {
+    getPosts()
+      .then((data) => {
+        const display = data.slice(0, 3).map((p: BlogPost) => ({
+          id: p.id,
+          title: p.title[lang],
+          excerpt: (p.excerpt[lang] || '').replace(/<[^>]*>/g, '').slice(0, 160),
+          date: p.date || p.created_at || '',
+          image: p.image || BLOG_IMAGES[(p.id - 1) % BLOG_IMAGES.length],
+        }));
+        setLatestPosts(display);
+      })
+      .catch(() => setLatestPosts([]))
+      .finally(() => setPostsLoading(false));
+  }, [lang]);
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -266,33 +303,33 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-             {[1, 2, 3].map((i) => {
-               const blogImages = [
-                 "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600",
-                 "https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600",
-                 "https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=600"
-               ];
-               return (
-               <Link key={i} to={blogPostPath(i, t(`home.blog.posts.${i}.title`))} className="group block cursor-pointer">
-                 <div className="h-48 overflow-hidden rounded-sm mb-4">
-                   <img 
-                     src={blogImages[i - 1]} 
-                     alt="Meva-sabzavot eksporti yangiliklari" 
-                     width={600}
-                     height={288}
-                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                     loading="lazy"
-                   />
-                 </div>
-                 <div className="text-xs text-slate-500 font-bold mb-2 uppercase">{t('home.blog.date')}</div>
-                 <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors">
-                   {t(`home.blog.posts.${i}.title`)}
-                 </h3>
-                 <p className="text-slate-600 text-sm line-clamp-3">
-                   {t(`home.blog.posts.${i}.excerpt`)}
-                 </p>
-               </Link>
-             );})}
+            {postsLoading ? (
+              <div className="col-span-full text-center py-12 text-slate-500">{t('home.blog.loading') || 'Yuklanmoqda...'}</div>
+            ) : latestPosts.length === 0 ? (
+              <div className="col-span-full text-center py-12 text-slate-500">{t('home.blog.noPosts') || 'Hozircha maqolalar yo\'q.'}</div>
+            ) : (
+              latestPosts.map((post) => (
+                <Link key={post.id} to={blogPostPath(post.id, post.title)} className="group block cursor-pointer">
+                  <div className="h-48 overflow-hidden rounded-sm mb-4">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      width={600}
+                      height={288}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="text-xs text-slate-500 font-bold mb-2 uppercase">{formatPostDate(post.date)}</div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors">
+                    {post.title}
+                  </h3>
+                  <p className="text-slate-600 text-sm line-clamp-3">
+                    {post.excerpt}
+                  </p>
+                </Link>
+              ))
+            )}
           </div>
 
           <div className="mt-8 text-center md:hidden">

@@ -3,10 +3,14 @@ require('dotenv').config({ path: path.join(__dirname, '.env') });
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
+const db = require('./db');
+const { slugify } = require('./utils/slugify');
 const authRoutes = require('./routes/auth');
 const postsRoutes = require('./routes/posts');
 const uploadRoutes = require('./routes/upload');
 const translateRoutes = require('./routes/translate');
+
+const SITE_URL = process.env.SITE_URL || 'https://prodeklarant.uz';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -31,6 +35,45 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/translate', translateRoutes);
+
+app.get('/sitemap.xml', (req, res) => {
+  const staticPaths = [
+    { path: '/', changefreq: 'weekly', priority: '1.0' },
+    { path: '/services', changefreq: 'monthly', priority: '0.8' },
+    { path: '/about', changefreq: 'monthly', priority: '0.8' },
+    { path: '/contact', changefreq: 'monthly', priority: '0.8' },
+    { path: '/blog', changefreq: 'weekly', priority: '0.9' },
+  ];
+  let posts = [];
+  try {
+    posts = db.prepare('SELECT id, title_uz, created_at FROM posts ORDER BY created_at DESC').all();
+  } catch (e) {
+    // ignore
+  }
+  const escapeXml = (s) => String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+  const urlEntries = [
+    ...staticPaths.map(({ path: p, changefreq, priority }) =>
+      `  <url><loc>${escapeXml(SITE_URL + p)}</loc><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>`
+    ),
+    ...posts.map((row) => {
+      const slug = slugify(row.title_uz) || `post-${row.id}`;
+      const loc = `${SITE_URL}/blog/${encodeURIComponent(slug)}`;
+      const lastmod = row.created_at ? new Date(row.created_at).toISOString().slice(0, 10) : '';
+      return `  <url><loc>${escapeXml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}<changefreq>monthly</changefreq><priority>0.7</priority></url>`;
+    }),
+  ];
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urlEntries.join('\n')}
+</urlset>`;
+  res.set('Content-Type', 'application/xml; charset=utf-8');
+  res.send(xml);
+});
 
 const distPath = path.join(__dirname, '..', 'dist');
 const indexHtml = path.join(distPath, 'index.html');

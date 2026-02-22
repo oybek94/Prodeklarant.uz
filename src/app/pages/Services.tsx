@@ -21,17 +21,26 @@ export default function Services() {
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
       {/* Header */}
-      <div className="bg-slate-900 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
+      <div className="relative z-10 text-white py-16 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            alt=""
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <div className="absolute inset-0 z-[1] bg-slate-900/75" aria-hidden="true" />
+        <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl font-bold mb-4 uppercase">{t('services.title')}</h1>
-          <p className="text-slate-300 max-w-2xl mx-auto">
+          <p className="text-slate-200 max-w-2xl mx-auto">
             {t('services.subtitle')}
           </p>
         </div>
       </div>
 
       {/* Services Grid */}
-      <div className="container mx-auto px-4 -mt-10">
+      <div className="container mx-auto px-4 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <motion.div 

@@ -4,6 +4,7 @@ import { Menu, X, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import { usePageMeta } from './hooks/usePageMeta';
 
 const LANGUAGES = [
   { code: 'uz', label: 'O\'zbek' },
@@ -11,11 +12,15 @@ const LANGUAGES = [
   { code: 'en', label: 'English' },
 ] as const;
 
+const HREFLANG_IDS = { uz: 'hreflang-uz', ru: 'hreflang-ru', en: 'hreflang-en', 'x-default': 'hreflang-x-default' };
+
 export default function Layout() {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const currentLang = i18n.language?.split('-')[0] || 'uz';
+
+  usePageMeta();
 
   const changeLanguage = (code: string) => {
     i18n.changeLanguage(code);
@@ -25,6 +30,78 @@ export default function Layout() {
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    const fullUrl = `${window.location.origin}${location.pathname}`;
+    const langs: Array<{ code: string; id: string }> = [
+      { code: 'uz', id: HREFLANG_IDS.uz },
+      { code: 'ru', id: HREFLANG_IDS.ru },
+      { code: 'en', id: HREFLANG_IDS.en },
+      { code: 'x-default', id: HREFLANG_IDS['x-default'] },
+    ];
+    langs.forEach(({ code, id }) => {
+      let link = document.getElementById(id) as HTMLLinkElement | null;
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = 'alternate';
+        link.id = id;
+        document.head.appendChild(link);
+      }
+      link.setAttribute('hreflang', code);
+      link.setAttribute('href', fullUrl);
+    });
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (location.pathname !== '/') {
+      const existing = document.getElementById('json-ld-organization');
+      if (existing) existing.remove();
+      return;
+    }
+    const baseUrl = window.location.origin;
+    const orgId = `${baseUrl}/#organization`;
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          '@id': orgId,
+          name: 'PRO DEKLARANT',
+          url: baseUrl,
+          logo: `${baseUrl}/logo.png`,
+          description: t('layout.footer.aboutDesc'),
+          contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+998-91-118-70-07',
+            email: 'info@prodeklarant.uz',
+            contactType: 'customer service',
+            areaServed: 'UZ',
+          },
+          address: {
+            '@type': 'PostalAddress',
+            addressLocality: 'Oltiariq',
+            addressRegion: "Farg'ona viloyati",
+            addressCountry: 'UZ',
+          },
+        },
+        {
+          '@type': 'WebSite',
+          name: 'PRO DEKLARANT',
+          url: baseUrl,
+          description: t('layout.footer.aboutDesc'),
+          publisher: { '@id': orgId },
+        },
+      ],
+    };
+    let script = document.getElementById('json-ld-organization') as HTMLScriptElement | null;
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'json-ld-organization';
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(jsonLd);
+  }, [location.pathname, t]);
 
   const navLinks = [
     { name: t('layout.nav.home'), path: '/' },
@@ -174,27 +251,31 @@ export default function Layout() {
               </div>
             </div>
 
-            {/* Column 2: Quick Links */}
+            {/* Column 2: Sahifalar — navdagi mavjud sahifalar */}
             <div>
               <h3 className="text-white font-bold text-lg mb-6 uppercase">{t('layout.footer.pages')}</h3>
               <ul className="space-y-3 text-sm">
-                <li><Link to="/" className="hover:text-yellow-500 transition-colors">{t('layout.footer.home')}</Link></li>
-                <li><Link to="/about" className="hover:text-yellow-500 transition-colors">{t('layout.nav.about')}</Link></li>
-                <li><Link to="/services" className="hover:text-yellow-500 transition-colors">{t('layout.footer.services')}</Link></li>
-                <li><Link to="/blog" className="hover:text-yellow-500 transition-colors">{t('layout.footer.news')}</Link></li>
-                <li><Link to="/contact" className="hover:text-yellow-500 transition-colors">{t('layout.footer.contact')}</Link></li>
+                {navLinks.map((link) => (
+                  <li key={link.path}>
+                    <Link to={link.path} className="hover:text-yellow-500 transition-colors">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            {/* Column 3: Services */}
+            {/* Column 3: Services — Xizmatlar sahifasidagi nomlar bilan bir xil */}
             <div>
               <h3 className="text-white font-bold text-lg mb-6 uppercase">{t('layout.footer.services')}</h3>
               <ul className="space-y-3 text-sm">
-                <li className="hover:text-yellow-500 transition-colors cursor-pointer">{t('layout.footer.servicesList.export')}</li>
-                <li className="hover:text-yellow-500 transition-colors cursor-pointer">{t('layout.footer.servicesList.import')}</li>
-                <li className="hover:text-yellow-500 transition-colors cursor-pointer">{t('layout.footer.servicesList.certification')}</li>
-                <li className="hover:text-yellow-500 transition-colors cursor-pointer">{t('layout.footer.servicesList.logistics')}</li>
-                <li className="hover:text-yellow-500 transition-colors cursor-pointer">{t('layout.footer.servicesList.warehouse')}</li>
+                {(['export', 'import', 'transit', 'certification', 'warehouse', 'consulting'] as const).map((key) => (
+                  <li key={key}>
+                    <Link to="/services" className="hover:text-yellow-500 transition-colors">
+                      {t(`services.items.${key}.title`)}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
