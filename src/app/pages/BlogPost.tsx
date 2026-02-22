@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import i18n from '../../i18n';
-import { getPost, type BlogPost } from '../api';
+import { getPost, getPosts, type BlogPost } from '../api';
+import { slugify } from '../utils/slugify';
 
 const BLOG_IMAGES = [
   "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -16,7 +17,7 @@ const BLOG_IMAGES = [
 
 export default function BlogPost() {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -24,17 +25,90 @@ export default function BlogPost() {
   const lang = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
 
   useEffect(() => {
-    const numId = Number(id);
-    if (!numId) {
+    if (!slug) {
       setNotFound(true);
       setLoading(false);
       return;
     }
-    getPost(numId)
-      .then(setPost)
+    const slugNorm = slug.trim().toLowerCase();
+    const legacyMatch = slugNorm.match(/^(\d+)-(.+)$/);
+    if (legacyMatch) {
+      const id = Number(legacyMatch[1]);
+      getPost(id)
+        .then(setPost)
+        .catch(() => setNotFound(true))
+        .finally(() => setLoading(false));
+      return;
+    }
+    getPosts()
+      .then((posts) => {
+        const found = posts.find(
+          (p) =>
+            slugify(p.title.uz) === slugNorm ||
+            slugify(p.title.ru) === slugNorm ||
+            slugify(p.title.en) === slugNorm
+        );
+        if (found) setPost(found);
+        else setNotFound(true);
+      })
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
-  }, [id]);
+  }, [slug]);
+
+  // SEO: har doim bir xil hook soni bo‘lishi uchun early return lardan oldin; post bo‘lganda meta yangilanadi
+  useEffect(() => {
+    if (!post) return;
+    const siteTitle = 'PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz';
+    const langKey = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
+    const title = post.title[langKey];
+    const excerpt = post.excerpt[langKey];
+    const image = post.image || BLOG_IMAGES[(post.id - 1) % BLOG_IMAGES.length];
+    const prevTitle = document.title;
+    document.title = `${title} | ${siteTitle}`;
+
+    const slug = slugify(title);
+    const pathWithSlug = `/blog/${slug}`;
+    const canonicalUrl = `${window.location.origin}${pathWithSlug}`;
+    if (window.location.pathname !== pathWithSlug) {
+      window.history.replaceState(null, '', pathWithSlug);
+    }
+
+    const metaDescription = (excerpt || title).replace(/<[^>]*>/g, '').slice(0, 160);
+
+    const setMeta = (attr: 'name' | 'property', key: string, value: string) => {
+      const el = document.querySelector(`meta[${attr}="${key}"]`) as HTMLMetaElement | null;
+      if (el) el.setAttribute('content', value);
+      else {
+        const meta = document.createElement('meta');
+        meta.setAttribute(attr, key);
+        meta.setAttribute('content', value);
+        document.head.appendChild(meta);
+      }
+    };
+
+    const linkCanonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (linkCanonical) linkCanonical.setAttribute('href', canonicalUrl);
+    else {
+      const link = document.createElement('link');
+      link.rel = 'canonical';
+      link.href = canonicalUrl;
+      document.head.appendChild(link);
+    }
+
+    setMeta('name', 'description', metaDescription);
+    setMeta('property', 'og:title', title);
+    setMeta('property', 'og:description', metaDescription);
+    setMeta('property', 'og:image', image);
+    setMeta('property', 'og:url', canonicalUrl);
+    setMeta('property', 'og:type', 'article');
+    setMeta('name', 'twitter:card', 'summary_large_image');
+    setMeta('name', 'twitter:title', title);
+    setMeta('name', 'twitter:description', metaDescription);
+
+    return () => {
+      document.title = prevTitle;
+    };
+  }, [post]);
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center bg-slate-50">Yuklanmoqda...</div>;

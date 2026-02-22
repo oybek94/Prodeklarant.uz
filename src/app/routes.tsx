@@ -67,7 +67,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: 'blog/:id',
+        path: 'blog/:slug',
         Component: () => (
           <Suspense fallback={<PageFallback />}>
             <BlogPost />

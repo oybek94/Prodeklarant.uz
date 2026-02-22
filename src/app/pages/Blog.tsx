@@ -4,6 +4,7 @@ import { Search, Calendar, User, ArrowRight, Eye } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
+import { blogPostPath } from '../utils/slugify';
 
 const BLOG_IMAGES = [
   "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -87,11 +88,11 @@ export default function Blog() {
                           <span className="flex items-center gap-1"><Eye size={12} /> {post.views} {t('blogPost.views')}</span>
                         </div>
                         <h2 className="text-xl font-bold text-slate-900 mb-3 hover:text-blue-900 transition-colors">
-                          <Link to={`/blog/${post.id}`}>{post.title}</Link>
+                          <Link to={blogPostPath(post.id, post.title)}>{post.title}</Link>
                         </h2>
                         <p className="text-slate-600 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
                       </div>
-                      <Link to={`/blog/${post.id}`} className="text-blue-900 font-bold text-sm uppercase flex items-center gap-2 hover:text-yellow-600 transition-colors self-start">
+                      <Link to={blogPostPath(post.id, post.title)} className="text-blue-900 font-bold text-sm uppercase flex items-center gap-2 hover:text-yellow-600 transition-colors self-start">
                         {t('blog.readMore')} <ArrowRight size={14} />
                       </Link>
                     </div>

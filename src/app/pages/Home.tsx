@@ -2,6 +2,7 @@ import { Link } from 'react-router';
 import { motion } from 'motion/react';
 import { CheckCircle, Clock, Globe, ShieldCheck, ArrowRight, FileText, Truck, Users } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { blogPostPath } from '../utils/slugify';
 
 export default function Home() {
   const { t } = useTranslation();
@@ -272,7 +273,7 @@ export default function Home() {
                  "https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=600"
                ];
                return (
-               <Link key={i} to={`/blog/${i}`} className="group block cursor-pointer">
+               <Link key={i} to={blogPostPath(i, t(`home.blog.posts.${i}.title`))} className="group block cursor-pointer">
                  <div className="h-48 overflow-hidden rounded-sm mb-4">
                    <img 
                      src={blogImages[i - 1]} 
