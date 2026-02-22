@@ -1,10 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { Link } from 'react-router';
-import { Search, Calendar, User, ArrowRight, Eye } from 'lucide-react';
+import { Search, Calendar, User, ArrowRight, Eye, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
+
+const POSTS_PER_PAGE = 7;
 
 const BLOG_IMAGES = [
   "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=800",
@@ -58,6 +60,69 @@ export function useBlogPosts() {
 export default function Blog() {
   const { t } = useTranslation();
   const { posts: blogPosts, loading } = useBlogPosts();
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const categoriesWithCount = useMemo(() => {
+    const map = new Map<string, number>();
+    blogPosts.forEach((p) => {
+      const cat = p.category?.trim() || t('blog.uncategorized');
+      map.set(cat, (map.get(cat) ?? 0) + 1);
+    });
+    return Array.from(map.entries())
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [blogPosts, t]);
+
+  const filteredPosts = useMemo(() => {
+    let list = blogPosts;
+    if (selectedCategory) {
+      list = list.filter((p) => (p.category?.trim() || t('blog.uncategorized')) === selectedCategory);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase();
+      list = list.filter((p) => {
+        const titleMatch = p.title?.toLowerCase().includes(q);
+        const excerptClean = p.excerpt?.replace(/<[^>]*>/g, '').toLowerCase() ?? '';
+        const excerptMatch = excerptClean.includes(q);
+        const categoryMatch = p.category?.toLowerCase().includes(q);
+        return titleMatch || excerptMatch || categoryMatch;
+      });
+    }
+    return list;
+  }, [blogPosts, selectedCategory, searchQuery, t]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / POSTS_PER_PAGE));
+  const postsForPage = useMemo(
+    () => filteredPosts.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE),
+    [filteredPosts, currentPage]
+  );
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, searchQuery]);
+
+  const pageNumbers: number[] = useMemo(() => {
+    if (totalPages <= 7) return Array.from({ length: totalPages }, (_, i) => i + 1);
+    const pages: number[] = [];
+    if (currentPage <= 4) {
+      for (let i = 1; i <= 5; i++) pages.push(i);
+      pages.push(-1);
+      pages.push(totalPages);
+    } else if (currentPage >= totalPages - 3) {
+      pages.push(1);
+      pages.push(-1);
+      for (let i = totalPages - 4; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+      pages.push(-1);
+      for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+      pages.push(-1);
+      pages.push(totalPages);
+    }
+    return pages;
+  }, [totalPages, currentPage]);
 
   return (
     <div className="bg-slate-50 min-h-screen pb-20">
@@ -82,9 +147,11 @@ export default function Blog() {
           <div className="lg:w-2/3">
             {loading ? (
               <div className="text-center py-20 text-slate-600">Yuklanmoqda...</div>
+            ) : filteredPosts.length === 0 ? (
+              <div className="text-center py-20 text-slate-600">{t('blog.noResults')}</div>
             ) : (
               <div className="grid gap-10">
-                {blogPosts.map((post) => (
+                {postsForPage.map((post) => (
                   <div key={post.id} className="bg-white rounded-sm shadow-sm overflow-hidden flex flex-col md:flex-row hover:shadow-lg transition-shadow border border-slate-100">
                     <div className="md:w-1/3 h-48 md:h-auto relative">
                       <img src={post.image} alt={post.title} width={400} height={300} className="w-full h-full object-cover absolute inset-0" loading="lazy" />
@@ -110,12 +177,47 @@ export default function Blog() {
               </div>
             )}
 
-            {!loading && blogPosts.length > 0 && (
-              <div className="flex justify-center mt-12 gap-2">
-                <button className="w-10 h-10 flex items-center justify-center bg-slate-900 text-white font-bold rounded-sm">1</button>
-                <button className="w-10 h-10 flex items-center justify-center bg-white text-slate-900 font-bold border border-slate-200 hover:bg-slate-100 rounded-sm">2</button>
-                <button className="w-10 h-10 flex items-center justify-center bg-white text-slate-900 font-bold border border-slate-200 hover:bg-slate-100 rounded-sm">3</button>
-              </div>
+            {!loading && filteredPosts.length > 0 && totalPages > 1 && (
+              <nav className="flex justify-center items-center mt-12 gap-2 flex-wrap" aria-label={t('blog.paginationLabel')}>
+                <button
+                  type="button"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  className="w-10 h-10 flex items-center justify-center bg-white text-slate-900 font-bold border border-slate-200 hover:bg-slate-100 rounded-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+                  aria-label={t('blog.prevPage')}
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                {pageNumbers.map((num, idx) =>
+                  num === -1 ? (
+                    <span key={`ellipsis-${idx}`} className="w-10 h-10 flex items-center justify-center text-slate-400">…</span>
+                  ) : (
+                    <button
+                      key={num}
+                      type="button"
+                      onClick={() => setCurrentPage(num)}
+                      className={`w-10 h-10 flex items-center justify-center font-bold rounded-sm ${
+                        currentPage === num
+                          ? 'bg-slate-900 text-white'
+                          : 'bg-white text-slate-900 border border-slate-200 hover:bg-slate-100'
+                      }`}
+                      aria-label={t('blog.pageNumber', { page: num })}
+                      aria-current={currentPage === num ? 'page' : undefined}
+                    >
+                      {num}
+                    </button>
+                  )
+                )}
+                <button
+                  type="button"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  className="w-10 h-10 flex items-center justify-center bg-white text-slate-900 font-bold border border-slate-200 hover:bg-slate-100 rounded-sm disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-white"
+                  aria-label={t('blog.nextPage')}
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </nav>
             )}
           </div>
 
@@ -123,29 +225,51 @@ export default function Blog() {
             <div className="bg-white p-6 rounded-sm shadow-sm border border-slate-100">
               <h3 className="text-lg font-bold text-slate-900 mb-4 uppercase">{t('blog.search')}</h3>
               <div className="relative">
-                <input type="text" placeholder={t('blog.searchPlaceholder')} className="w-full pl-4 pr-10 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 text-sm" />
-                <button className="absolute right-3 top-3 text-slate-400 hover:text-blue-900"><Search size={18} /></button>
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={t('blog.searchPlaceholder')}
+                  className="w-full pl-4 pr-10 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 text-sm"
+                  aria-label={t('blog.searchPlaceholder')}
+                />
+                {searchQuery ? (
+                  <button type="button" onClick={() => setSearchQuery('')} className="absolute right-3 top-3 text-slate-400 hover:text-blue-900" aria-label={t('blog.clearSearch')}>
+                    <X size={18} />
+                  </button>
+                ) : (
+                  <span className="absolute right-3 top-3 text-slate-400 pointer-events-none" aria-hidden="true">
+                    <Search size={18} />
+                  </span>
+                )}
               </div>
             </div>
             <div className="bg-white p-6 rounded-sm shadow-sm border border-slate-100">
               <h3 className="text-lg font-bold text-slate-900 mb-4 uppercase">{t('blog.categories')}</h3>
               <ul className="space-y-3 text-sm">
-                <li className="flex justify-between items-center text-slate-600 hover:text-blue-900 cursor-pointer border-b border-slate-100 pb-2">
-                  <span>Qonunchilik</span>
-                  <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">12</span>
+                <li
+                  role="button"
+                  tabIndex={0}
+                  onClick={() => setSelectedCategory(null)}
+                  onKeyDown={(e) => e.key === 'Enter' && setSelectedCategory(null)}
+                  className={`flex justify-between items-center cursor-pointer border-b border-slate-100 pb-2 ${selectedCategory === null ? 'text-blue-900 font-semibold' : 'text-slate-600 hover:text-blue-900'}`}
+                >
+                  <span>{t('blog.allCategories')}</span>
+                  <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">{blogPosts.length}</span>
                 </li>
-                <li className="flex justify-between items-center text-slate-600 hover:text-blue-900 cursor-pointer border-b border-slate-100 pb-2">
-                  <span>Logistika</span>
-                  <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">8</span>
-                </li>
-                <li className="flex justify-between items-center text-slate-600 hover:text-blue-900 cursor-pointer border-b border-slate-100 pb-2">
-                  <span>Bojxona rasmiylashtiruvi</span>
-                  <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">15</span>
-                </li>
-                <li className="flex justify-between items-center text-slate-600 hover:text-blue-900 cursor-pointer border-b border-slate-100 pb-2">
-                  <span>Maslahatlar</span>
-                  <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">5</span>
-                </li>
+                {categoriesWithCount.map(({ name, count }) => (
+                  <li
+                    key={name}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setSelectedCategory(name)}
+                    onKeyDown={(e) => e.key === 'Enter' && setSelectedCategory(name)}
+                    className={`flex justify-between items-center cursor-pointer border-b border-slate-100 pb-2 ${selectedCategory === name ? 'text-blue-900 font-semibold' : 'text-slate-600 hover:text-blue-900'}`}
+                  >
+                    <span>{name}</span>
+                    <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">{count}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
