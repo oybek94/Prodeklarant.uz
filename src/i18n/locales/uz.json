@@ -82,6 +82,13 @@
         "desc": "Meva-sabzavotni Rossiya, Yevropa, Osiyo bozorlariga eksport qilishda professional yordam."
       }
     },
+    "stats": {
+      "title": "Ish faoliyatimiz raqamlarda",
+      "experience": "Yillik tajriba",
+      "clients": "Mijozlar",
+      "cargo": "Yuk deklaratsiyalari",
+      "countries": "Mamlakatlar"
+    },
     "services": {
       "title": "Bizning Xizmatlar",
       "subtitle": "Meva-sabzavot eksportchilari uchun to'liq bojxona xizmatlari majmui",
@@ -99,6 +106,49 @@
       },
       "more": "Batafsil",
       "viewAll": "Barcha Xizmatlarni Ko'rish"
+    },
+    "tariffs": {
+      "title": "Tariflar haqida ma'lumot",
+      "askPrice": "Narxni so'rash",
+      "subtitle": "Har bir biznes uchun mos tarifni tanlang. Batafsil narx uchun biz bilan bog'laning.",
+      "recommended": "Tavsiya etiladi",
+      "modalTitle": "Bog'lanish",
+      "modalDesc": "Narx va batafsil ma'lumot uchun qo'ng'iroq qiling",
+      "close": "Yopish",
+      "start": {
+        "name": "Start",
+        "features": [
+          "Deklaratsiya to'ldirish",
+          "Bonus: shartnomani bazaga qo'shish yoki qo'shimchalar kiritish"
+        ]
+      },
+      "optimal": {
+        "name": "Optimal",
+        "features": [
+          "Invoys va qadoq listi tayyorlash",
+          "Sertifikatlarga ariza berish",
+          "Sertifikatlarni yig'ish (idoradan olib kelish)",
+          "Yuk hujjatlari (TIR-SMR) to'ldirish",
+          "Deklaratsiya to'ldirish",
+          "Bonus: Elektron yuk hujjatlarini 1 yilgacha saqlash"
+        ]
+      },
+      "vip": {
+        "name": "VIP",
+        "features": [
+          "Invoys va qadoq listi tayyorlash",
+          "Sertifikatlarga ariza berish",
+          "Sertifikatlarni yig'ish (idoradan olib kelish)",
+          "Yuk hujjatlari (TIR-SMR) to'ldirish",
+          "Deklaratsiya to'ldirish",
+          "Elektron yuk hujjatlarini 5 yilgacha saqlash",
+          "Shartnoma tuzish",
+          "Shartnomaga qo'shimchalar kiritish",
+          "Shartnomalarni elektron bazaga kiritish",
+          "Shartnomalarning debitor-kreditor qarzdorligi haqida oylik ma'lumot",
+          "Bonus: Export qilingan yuklaringiz haqida onlayn hisobot"
+        ]
+      }
     },
     "partners": {
       "title": "Hamkorlarimiz",

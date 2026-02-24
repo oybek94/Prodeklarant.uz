@@ -82,6 +82,13 @@
         "desc": "Professional assistance exporting fruits and vegetables to Russia, Europe and Asian markets."
       }
     },
+    "stats": {
+      "title": "Our work in numbers",
+      "experience": "Years of experience",
+      "clients": "Clients",
+      "cargo": "Customs declarations",
+      "countries": "Countries"
+    },
     "services": {
       "title": "Our Services",
       "subtitle": "Complete customs services for fruit and vegetable exporters",
@@ -99,6 +106,49 @@
       },
       "more": "Details",
       "viewAll": "View All Services"
+    },
+    "tariffs": {
+      "title": "Tariff information",
+      "askPrice": "Ask for price",
+      "subtitle": "Choose a plan that fits your business. Contact us for detailed pricing.",
+      "recommended": "Recommended",
+      "modalTitle": "Contact us",
+      "modalDesc": "Call us for pricing and details",
+      "close": "Close",
+      "start": {
+        "name": "Start",
+        "features": [
+          "Declaration completion",
+          "Bonus: adding contract to the database or making amendments"
+        ]
+      },
+      "optimal": {
+        "name": "Optimal",
+        "features": [
+          "Invoice and packing list preparation",
+          "Applying for certificates",
+          "Collecting certificates (from the office)",
+          "Cargo documents (TIR-SMR) completion",
+          "Declaration completion",
+          "Bonus: Storing electronic cargo documents for up to 1 year"
+        ]
+      },
+      "vip": {
+        "name": "VIP",
+        "features": [
+          "Invoice and packing list preparation",
+          "Applying for certificates",
+          "Collecting certificates (from the office)",
+          "Cargo documents (TIR-SMR) completion",
+          "Declaration completion",
+          "Storing electronic cargo documents for up to 5 years",
+          "Contract drafting",
+          "Making amendments to the contract",
+          "Entering contracts into the electronic database",
+          "Monthly information on debtor and creditor debts of contracts",
+          "Bonus: Online report on your exported shipments"
+        ]
+      }
     },
     "partners": {
       "title": "Our Partners",
