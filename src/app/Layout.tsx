@@ -235,10 +235,7 @@ export default function Layout() {
             {/* Column 1: About */}
             <div>
               <div className="flex items-center gap-2 mb-6">
-                <picture>
-                  <source type="image/webp" srcSet="/logo.webp" />
-                  <img src="/logo.png" alt="PRO DEKLARANT" width={128} height={32} className="h-8 w-auto object-contain" decoding="async" />
-                </picture>
+                <img src="/Logo_white.png" alt="PRO DEKLARANT" width={128} height={32} className="h-8 w-auto object-contain" decoding="async" />
               </div>
               <p className="text-slate-400 text-sm leading-relaxed mb-6">
                 {t('layout.footer.aboutDesc')}
