@@ -71,7 +71,7 @@ export default function Home() {
     <div className="flex flex-col w-full">
       {/* Hero Section — mobilda pastroq (LCP tezroq), srcset orqali kichik rasm */}
       <section className="relative h-[400px] md:h-[600px] flex items-center justify-center text-white overflow-hidden">
-        <div className="absolute inset-0 z-0 bg-slate-800">
+        <div className="absolute inset-0 z-0 bg-brand-dark">
           <img 
             src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920" 
             srcSet="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
@@ -84,7 +84,7 @@ export default function Home() {
           />
         </div>
         {/* Ustki qorong‘u qatlam (matn o‘qilishi uchun) */}
-        <div className="absolute inset-0 z-[1] bg-slate-900/70" aria-hidden="true" />
+        <div className="absolute inset-0 z-[1] bg-black/70" aria-hidden="true" />
 
         <div className="container mx-auto px-4 z-10 relative text-center">
           <motion.h1 
@@ -111,7 +111,7 @@ export default function Home() {
           >
             <Link 
               to="/contact" 
-              className="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-colors"
+              className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-colors"
             >
               {t('home.hero.consultation')}
             </Link>
@@ -137,7 +137,7 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
                 <Clock size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.fast.title')}</h3>
@@ -145,7 +145,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
                 <ShieldCheck size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.legal.title')}</h3>
@@ -153,7 +153,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
                 <Users size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.team.title')}</h3>
@@ -161,7 +161,7 @@ export default function Home() {
             </motion.div>
 
             <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
                 <Globe size={32} />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.global.title')}</h3>
@@ -176,49 +176,49 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 uppercase">{t('home.services.title')}</h2>
-            <div className="w-20 h-1 bg-yellow-500 mx-auto"></div>
+            <div className="w-20 h-1 bg-accent mx-auto"></div>
             <p className="mt-4 text-slate-600 max-w-2xl mx-auto">
               {t('home.services.subtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-yellow-500">
+            <div className="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-accent">
               <FileText size={48} className="text-slate-900 mb-6" />
               <h3 className="text-2xl font-bold text-slate-900 mb-4">{t('home.services.export.title')}</h3>
               <p className="text-slate-600 mb-6">
                 {t('home.services.export.desc')}
               </p>
-              <Link to="/services" className="text-blue-900 font-bold hover:text-yellow-600 flex items-center gap-2">
+              <Link to="/services" className="text-brand font-bold hover:text-accent-light flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
 
-            <div className="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-slate-900">
+            <div className="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-brand">
               <Truck size={48} className="text-slate-900 mb-6" />
               <h3 className="text-2xl font-bold text-slate-900 mb-4">{t('home.services.import.title')}</h3>
               <p className="text-slate-600 mb-6">
                 {t('home.services.import.desc')}
               </p>
-              <Link to="/services" className="text-blue-900 font-bold hover:text-yellow-600 flex items-center gap-2">
+              <Link to="/services" className="text-brand font-bold hover:text-accent-light flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
 
-            <div className="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-yellow-500">
+            <div className="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-accent">
               <CheckCircle size={48} className="text-slate-900 mb-6" />
               <h3 className="text-2xl font-bold text-slate-900 mb-4">{t('home.services.certification.title')}</h3>
               <p className="text-slate-600 mb-6">
                 {t('home.services.certification.desc')}
               </p>
-              <Link to="/services" className="text-blue-900 font-bold hover:text-yellow-600 flex items-center gap-2">
+              <Link to="/services" className="text-brand font-bold hover:text-accent-light flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/services" className="inline-block bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-8 rounded-sm transition-colors">
+            <Link to="/services" className="inline-block bg-brand-dark hover:bg-brand text-white font-bold py-3 px-8 rounded-sm transition-colors">
               {t('home.services.viewAll')}
             </Link>
           </div>
@@ -230,7 +230,7 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 uppercase">{t('home.partners.title')}</h2>
-            <div className="w-20 h-1 bg-yellow-500 mx-auto mb-4"></div>
+            <div className="w-20 h-1 bg-accent mx-auto mb-4"></div>
             <p className="text-slate-600">{t('home.partners.subtitle')}</p>
           </div>
           <motion.div 
@@ -264,7 +264,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-slate-900 text-white relative overflow-hidden">
+      <section className="py-20 bg-brand-dark text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
            {/* Abstract shape or pattern could go here */}
            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
@@ -281,7 +281,7 @@ export default function Home() {
               </p>
             </div>
             <div className="md:w-1/3 text-center md:text-right">
-              <Link to="/contact" className="inline-block bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-4 px-10 rounded-sm text-lg transition-colors shadow-lg">
+              <Link to="/contact" className="inline-block bg-accent hover:bg-accent-light text-brand-dark font-bold py-4 px-10 rounded-sm text-lg transition-colors shadow-lg">
                 {t('home.cta.btn')}
               </Link>
             </div>
@@ -295,9 +295,9 @@ export default function Home() {
           <div className="flex justify-between items-end mb-12">
             <div>
               <h2 className="text-3xl font-bold text-slate-900 uppercase">{t('home.blog.title')}</h2>
-              <div className="w-20 h-1 bg-yellow-500 mt-4"></div>
+              <div className="w-20 h-1 bg-accent mt-4"></div>
             </div>
-            <Link to="/blog" className="hidden md:flex items-center gap-2 text-blue-900 font-bold hover:text-yellow-600 transition-colors">
+            <Link to="/blog" className="hidden md:flex items-center gap-2 text-brand font-bold hover:text-accent-light transition-colors">
               {t('home.blog.readAll')} <ArrowRight size={16} />
             </Link>
           </div>
@@ -321,7 +321,7 @@ export default function Home() {
                     />
                   </div>
                   <div className="text-xs text-slate-500 font-bold mb-2 uppercase">{formatPostDate(post.date)}</div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-900 transition-colors">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-brand transition-colors">
                     {post.title}
                   </h3>
                   <p className="text-slate-600 text-sm line-clamp-3">
@@ -333,7 +333,7 @@ export default function Home() {
           </div>
 
           <div className="mt-8 text-center md:hidden">
-            <Link to="/blog" className="text-blue-900 font-bold hover:text-yellow-600 flex items-center justify-center gap-2">
+            <Link to="/blog" className="text-brand font-bold hover:text-accent-light flex items-center justify-center gap-2">
               {t('home.blog.readAll')} <ArrowRight size={16} />
             </Link>
           </div>

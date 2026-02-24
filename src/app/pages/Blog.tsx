@@ -135,7 +135,7 @@ export default function Blog() {
             loading="eager"
           />
         </div>
-        <div className="absolute inset-0 z-[1] bg-slate-900/75" aria-hidden="true" />
+        <div className="absolute inset-0 z-[1] bg-brand-dark/75" aria-hidden="true" />
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl font-bold mb-4 uppercase">{t('blog.title')}</h1>
           <p className="text-slate-200 max-w-2xl mx-auto">{t('blog.subtitle')}</p>
@@ -159,16 +159,16 @@ export default function Blog() {
                     <div className="p-6 md:w-2/3 flex flex-col justify-between">
                       <div>
                         <div className="flex items-center gap-4 text-xs text-slate-500 mb-3 uppercase font-bold tracking-wide">
-                          <span className="flex items-center gap-1 text-yellow-600"><Calendar size={12} /> {post.date}</span>
+                          <span className="flex items-center gap-1 text-accent-light"><Calendar size={12} /> {post.date}</span>
                           <span className="flex items-center gap-1"><User size={12} /> {post.author}</span>
                           <span className="flex items-center gap-1"><Eye size={12} /> {post.views} {t('blogPost.views')}</span>
                         </div>
-                        <h2 className="text-xl font-bold text-slate-900 mb-3 hover:text-blue-900 transition-colors">
+                        <h2 className="text-xl font-bold text-slate-900 mb-3 hover:text-brand transition-colors">
                           <Link to={blogPostPath(post.id, post.title)}>{post.title}</Link>
                         </h2>
                         <p className="text-slate-600 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
                       </div>
-                      <Link to={blogPostPath(post.id, post.title)} className="text-blue-900 font-bold text-sm uppercase flex items-center gap-2 hover:text-yellow-600 transition-colors self-start">
+                      <Link to={blogPostPath(post.id, post.title)} className="text-brand font-bold text-sm uppercase flex items-center gap-2 hover:text-accent-light transition-colors self-start">
                         {t('blog.readMore')} <ArrowRight size={14} />
                       </Link>
                     </div>
@@ -198,7 +198,7 @@ export default function Blog() {
                       onClick={() => setCurrentPage(num)}
                       className={`w-10 h-10 flex items-center justify-center font-bold rounded-sm ${
                         currentPage === num
-                          ? 'bg-slate-900 text-white'
+                          ? 'bg-brand-dark text-white'
                           : 'bg-white text-slate-900 border border-slate-200 hover:bg-slate-100'
                       }`}
                       aria-label={t('blog.pageNumber', { page: num })}
@@ -230,11 +230,11 @@ export default function Blog() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={t('blog.searchPlaceholder')}
-                  className="w-full pl-4 pr-10 py-3 border border-slate-300 focus:outline-none focus:border-blue-900 text-sm"
+                  className="w-full pl-4 pr-10 py-3 border border-slate-300 focus:outline-none focus:border-brand text-sm"
                   aria-label={t('blog.searchPlaceholder')}
                 />
                 {searchQuery ? (
-                  <button type="button" onClick={() => setSearchQuery('')} className="absolute right-3 top-3 text-slate-400 hover:text-blue-900" aria-label={t('blog.clearSearch')}>
+                  <button type="button" onClick={() => setSearchQuery('')} className="absolute right-3 top-3 text-slate-400 hover:text-brand" aria-label={t('blog.clearSearch')}>
                     <X size={18} />
                   </button>
                 ) : (
@@ -252,7 +252,7 @@ export default function Blog() {
                   tabIndex={0}
                   onClick={() => setSelectedCategory(null)}
                   onKeyDown={(e) => e.key === 'Enter' && setSelectedCategory(null)}
-                  className={`flex justify-between items-center cursor-pointer border-b border-slate-100 pb-2 ${selectedCategory === null ? 'text-blue-900 font-semibold' : 'text-slate-600 hover:text-blue-900'}`}
+                  className={`flex justify-between items-center cursor-pointer border-b border-slate-100 pb-2 ${selectedCategory === null ? 'text-brand font-semibold' : 'text-slate-600 hover:text-brand'}`}
                 >
                   <span>{t('blog.allCategories')}</span>
                   <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">{blogPosts.length}</span>
@@ -264,7 +264,7 @@ export default function Blog() {
                     tabIndex={0}
                     onClick={() => setSelectedCategory(name)}
                     onKeyDown={(e) => e.key === 'Enter' && setSelectedCategory(name)}
-                    className={`flex justify-between items-center cursor-pointer border-b border-slate-100 pb-2 ${selectedCategory === name ? 'text-blue-900 font-semibold' : 'text-slate-600 hover:text-blue-900'}`}
+                    className={`flex justify-between items-center cursor-pointer border-b border-slate-100 pb-2 ${selectedCategory === name ? 'text-brand font-semibold' : 'text-slate-600 hover:text-brand'}`}
                   >
                     <span>{name}</span>
                     <span className="bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full text-xs">{count}</span>

@@ -30,7 +30,7 @@ export default function Services() {
             loading="eager"
           />
         </div>
-        <div className="absolute inset-0 z-[1] bg-slate-900/75" aria-hidden="true" />
+        <div className="absolute inset-0 z-[1] bg-brand-dark/75" aria-hidden="true" />
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl font-bold mb-4 uppercase">{t('services.title')}</h1>
           <p className="text-slate-200 max-w-2xl mx-auto">
@@ -49,9 +49,9 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-sm shadow-md p-8 hover:shadow-xl transition-shadow border-t-4 border-transparent hover:border-yellow-500 group"
+              className="bg-white rounded-sm shadow-md p-8 hover:shadow-xl transition-shadow border-t-4 border-transparent hover:border-accent group"
             >
-              <div className="text-blue-900 group-hover:text-yellow-500 transition-colors mb-6">
+              <div className="text-brand group-hover:text-accent transition-colors mb-6">
                 {service.icon}
               </div>
               <h2 className="text-2xl font-bold text-slate-900 mb-4">{service.title}</h2>
@@ -62,7 +62,7 @@ export default function Services() {
               <div className="space-y-3">
                 {service.features.map((feature, i) => (
                   <div key={i} className="flex items-start gap-2">
-                    <CheckSquare size={16} className="text-yellow-500 mt-1 flex-shrink-0" />
+                    <CheckSquare size={16} className="text-accent mt-1 flex-shrink-0" />
                     <span className="text-sm text-slate-700 font-medium">{feature}</span>
                   </div>
                 ))}
@@ -81,7 +81,7 @@ export default function Services() {
 
           {[1, 2, 3, 4].map((step) => (
             <div key={step} className="flex flex-col items-center text-center bg-slate-50 p-4">
-              <div className={`w-24 h-24 bg-white border-4 rounded-full flex items-center justify-center text-3xl font-bold mb-6 shadow-sm z-10 ${step === 4 ? 'border-yellow-500 text-slate-900' : 'border-blue-900 text-blue-900'}`}>{step}</div>
+              <div className={`w-24 h-24 bg-white border-4 rounded-full flex items-center justify-center text-3xl font-bold mb-6 shadow-sm z-10 ${step === 4 ? 'border-accent text-brand-dark' : 'border-brand text-brand'}`}>{step}</div>
               <h3 className="font-bold text-lg mb-2">{t(`services.process.steps.${step}.title`)}</h3>
               <p className="text-sm text-slate-600">{t(`services.process.steps.${step}.desc`)}</p>
             </div>

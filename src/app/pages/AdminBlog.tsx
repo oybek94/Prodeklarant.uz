@@ -54,7 +54,7 @@ export default function AdminBlog() {
     <div className="container mx-auto px-4 py-12">
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-4">
-          <Link to="/blog" className="text-slate-600 hover:text-blue-900 flex items-center gap-2">
+          <Link to="/blog" className="text-slate-600 hover:text-brand flex items-center gap-2">
             <ArrowLeft size={20} /> Blog
           </Link>
           <h1 className="text-2xl font-bold text-slate-900 uppercase">Maqolalar boshqaruvi</h1>
@@ -65,7 +65,7 @@ export default function AdminBlog() {
           </button>
           <Link
             to="/admin/blog/new"
-            className="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-2 px-6 rounded-sm flex items-center gap-2"
+            className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2 px-6 rounded-sm flex items-center gap-2"
           >
             <Plus size={18} /> Yangi maqola
           </Link>
@@ -102,7 +102,7 @@ export default function AdminBlog() {
                   <td className="py-4 px-4 flex gap-2">
                     <Link
                       to={`/admin/blog/${post.id}/edit`}
-                      className="p-2 text-blue-900 hover:bg-blue-50"
+                      className="p-2 text-brand hover:bg-brand/10"
                     >
                       <Edit size={18} />
                     </Link>

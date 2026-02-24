@@ -30,7 +30,7 @@ export default function NotFound() {
           className="w-full max-w-xl"
         >
           <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
-            <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 px-8 py-12 text-center">
+            <div className="relative bg-gradient-to-br from-brand-dark via-brand to-brand-dark px-8 py-12 text-center">
               <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(250,204,21,0.15),transparent)]" aria-hidden="true" />
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -50,7 +50,7 @@ export default function NotFound() {
               <p className="text-slate-600 mb-8 max-w-sm mx-auto">{t('notFound.message')}</p>
               <Link
                 to="/"
-                className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white font-bold uppercase tracking-wide px-8 py-4 rounded-xl hover:bg-blue-900 hover:text-yellow-400 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+                className="inline-flex items-center justify-center gap-2 bg-brand-dark text-white font-bold uppercase tracking-wide px-8 py-4 rounded-xl hover:bg-brand hover:text-accent-light transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
               >
                 <Home size={20} />
                 {t('notFound.backHome')}
@@ -59,7 +59,7 @@ export default function NotFound() {
             </div>
           </div>
           <p className="text-center text-slate-500 text-sm mt-8">
-            <Link to="/contact" className="underline hover:text-blue-900">{t('notFound.needHelp')}</Link>
+            <Link to="/contact" className="underline hover:text-brand">{t('notFound.needHelp')}</Link>
           </p>
         </motion.div>
       </div>

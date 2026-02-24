@@ -122,7 +122,7 @@ export default function AdminPostForm() {
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
-      <Link to="/admin/blog" className="inline-flex items-center gap-2 text-slate-600 hover:text-blue-900 mb-8">
+      <Link to="/admin/blog" className="inline-flex items-center gap-2 text-slate-600 hover:text-brand mb-8">
         <ArrowLeft size={20} /> Orqaga
       </Link>
       <h1 className="text-2xl font-bold text-slate-900 mb-8 uppercase">
@@ -142,7 +142,7 @@ export default function AdminPostForm() {
                 type="button"
                 onClick={() => handleTranslate(lang)}
                 disabled={!!translating || (!form.title[lang]?.trim() && !form.excerpt[lang]?.trim() && !form.body[lang]?.trim())}
-                className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-blue-900 border border-blue-900 hover:bg-blue-50 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-brand border border-brand hover:bg-brand/10 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Languages size={16} />
                 {translating === lang ? 'Tarjilanmoqda...' : 'Tarjima qilish'}
@@ -154,7 +154,7 @@ export default function AdminPostForm() {
                 <input
                   value={form.title[lang]}
                   onChange={(e) => update(lang, 'title', e.target.value)}
-                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-blue-900"
+                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-brand"
                   required
                 />
               </div>
@@ -164,7 +164,7 @@ export default function AdminPostForm() {
                   value={form.excerpt[lang]}
                   onChange={(e) => update(lang, 'excerpt', e.target.value)}
                   rows={2}
-                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-blue-900"
+                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-brand"
                   required
                 />
               </div>
@@ -186,7 +186,7 @@ export default function AdminPostForm() {
                 <input
                   value={form.category[lang]}
                   onChange={(e) => update(lang, 'category', e.target.value)}
-                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-blue-900"
+                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-brand"
                 />
               </div>
             </div>
@@ -201,7 +201,7 @@ export default function AdminPostForm() {
               type="date"
               value={form.date}
               onChange={(e) => setForm((f) => ({ ...f, date: e.target.value }))}
-              className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-blue-900"
+              className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-brand"
               required
             />
           </div>
@@ -212,7 +212,7 @@ export default function AdminPostForm() {
                 <input
                   value={form.image}
                   onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))}
-                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-blue-900"
+                  className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-brand"
                   placeholder="URL yoki yuklangan rasm"
                 />
               </div>
@@ -254,7 +254,7 @@ export default function AdminPostForm() {
             <input
               value={form.author}
               onChange={(e) => setForm((f) => ({ ...f, author: e.target.value }))}
-              className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-blue-900"
+              className="w-full px-4 py-2 border border-slate-300 focus:outline-none focus:border-brand"
             />
           </div>
         </div>
@@ -263,7 +263,7 @@ export default function AdminPostForm() {
           <button
             type="submit"
             disabled={saving}
-            className="bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 px-8 uppercase disabled:opacity-50"
+            className="bg-brand hover:bg-brand-light text-white font-bold py-3 px-8 uppercase disabled:opacity-50"
           >
             {saving ? 'Saqlanmoqda...' : 'Saqlash'}
           </button>

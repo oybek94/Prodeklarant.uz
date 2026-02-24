@@ -26,7 +26,7 @@ export default function About() {
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
           />
-          <div className="absolute inset-0 bg-slate-900/80"></div>
+          <div className="absolute inset-0 bg-brand-dark/80"></div>
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 uppercase tracking-wider">{t('about.title')}</h1>
@@ -46,7 +46,7 @@ export default function About() {
             <p className="text-slate-600 mb-6 leading-relaxed text-justify">
               {t('about.intro.p2')}
             </p>
-            <div className="bg-slate-50 p-6 border-l-4 border-blue-900 italic text-slate-700">
+            <div className="bg-slate-50 p-6 border-l-4 border-brand italic text-slate-700">
               "{t('about.quote')}"
             </div>
           </div>
@@ -60,13 +60,13 @@ export default function About() {
               className="rounded-sm shadow-lg w-full h-48 object-cover"
               loading="lazy"
             />
-            <div className="bg-slate-900 p-6 flex items-center justify-center text-white text-center rounded-sm">
+            <div className="bg-brand-dark p-6 flex items-center justify-center text-white text-center rounded-sm">
               <div>
-                <span className="text-4xl font-bold text-yellow-500 block mb-2">100%</span>
+                <span className="text-4xl font-bold text-accent block mb-2">100%</span>
                 <span className="uppercase text-sm tracking-widest">{t('about.guarantee')}</span>
               </div>
             </div>
-            <div className="bg-yellow-500 p-6 flex items-center justify-center text-slate-900 text-center rounded-sm">
+            <div className="bg-accent p-6 flex items-center justify-center text-brand-dark text-center rounded-sm">
               <div>
                 <span className="text-4xl font-bold block mb-2">24/7</span>
                 <span className="uppercase text-sm tracking-widest font-bold">{t('about.service24')}</span>
@@ -85,13 +85,13 @@ export default function About() {
 
         {/* Directions */}
         <div className="mt-20">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 uppercase border-l-4 border-yellow-500 pl-4">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 uppercase border-l-4 border-accent pl-4">
             {t('about.directions.title')}
           </h2>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-600">
             {(t('about.directions.items', { returnObjects: true }) as string[]).map((item, i) => (
               <li key={i} className="flex items-start gap-2">
-                <span className="text-yellow-500 mt-0.5">•</span>
+                <span className="text-accent mt-0.5">•</span>
                 <span>{item}</span>
               </li>
             ))}
@@ -100,7 +100,7 @@ export default function About() {
 
         {/* Why Prodeklarant */}
         <div className="mt-20">
-          <h2 className="text-3xl font-bold text-slate-900 mb-8 uppercase border-l-4 border-yellow-500 pl-4">
+          <h2 className="text-3xl font-bold text-slate-900 mb-8 uppercase border-l-4 border-accent pl-4">
             {t('about.why.title')}
           </h2>
           <ul className="space-y-4">
@@ -115,7 +115,7 @@ export default function About() {
       </div>
 
       {/* Stats Section */}
-      <div className="bg-slate-900 text-white py-16">
+      <div className="bg-brand-dark text-white py-16">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {stats.map((stat, index) => (
@@ -127,7 +127,7 @@ export default function About() {
                 transition={{ delay: index * 0.1 }}
                 className="flex flex-col items-center"
               >
-                <div className="text-yellow-500 mb-4">{stat.icon}</div>
+                <div className="text-accent mb-4">{stat.icon}</div>
                 <div className="text-4xl font-bold mb-2">{stat.value}</div>
                 <div className="text-slate-400 text-sm uppercase tracking-wide">{stat.label}</div>
               </motion.div>

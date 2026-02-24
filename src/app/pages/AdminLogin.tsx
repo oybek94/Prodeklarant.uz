@@ -37,7 +37,7 @@ export default function AdminLogin() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-slate-300 focus:outline-none focus:border-blue-900"
+              className="w-full px-4 py-3 border border-slate-300 focus:outline-none focus:border-brand"
               placeholder="Parolni kiriting"
               required
             />
@@ -46,7 +46,7 @@ export default function AdminLogin() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 uppercase tracking-wider disabled:opacity-50"
+            className="w-full bg-brand hover:bg-brand-light text-white font-bold py-3 uppercase tracking-wider disabled:opacity-50"
           >
             {loading ? 'Kuting...' : 'Kirish'}
           </button>

@@ -114,17 +114,17 @@ export default function Layout() {
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-800 bg-white">
       {/* Top Bar - Official Info */}
-      <div className="bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800 hidden md:block">
+      <div className="bg-brand-dark text-slate-300 text-xs py-2 border-b border-brand-dark/80 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex space-x-6">
             <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-              <Phone size={14} className="text-yellow-500" /> +998 91 118 70 07
+              <Phone size={14} className="text-accent" /> +998 91 118 70 07
             </span>
             <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-              <Mail size={14} className="text-yellow-500" /> info@prodeklarant.uz
+              <Mail size={14} className="text-accent" /> info@prodeklarant.uz
             </span>
             <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-              <MapPin size={14} className="text-yellow-500" /> {t('layout.address')}
+              <MapPin size={14} className="text-accent" /> {t('layout.address')}
             </span>
           </div>
           <div className="flex space-x-4">
@@ -162,8 +162,8 @@ export default function Layout() {
                   to={link.path}
                   className={`text-sm font-semibold uppercase tracking-wide py-2 border-b-2 transition-colors duration-300 ${
                     location.pathname === link.path
-                      ? 'text-blue-900 border-yellow-500'
-                      : 'text-slate-600 border-transparent hover:text-blue-900 hover:border-blue-900'
+                      ? 'text-brand border-accent'
+                      : 'text-slate-600 border-transparent hover:text-brand hover:border-brand'
                   }`}
                 >
                   {link.name}
@@ -173,7 +173,7 @@ export default function Layout() {
 
             {/* CTA Button */}
             <div className="hidden md:block">
-              <Link to="/contact" className="bg-yellow-500 hover:bg-yellow-600 text-slate-900 font-bold py-2.5 px-6 rounded-sm transition-colors uppercase text-xs tracking-wider flex items-center gap-2">
+              <Link to="/contact" className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-sm transition-colors uppercase text-xs tracking-wider flex items-center gap-2">
                 {t('layout.contactBtn')} <ArrowRight size={14} />
               </Link>
             </div>
@@ -205,7 +205,7 @@ export default function Layout() {
                   to={link.path}
                   className={`text-base font-medium py-2 px-4 rounded-md transition-colors ${
                     location.pathname === link.path
-                      ? 'bg-blue-50 text-blue-900'
+                      ? 'bg-brand/10 text-brand'
                       : 'text-slate-700 hover:bg-slate-50'
                   }`}
                 >
@@ -214,7 +214,7 @@ export default function Layout() {
               ))}
               <Link
                 to="/contact"
-                className="bg-yellow-500 text-slate-900 font-bold py-3 px-4 rounded-md text-center mt-4"
+                className="bg-accent text-brand-dark font-bold py-3 px-4 rounded-md text-center mt-4"
               >
                 {t('layout.contactBtn')}
               </Link>
@@ -229,7 +229,7 @@ export default function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-slate-900 text-slate-300 pt-16 pb-8 border-t-4 border-yellow-500">
+      <footer className="bg-brand-dark text-slate-300 pt-16 pb-8 border-t-4 border-accent">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
             {/* Column 1: About */}
@@ -252,9 +252,9 @@ export default function Layout() {
               </p>
               <div className="flex space-x-4">
                 {/* Social Icons Placeholder */}
-                <div className="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-slate-900 transition-colors cursor-pointer">FB</div>
-                <div className="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-slate-900 transition-colors cursor-pointer">TG</div>
-                <div className="w-8 h-8 bg-slate-800 rounded-full flex items-center justify-center hover:bg-yellow-500 hover:text-slate-900 transition-colors cursor-pointer">IG</div>
+                <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors cursor-pointer">FB</div>
+                <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors cursor-pointer">TG</div>
+                <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors cursor-pointer">IG</div>
               </div>
             </div>
 
@@ -264,7 +264,7 @@ export default function Layout() {
               <ul className="space-y-3 text-sm">
                 {navLinks.map((link) => (
                   <li key={link.path}>
-                    <Link to={link.path} className="hover:text-yellow-500 transition-colors">
+                    <Link to={link.path} className="hover:text-accent transition-colors">
                       {link.name}
                     </Link>
                   </li>
@@ -278,7 +278,7 @@ export default function Layout() {
               <ul className="space-y-3 text-sm">
                 {(['export', 'import', 'transit', 'certification', 'warehouse', 'consulting'] as const).map((key) => (
                   <li key={key}>
-                    <Link to="/services" className="hover:text-yellow-500 transition-colors">
+                    <Link to="/services" className="hover:text-accent transition-colors">
                       {t(`services.items.${key}.title`)}
                     </Link>
                   </li>
@@ -291,22 +291,22 @@ export default function Layout() {
               <h3 className="text-white font-bold text-lg mb-6 uppercase">{t('layout.footer.contactTitle')}</h3>
               <ul className="space-y-4 text-sm">
                 <li className="flex items-start gap-3">
-                  <MapPin size={18} className="text-yellow-500 mt-0.5 flex-shrink-0" />
+                  <MapPin size={18} className="text-accent mt-0.5 flex-shrink-0" />
                   <span>{t('layout.footer.address')}</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Phone size={18} className="text-yellow-500 flex-shrink-0" />
+                  <Phone size={18} className="text-accent flex-shrink-0" />
                   <span>+998 91 118 70 07</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <Mail size={18} className="text-yellow-500 flex-shrink-0" />
+                  <Mail size={18} className="text-accent flex-shrink-0" />
                   <span>info@prodeklarant.uz</span>
                 </li>
               </ul>
             </div>
           </div>
 
-          <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
+          <div className="border-t border-brand/50 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
             <p>{t('layout.footer.copyright')}</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <span className="hover:text-white cursor-pointer transition-colors">{t('layout.footer.privacy')}</span>
