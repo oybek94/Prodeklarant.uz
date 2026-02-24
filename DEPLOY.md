@@ -328,3 +328,22 @@ cd /var/www/prodeklarant.uz
 ```
 
 Yoki Windows’dan: `deploy/deploy-from-local.ps1` ni o'zgaruvchilarni sozlab ishga tushiring — u SSH orqali shu buyruqni serverda bajaradi.
+
+---
+
+## Google indekslashi va "Sahifa indekslanmadi"
+
+Agar Google Search Console da **"Страницы, которые не удалось проиндексировать"** / **"Sahifa indekslanmadi"** ko'rsatilsa, odatda quyidagilar sabab bo'ladi:
+
+1. **SPA (bir HTML)** — Barcha URL bir xil `index.html` ni qaytaradi; kontent JavaScript orqali yuklanadi. Googlebot JS ni ishlatadi, lekin ba'zan sahifalarni **"Crawled - currently not indexed"** qilib qoldiradi (takroriy yoki past qiymat deb hisoblaydi).
+2. **Sitemap yoki robots** — Agar `https://prodeklarant.uz/sitemap.xml` va `https://prodeklarant.uz/robots.txt` ochiq bo'lmasa, Google sahifalarni topishi qiyinlashadi.
+
+**Loyihada qilingan yaxshilashlar:**
+- `public/sitemap.xml` — asosiy sahifalar (/, /services, /about, /contact, /blog) sitemapda; build da `dist/` ga nusxalanadi. Server ishlaganda `/sitemap.xml` blog maqolalari bilan dinamik generatsiya qilinadi.
+- `index.html` da path bo'yicha **title** va **description** dastlabki HTML da o'rnatiladi — krawler birinchi HTML da to'g'ri meta ko'radi.
+- `robots.txt`: `Allow: /`, `Disallow: /admin`, `Sitemap: https://prodeklarant.uz/sitemap.xml`.
+
+**Qilish kerak bo'lganlar:**
+1. **Search Console** da: **URL Inspection** → muhim sahifa URL ni kiriting → **Request indexing** (Indekslashni so'rash).
+2. **Sitemap** tekshirish: Search Console → Sitemaps → `https://prodeklarant.uz/sitemap.xml` qo'shing va yuboring; xatolik bo'lmasa, bir necha kun ichida sahifalar indeksga olinadi.
+3. Agar ko'p sahifa **"Crawled - currently not indexed"** bo'lsa — bu SPA uchun odatiy; vaqt o'tishi bilan yoki muhim sahifalarni **Request indexing** qilish orqali yaxshilanadi. Kerak bo'lsa, kritik sahifalar uchun prerender (masalan prerender.io) yoki SSR ni keyinchalik qo'shish mumkin.
