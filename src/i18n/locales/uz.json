@@ -269,6 +269,16 @@
     "backHome": "Bosh sahifaga",
     "needHelp": "Yordam kerakmi? Bog'lanish"
   },
+  "error": {
+    "oops": "Xatolik yuz berdi",
+    "title": "Biror narsa noto'g'ri ketdi",
+    "message": "Kechirasiz, sahifa yuklanmadi. Qayta urinib ko'ring yoki bosh sahifaga qayting.",
+    "chunkTitle": "Sahifa hali yuklanmadi",
+    "chunkMessage": "Tarmoq yoki yangilanish tufayli sahifa yuklanmadi. «Qayta urinish» tugmasini bosing yoki bosh sahifaga qayting.",
+    "tryAgain": "Qayta urinish",
+    "backHome": "Bosh sahifaga",
+    "needHelp": "Yordam kerakmi? Bog'lanish"
+  },
   "blog": {
     "title": "Yangiliklar va Maqolalar",
     "subtitle": "Bojxona qonunchiligi, eksport-import yangiliklari va foydali maslahatlar.",

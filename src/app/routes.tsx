@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router';
 import Layout from './Layout';
+import { ErrorPage } from './pages/ErrorPage';
 
 // Lazy-load pages so initial bundle is smaller (~234 KiB savings)
 const Home = lazy(() => import('./pages/Home'));
@@ -26,6 +27,7 @@ export const router = createBrowserRouter([
   {
     path: '/',
     Component: Layout,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

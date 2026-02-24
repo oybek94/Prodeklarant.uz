@@ -269,6 +269,16 @@
     "backHome": "Back to home",
     "needHelp": "Need help? Contact us"
   },
+  "error": {
+    "oops": "Something went wrong",
+    "title": "Something went wrong",
+    "message": "Sorry, the page could not be loaded. Please try again or return to the home page.",
+    "chunkTitle": "Page failed to load",
+    "chunkMessage": "The page did not load, possibly due to network or an update. Click «Try again» or return to the home page.",
+    "tryAgain": "Try again",
+    "backHome": "Back to home",
+    "needHelp": "Need help? Contact us"
+  },
   "blog": {
     "title": "News and Articles",
     "subtitle": "Customs legislation, export-import news and helpful tips.",
