@@ -229,48 +229,52 @@
   },
   "about": {
     "title": "About Us",
-    "subtitle": "Prodeklarant — a professional and reliable partner in customs brokerage services.",
+    "subtitle": "Prodeklarant — a customs brokerage company specialized in export.",
     "intro": {
-      "p1": "Our company was established to simplify export and import processes, prevent errors and delays in customs clearance, and to ensure the safe and sustainable development of our clients' businesses.",
-      "p2": "In modern foreign trade conditions, speed and accuracy are crucial. Every document, every code and every clearance step requires special attention. The Prodeklarant team consists of specialists with deep knowledge of customs legislation and carries out each process based on a professional approach."
+      "p1": "Our main focus is to organize the export process safely, systematically and without hassle. We provide customs clearance, certification, contract preparation and transport documents for fruit, vegetable and other product exporters as a full package.",
+      "p2": "We don't just prepare documents — we manage the export process."
     },
-    "directions": {
-      "title": "Our main directions",
+    "quote": "We don't just prepare documents — we manage the export process.",
+    "approach": {
+      "title": "Our approach",
+      "lead": "Every export operation involves legal responsibility and financial risk. One incorrectly cleared document can lead to fines, lost time and contract issues. That is why we run every process:",
       "items": [
-        "Customs clearance of export and import declarations",
-        "Classification of goods by correct HS codes",
-        "Working with certificates and permits",
-        "Comprehensive fruit and vegetable export services",
-        "Preparation and verification of foreign trade documentation",
-        "Professional advice on customs procedures"
-      ]
+        "based on advance risk analysis",
+        "in full compliance with current customs and currency legislation",
+        "under clear and systematic control."
+      ],
+      "goal": "Our goal is for the client to have peace of mind throughout the export process."
     },
     "why": {
-      "title": "Why Prodeklarant?",
+      "title": "Why do clients choose us?",
       "items": [
-        "Full compliance with legislation",
-        "Accuracy and order in documents",
-        "Fast clearance",
-        "Continuous process control",
-        "Open and transparent cooperation with the client"
+        "Export-focused specialization",
+        "Full-service — no need to run to multiple agencies",
+        "Accuracy and responsibility in documentation",
+        "Constant communication and quick response",
+        "Long-term partnership approach"
       ]
     },
     "quote": "We value our clients' time and financial security. Every project is a special responsibility for us.",
     "stats": {
-      "experience": "Years of Experience",
-      "clients": "Regular Clients",
-      "cargo": "Cleared Cargo",
-      "countries": "Partner Countries"
+      "title": "Our results in numbers",
+      "experience": "years of practical experience",
+      "clients": "active clients",
+      "cargo": "cleared shipments",
+      "countries": "export destinations",
+      "exportVolume": "kg of product exported",
+      "exportValue": "USD in export value"
     },
     "guarantee": "Guarantee",
     "service24": "Service",
     "mission": {
-      "title": "Our Mission",
-      "text": "To make customs procedures simple, clear and safe for exporters."
+      "title": "Our mission",
+      "text": "To simplify the international market activity of Uzbek exporters by providing them with safe, professional customs services.",
+      "trust": "We build trust through stable partnership, not one-off operations."
     },
-    "goal": {
-      "title": "Our Goal",
-      "text": "To assist local entrepreneurs in confidently entering international markets and to establish a standard of reliable professional service in the customs sphere."
+    "values": {
+      "title": "Our values",
+      "items": ["Responsibility", "Transparency", "Accuracy", "Speed", "Professionalism"]
     },
     "closing": "Prodeklarant — your reliable representative at customs."
   },

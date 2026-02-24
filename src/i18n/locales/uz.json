@@ -229,48 +229,52 @@
   },
   "about": {
     "title": "Biz Haqimizda",
-    "subtitle": "Prodeklarant — bojxona brokerlik xizmatlari sohasida professional va ishonchli hamkor.",
+    "subtitle": "Prodeklarant — eksportga ixtisoslashgan bojxona brokerlik kompaniyasi.",
     "intro": {
-      "p1": "Kompaniyamiz eksport va import jarayonlarini soddalashtirish, bojxona rasmiylashtiruvidagi xatolar va kechikishlarning oldini olish hamda mijozlarimiz biznesini xavfsiz va barqaror rivojlantirish maqsadida tashkil etilgan.",
-      "p2": "Zamonaviy tashqi savdo sharoitida tezkorlik va aniqlik hal qiluvchi ahamiyatga ega. Har bir hujjat, har bir kod va har bir rasmiylashtirish bosqichi alohida e'tibor talab qiladi. Prodeklarant jamoasi bojxona qonunchiligini chuqur bilgan mutaxassislardan iborat bo'lib, har bir jarayonni professional yondashuv asosida amalga oshiradi."
+      "p1": "Bizning asosiy yo'nalishimiz — eksport jarayonini xavfsiz, tizimli va muammosiz tashkil etish. Kompaniyamiz meva-sabzavot va boshqa mahsulot eksportchilari uchun bojxona rasmiylashtiruvi, sertifikatlash, kontrakt tayyorlash va transport hujjatlarini kompleks tarzda yuritadi.",
+      "p2": "Biz shunchaki hujjat tayyorlamaymiz — biz eksport jarayonini boshqaramiz."
     },
-    "directions": {
-      "title": "Bizning asosiy yo'nalishlarimiz",
+    "quote": "Biz shunchaki hujjat tayyorlamaymiz — biz eksport jarayonini boshqaramiz.",
+    "approach": {
+      "title": "Bizning yondashuv",
+      "lead": "Har bir eksport operatsiyasi — bu huquqiy javobgarlik va moliyaviy risk degani. Noto'g'ri rasmiylashtirilgan bitta hujjat jarima, vaqt yo'qotish va shartnoma muammolariga olib kelishi mumkin. Shu sababli biz har bir jarayonni:",
       "items": [
-        "Eksport va import bojxona deklaratsiyalarini rasmiylashtirish",
-        "Tovarlarni to'g'ri TN VED (HS) kodlari bo'yicha tasniflash",
-        "Sertifikat va ruxsatnoma hujjatlari bilan ishlash",
-        "Meva-sabzavot eksporti bo'yicha kompleks xizmatlar",
-        "Tashqi savdo hujjatlarini tayyorlash va tekshirish",
-        "Bojxona jarayonlari bo'yicha professional maslahat"
-      ]
+        "oldindan risk tahlili asosida",
+        "amaldagi bojxona va valyuta qonunchiligiga muvofiq",
+        "aniq va tizimli nazorat ostida olib boramiz."
+      ],
+      "goal": "Bizning maqsadimiz — mijoz eksport jarayonida xotirjam bo'lishi."
     },
     "why": {
-      "title": "Nega aynan Prodeklarant?",
+      "title": "Nima uchun mijozlar bizni tanlaydi?",
       "items": [
-        "Qonunchilikka to'liq muvofiqlik",
-        "Hujjatlarda aniqlik va tartib",
-        "Tezkor rasmiylashtirish",
-        "Jarayon ustidan doimiy nazorat",
-        "Mijoz bilan ochiq va shaffof hamkorlik"
+        "Eksportga tor ixtisoslashuv",
+        "Kompleks xizmat — bir nechta idoralarga yugurish shart emas",
+        "Hujjatlarda aniqlik va mas'uliyat",
+        "Doimiy aloqa va tezkor javob",
+        "Uzoq muddatli hamkorlikka yo'naltirilgan yondashuv"
       ]
     },
     "quote": "Biz mijozlarimizning vaqtini va moliyaviy xavfsizligini qadrlaymiz. Har bir loyiha — bu biz uchun alohida mas'uliyat.",
     "stats": {
-      "experience": "Yillik Tajriba",
-      "clients": "Doimiy Mijozlar",
-      "cargo": "Rasmiylashtirilgan Yuklar",
-      "countries": "Hamkor Davlatlar"
+      "title": "Bizning natijalarimiz raqamlarda",
+      "experience": "yillik amaliy tajriba",
+      "clients": "faol mijoz",
+      "cargo": "rasmiylashtirilgan yuk",
+      "countries": "davlatlarga eksport yo'nalishlari",
+      "exportVolume": "kg mahsulot eksporti",
+      "exportValue": "AQSh dollari miqdorida eksport summasi"
     },
     "guarantee": "Kafolat",
     "service24": "Xizmat",
     "mission": {
       "title": "Bizning missiyamiz",
-      "text": "Eksportyorlar uchun bojxona jarayonlarini sodda, tushunarli va xavfsiz qilish."
+      "text": "O'zbekiston eksportchilariga xavfsiz va professional bojxona xizmatini taqdim etish orqali ularning xalqaro bozordagi faoliyatini soddalashtirish.",
+      "trust": "Biz ishonchni bir martalik operatsiya bilan emas, barqaror hamkorlik bilan quramiz."
     },
-    "goal": {
-      "title": "Bizning maqsadimiz",
-      "text": "Mahalliy tadbirkorlarning xalqaro bozorlarga ishonch bilan chiqishiga ko'maklashish va bojxona sohasida ishonchli professional xizmat ko'rsatish standartini shakllantirish."
+    "values": {
+      "title": "Bizning qadriyatlarimiz",
+      "items": ["Mas'uliyat", "Shaffoflik", "Aniqlik", "Tezkorlik", "Professionalizm"]
     },
     "closing": "Prodeklarant — bojxonadagi ishonchli vakilingiz."
   },
