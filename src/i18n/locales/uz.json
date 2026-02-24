@@ -19,6 +19,10 @@
     "contact": {
       "title": "Aloqa — PRO DEKLARANT",
       "description": "PRO DEKLARANT bilan bog'laning: Farg'ona viloyati, Oltiariq. Bepul konsultatsiya va bojxona xizmatlari bo'yicha yordam."
+    },
+    "notFound": {
+      "title": "Sahifa topilmadi — PRO DEKLARANT",
+      "description": "So'ralgan sahifa mavjud emas. Bosh sahifaga qayting yoki biz bilan bog'laning."
     }
   },
   "layout": {
@@ -257,6 +261,13 @@
       "messagePlaceholder": "Qisqacha mazmun...",
       "submit": "Yuborish"
     }
+  },
+  "notFound": {
+    "oops": "Sahifa topilmadi",
+    "title": "Bu sahifa mavjud emas",
+    "message": "Siz so'ragan manzil noto'g'ri yoki sahifa o'chirilgan. Bosh sahifaga qayting yoki kerak bo'lsa biz bilan bog'laning.",
+    "backHome": "Bosh sahifaga",
+    "needHelp": "Yordam kerakmi? Bog'lanish"
   },
   "blog": {
     "title": "Yangiliklar va Maqolalar",

@@ -19,6 +19,10 @@
     "contact": {
       "title": "Contact — PRO DEKLARANT",
       "description": "Contact PRO DEKLARANT: Fergana region, Oltiariq. Free consultation and assistance with customs services."
+    },
+    "notFound": {
+      "title": "Page not found — PRO DEKLARANT",
+      "description": "The page you requested does not exist. Return to the home page or contact us."
     }
   },
   "layout": {
@@ -257,6 +261,13 @@
       "messagePlaceholder": "Brief content...",
       "submit": "Send"
     }
+  },
+  "notFound": {
+    "oops": "Page not found",
+    "title": "This page doesn't exist",
+    "message": "The address you entered may be wrong or the page was removed. Return to the home page or contact us if you need help.",
+    "backHome": "Back to home",
+    "needHelp": "Need help? Contact us"
   },
   "blog": {
     "title": "News and Articles",

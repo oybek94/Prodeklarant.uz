@@ -12,6 +12,7 @@ const BlogPost = lazy(() => import('./pages/BlogPost'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 const AdminBlog = lazy(() => import('./pages/AdminBlog'));
 const AdminPostForm = lazy(() => import('./pages/AdminPostForm'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 function PageFallback() {
   return (
@@ -103,6 +104,14 @@ export const router = createBrowserRouter([
         Component: () => (
           <Suspense fallback={<PageFallback />}>
             <AdminPostForm />
+          </Suspense>
+        ),
+      },
+      {
+        path: '*',
+        Component: () => (
+          <Suspense fallback={<PageFallback />}>
+            <NotFound />
           </Suspense>
         ),
       },

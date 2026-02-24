@@ -1,0 +1,68 @@
+import { useEffect } from 'react';
+import { Link } from 'react-router';
+import { motion } from 'motion/react';
+import { Home, ArrowRight, FileQuestion } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
+export default function NotFound() {
+  const { t } = useTranslation();
+
+  useEffect(() => {
+    document.title = t('seo.notFound.title');
+    const desc = t('seo.notFound.description');
+    let el = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
+    if (el) el.setAttribute('content', desc);
+    else {
+      el = document.createElement('meta');
+      el.name = 'description';
+      el.content = desc;
+      document.head.appendChild(el);
+    }
+  }, [t]);
+
+  return (
+    <div className="bg-slate-50 min-h-screen flex flex-col">
+      <div className="flex-grow flex items-center justify-center px-4 py-16">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-xl"
+        >
+          <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
+            <div className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 px-8 py-12 text-center">
+              <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(250,204,21,0.15),transparent)]" aria-hidden="true" />
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="relative z-10"
+              >
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-white/10 text-yellow-400 mb-6">
+                  <FileQuestion size={40} strokeWidth={1.5} />
+                </div>
+                <p className="text-6xl md:text-7xl font-black text-white tracking-tighter tabular-nums">404</p>
+                <p className="text-slate-300 font-semibold uppercase tracking-widest text-sm mt-2">{t('notFound.oops')}</p>
+              </motion.div>
+            </div>
+            <div className="px-8 py-10 text-center">
+              <h1 className="text-2xl font-bold text-slate-900 mb-3">{t('notFound.title')}</h1>
+              <p className="text-slate-600 mb-8 max-w-sm mx-auto">{t('notFound.message')}</p>
+              <Link
+                to="/"
+                className="inline-flex items-center justify-center gap-2 bg-slate-900 text-white font-bold uppercase tracking-wide px-8 py-4 rounded-xl hover:bg-blue-900 hover:text-yellow-400 transition-colors focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
+              >
+                <Home size={20} />
+                {t('notFound.backHome')}
+                <ArrowRight size={18} />
+              </Link>
+            </div>
+          </div>
+          <p className="text-center text-slate-500 text-sm mt-8">
+            <Link to="/contact" className="underline hover:text-blue-900">{t('notFound.needHelp')}</Link>
+          </p>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
