@@ -8,11 +8,9 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Form holetlari
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    service: '',
     message: ''
   });
 
@@ -20,19 +18,10 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-    const CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+    const BOT_TOKEN = (import.meta as any).env.VITE_TELEGRAM_BOT_TOKEN;
+    const CHAT_ID = (import.meta as any).env.VITE_TELEGRAM_CHAT_ID;
 
-    // Tarjimadan xizmat turini olish (yoki xom qiymatini qoldirish)
-    const serviceLabels: Record<string, string> = {
-      export: "Eksport",
-      import: "Import",
-      cert: "Sertifikatlash",
-      consult: "Konsultatsiya"
-    };
-    const serviceName = serviceLabels[formData.service] || formData.service || "Ko'rsatilmagan";
-
-    const text = `📬 *SAYTDAN YANGI XABAR:*\n\n👤 *Ism:* ${formData.name}\n📞 *Tel:* ${formData.phone}\n🛠 *Xizmat turi:* ${serviceName}\n📝 *Xabar:* ${formData.message}`;
+    const text = `📬 *SAYTDAN YANGI XABAR:*\n\n👤 *Ism:* ${formData.name}\n📞 *Tel:* ${formData.phone}\n📝 *Xabar:* ${formData.message}`;
 
     try {
       await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
@@ -48,7 +37,7 @@ export default function Contact() {
       });
 
       setIsSubmitted(true);
-      setFormData({ name: '', phone: '', service: '', message: '' }); // tozalash
+      setFormData({ name: '', phone: '', message: '' }); // tozalash
 
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err) {
@@ -184,7 +173,7 @@ export default function Contact() {
                 <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-2 uppercase tracking-tight">
                   {t('contact.form.title') || "Xabar yuborish"}
                 </h2>
-                <p className="text-slate-500 mb-8 font-medium">Barcha savollaringizga tezda javob beramiz.</p>
+                <p className="text-slate-500 mb-8 font-medium">{t('contact.form.desc') || "Barcha savollaringizga tezda javob beramiz."}</p>
 
                 {isSubmitted ? (
                   <motion.div
@@ -227,23 +216,6 @@ export default function Contact() {
                           className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all font-medium text-slate-800 placeholder:text-slate-400"
                         />
                       </div>
-                    </div>
-
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wide">
-                        {t('contact.form.service') || "Xizmat turini tanlang"}
-                      </label>
-                      <select
-                        value={formData.service}
-                        onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all font-medium text-slate-800 cursor-pointer appearance-none"
-                      >
-                        <option value="">{t('contact.form.servicePlaceholder') || "Tanlang..."}</option>
-                        <option value="export">Eksport</option>
-                        <option value="import">Import</option>
-                        <option value="cert">Sertifikatlash</option>
-                        <option value="consult">Konsultatsiya</option>
-                      </select>
                     </div>
 
                     <div className="space-y-2">

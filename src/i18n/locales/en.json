@@ -303,7 +303,7 @@
         "Long-term partnership approach"
       ]
     },
-    "quote": "We value our clients' time and financial security. Every project is a special responsibility for us.",
+    "quote2": "We value our clients' time and financial security. Every project is a special responsibility for us.",
     "stats": {
       "title": "Our results in numbers",
       "experience": "years of practical experience",
@@ -350,6 +350,7 @@
     },
     "form": {
       "title": "Send Message",
+      "desc": "We will quickly answer all your questions.",
       "name": "Your Name",
       "namePlaceholder": "Enter your name",
       "phone": "Phone Number",

@@ -303,7 +303,7 @@
         "Uzoq muddatli hamkorlikka yo'naltirilgan yondashuv"
       ]
     },
-    "quote": "Biz mijozlarimizning vaqtini va moliyaviy xavfsizligini qadrlaymiz. Har bir loyiha — bu biz uchun alohida mas'uliyat.",
+    "quote2": "Biz mijozlarimizning vaqtini va moliyaviy xavfsizligini qadrlaymiz. Har bir loyiha — bu biz uchun alohida mas'uliyat.",
     "stats": {
       "title": "Bizning natijalarimiz raqamlarda",
       "experience": "yillik amaliy tajriba",
@@ -350,6 +350,7 @@
     },
     "form": {
       "title": "Xabar Yuborish",
+      "desc": "Barcha savollaringizga tezda javob beramiz.",
       "name": "Ismingiz",
       "namePlaceholder": "Ismingizni kiriting",
       "phone": "Telefon raqam",
