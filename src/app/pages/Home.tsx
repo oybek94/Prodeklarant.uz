@@ -424,7 +424,7 @@ export default function Home() {
           </motion.div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4 xl:gap-8 max-w-6xl mx-auto items-center">
             {(['start', 'optimal', 'vip'] as const).map((key, idx) => {
-              const tariff = t(`home.tariffs.${key} `, { returnObjects: true }) as { name: string; features: string[] };
+              const tariff = t(`home.tariffs.${key}`, { returnObjects: true }) as { name: string; features: string[] };
               const features = Array.isArray(tariff?.features) ? tariff.features : [];
               const isRecommended = key === 'optimal';
               const isVip = key === 'vip';
@@ -436,14 +436,14 @@ export default function Home() {
                   whileHover={{ y: -10, transition: { duration: 0.2 } }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.15 }}
-                  className={`relative flex flex - col rounded - [2rem] overflow - hidden shadow - xl transition - all duration - 300 hover: shadow - 2xl ring - 1 ring - black / 5 hover: ring - brand / 30 ${isRecommended
+                  className={`relative flex flex-col rounded-[2rem] overflow-hidden shadow-xl transition-all duration-300 hover:shadow-2xl ring-1 ring-black/5 hover:ring-brand/30 ${isRecommended
                     ? 'ring-2 ring-accent ring-offset-4 ring-offset-slate-50 lg:-mt-8 lg:mb-8 lg:scale-[1.05] backdrop-blur-md bg-white z-10 shadow-[0_20px_40px_rgba(232,168,56,0.15)]'
                     : 'bg-white/90 backdrop-blur-sm shadow-[0_10px_30px_rgba(0,0,0,0.05)]'
-                    } ${isVip ? 'bg-gradient-to-b from-slate-900 to-brand-dark text-white ring-0 shadow-[0_10px_30px_rgba(15,23,42,0.3)]' : ''} `}
+                    } ${isVip ? 'bg-gradient-to-b from-slate-900 to-brand-dark text-white ring-0 shadow-[0_10px_30px_rgba(15,23,42,0.3)]' : ''}`}
                 >
-                  <div className={`px - 8 pt - 6 pb - 5 ${isVip ? 'bg-slate-800/50' : key === 'optimal' ? 'bg-brand/10' : 'bg-slate-100'} `}>
+                  <div className={`px-8 pt-6 pb-5 ${isVip ? 'bg-slate-800/50' : key === 'optimal' ? 'bg-brand/10' : 'bg-slate-100'}`}>
                     <div className="flex items-center gap-2 flex-wrap">
-                      <h3 className={`text - 2xl font - bold tracking - tight ${isVip ? 'text-white' : 'text-slate-900'} `}>
+                      <h3 className={`text-2xl font-bold tracking-tight ${isVip ? 'text-white' : 'text-slate-900'}`}>
                         {tariff?.name || key}
                       </h3>
                       {isRecommended && (
@@ -458,10 +458,10 @@ export default function Home() {
                       const isBonus = item.toLowerCase().startsWith('bonus');
                       return (
                         <li key={i} className="flex items-start gap-3">
-                          <span className={`flex - shrink - 0 mt - 1 w - 5 h - 5 rounded - full flex items - center justify - center ${isVip ? 'bg-accent/20 text-accent' : 'bg-brand/10 text-brand'} `}>
+                          <span className={`flex-shrink-0 mt-1 w-5 h-5 rounded-full flex items-center justify-center ${isVip ? 'bg-accent/20 text-accent' : 'bg-brand/10 text-brand'}`}>
                             <CheckCircle size={14} strokeWidth={2.5} aria-hidden />
                           </span>
-                          <span className={`text - sm leading - relaxed ${isVip ? 'text-slate-300' : 'text-slate-600'} ${isBonus ? 'font-semibold text-accent' : ''} `}>
+                          <span className={`text-sm leading-relaxed ${isVip ? 'text-slate-300' : 'text-slate-600'} ${isBonus ? 'font-semibold text-accent' : ''}`}>
                             {item}
                           </span>
                         </li>
@@ -472,12 +472,12 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => window.dispatchEvent(new Event('openContactModal'))}
-                      className={`group w - full font - bold py - 4 px - 6 rounded - xl uppercase tracking - wider text - sm transition - all duration - 200 flex items - center justify - center gap - 2 ${isVip
+                      className={`group w-full font-bold py-4 px-6 rounded-xl uppercase tracking-wider text-sm transition-all duration-200 flex items-center justify-center gap-2 ${isVip
                         ? 'bg-accent hover:bg-accent-light text-brand-dark hover:scale-[1.02] active:scale-[0.98]'
                         : isRecommended
                           ? 'bg-brand hover:bg-brand-light text-white shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]'
                           : 'bg-slate-900 hover:bg-slate-800 text-white hover:scale-[1.02] active:scale-[0.98]'
-                        } `}
+                        }`}
                     >
                       <MousePointerClick size={18} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
                       {t('home.tariffs.askPrice')}
