@@ -84,6 +84,7 @@
 }
 
 @theme inline {
+  --font-sans: 'Outfit', 'Inter', system-ui, sans-serif;
   --color-brand: var(--brand);
   --color-brand-dark: var(--brand-dark);
   --color-brand-light: var(--brand-light);

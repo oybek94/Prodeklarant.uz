@@ -172,7 +172,7 @@ export default function Layout() {
 
             {/* CTA Button */}
             <div className="hidden md:block">
-              <Link to="/contact" className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-sm transition-colors uppercase text-xs tracking-wider flex items-center gap-2">
+              <Link to="/contact" className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-sm transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
                 {t('layout.contactBtn')} <ArrowRight size={14} />
               </Link>
             </div>

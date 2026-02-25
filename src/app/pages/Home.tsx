@@ -73,7 +73,10 @@ export default function Home() {
       {/* Hero Section — mobilda pastroq (LCP tezroq), srcset orqali kichik rasm */}
       <section className="relative h-[400px] md:h-[600px] flex items-center justify-center text-white overflow-hidden">
         <div className="absolute inset-0 z-0 bg-brand-dark">
-          <img
+          <motion.img
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.08 }}
+            transition={{ duration: 20, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
             src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920"
             srcSet="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
             sizes="100vw"
@@ -112,7 +115,7 @@ export default function Home() {
           >
             <Link
               to="/contact"
-              className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-colors"
+              className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-all shadow-[0_0_15px_rgba(232,168,56,0.4)] hover:shadow-[0_0_25px_rgba(232,168,56,0.8)] hover:-translate-y-1"
             >
               {t('home.hero.consultation')}
             </Link>
@@ -284,8 +287,8 @@ export default function Home() {
                   whileHover={{ y: -6, transition: { duration: 0.05 } }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className={`relative flex flex-col rounded-2xl overflow-hidden shadow-lg transition-all duration-150 hover:shadow-2xl hover:ring-2 hover:ring-brand/20 ${isRecommended ? 'ring-2 ring-accent ring-offset-4 ring-offset-slate-50 lg:-mt-2 lg:mb-2 lg:scale-[1.02]' : ''
-                    } ${isVip ? 'bg-slate-900 text-white' : 'bg-white border border-slate-100 hover:border-brand/30'}`}
+                  className={`relative flex flex-col rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 ring-1 ring-black/5 hover:ring-brand/30 ${isRecommended ? 'ring-2 ring-accent ring-offset-4 ring-offset-slate-50 lg:-mt-2 lg:mb-2 lg:scale-[1.02] backdrop-blur-md bg-white/95' : ''
+                    } ${isVip ? 'bg-slate-900 text-white shadow-xl' : 'bg-white/90 backdrop-blur-sm'}`}
                 >
                   <div className={`px-8 pt-6 pb-5 ${isVip ? 'bg-slate-800/50' : key === 'optimal' ? 'bg-brand/10' : 'bg-slate-100'}`}>
                     <div className="flex items-center gap-2 flex-wrap">
@@ -436,7 +439,7 @@ export default function Home() {
               </p>
             </div>
             <div className="md:w-1/3 text-center md:text-right">
-              <Link to="/contact" className="inline-block bg-accent hover:bg-accent-light text-brand-dark font-bold py-4 px-10 rounded-sm text-lg transition-colors shadow-lg">
+              <Link to="/contact" className="inline-block bg-accent hover:bg-accent-light text-brand-dark font-bold py-4 px-10 rounded-sm text-lg transition-all duration-300 shadow-[0_0_15px_rgba(232,168,56,0.3)] hover:shadow-[0_0_30px_rgba(232,168,56,0.6)] hover:-translate-y-1">
                 {t('home.cta.btn')}
               </Link>
             </div>
