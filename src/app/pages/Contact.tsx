@@ -9,15 +9,16 @@ export default function Contact() {
       {/* Header */}
       <div className="relative min-h-[280px] py-12 md:py-16 text-white overflow-hidden">
         <div className="absolute inset-0">
-          <img 
-            src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+          <img
+            src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920"
             srcSet="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
             sizes="100vw"
-            alt="" 
+            alt=""
             width={1920}
             height={1080}
             className="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
+            decoding="async"
           />
           <div className="absolute inset-0 bg-brand-dark/85" />
         </div>
@@ -92,13 +93,13 @@ export default function Contact() {
           >
             <h2 className="text-2xl font-bold text-slate-900 mb-6 uppercase tracking-wide border-l-4 border-accent pl-4 flex-shrink-0">{t('contact.info.location')}</h2>
             <div className="bg-white h-64 lg:flex-1 lg:min-h-[400px] rounded-lg shadow-md overflow-hidden border border-slate-100">
-              <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58279!2d71.48!3d40.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb84d62a1f8f1f%3A0x0!2sOltiariq%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1647856743840!5m2!1sen!2s" 
-                width="100%" 
-                height="100%" 
-                style={{ border: 0 }} 
-                allowFullScreen={true} 
-                loading="lazy" 
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58279!2d71.48!3d40.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb84d62a1f8f1f%3A0x0!2sOltiariq%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1647856743840!5m2!1sen!2s"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
                 title="Google Maps"
               ></iframe>
             </div>

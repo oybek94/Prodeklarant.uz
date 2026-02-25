@@ -163,7 +163,7 @@ export default function BlogPost() {
   return (
     <div className="bg-white min-h-screen pb-20">
       <div className="h-[400px] relative">
-        <img src={image} alt={title} width={1200} height={600} className="absolute inset-0 w-full h-full object-cover" />
+        <img src={image} alt={title} width={1200} height={600} className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
         <div className="absolute inset-0 bg-brand-dark/50"></div>
         <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-brand-dark to-transparent">
           <div className="container mx-auto px-4 max-w-4xl">

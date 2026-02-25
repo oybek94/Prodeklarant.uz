@@ -131,8 +131,11 @@ export default function Blog() {
           <img
             src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt=""
+            width={1920}
+            height={1080}
             className="w-full h-full object-cover"
             loading="eager"
+            decoding="async"
           />
         </div>
         <div className="absolute inset-0 z-[1] bg-brand-dark/75" aria-hidden="true" />
@@ -154,7 +157,7 @@ export default function Blog() {
                 {postsForPage.map((post) => (
                   <div key={post.id} className="bg-white rounded-sm shadow-sm overflow-hidden flex flex-col md:flex-row hover:shadow-lg transition-shadow border border-slate-100">
                     <div className="md:w-1/3 h-48 md:h-auto relative">
-                      <img src={post.image} alt={post.title} width={400} height={300} className="w-full h-full object-cover absolute inset-0" loading="lazy" />
+                      <img src={post.image} alt={post.title} width={400} height={300} className="w-full h-full object-cover absolute inset-0" loading="lazy" decoding="async" />
                     </div>
                     <div className="p-6 md:w-2/3 flex flex-col justify-between">
                       <div>
@@ -196,11 +199,10 @@ export default function Blog() {
                       key={num}
                       type="button"
                       onClick={() => setCurrentPage(num)}
-                      className={`w-10 h-10 flex items-center justify-center font-bold rounded-sm ${
-                        currentPage === num
+                      className={`w-10 h-10 flex items-center justify-center font-bold rounded-sm ${currentPage === num
                           ? 'bg-brand-dark text-white'
                           : 'bg-white text-slate-900 border border-slate-200 hover:bg-slate-100'
-                      }`}
+                        }`}
                       aria-label={t('blog.pageNumber', { page: num })}
                       aria-current={currentPage === num ? 'page' : undefined}
                     >

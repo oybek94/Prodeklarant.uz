@@ -26,8 +26,11 @@ export default function Services() {
           <img
             src="https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920"
             alt=""
+            width={1920}
+            height={1080}
             className="w-full h-full object-cover"
             loading="eager"
+            decoding="async"
           />
         </div>
         <div className="absolute inset-0 z-[1] bg-brand-dark/75" aria-hidden="true" />
@@ -43,7 +46,7 @@ export default function Services() {
       <div className="container mx-auto px-4 mt-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <motion.div 
+            <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -58,7 +61,7 @@ export default function Services() {
               <p className="text-slate-600 mb-6 text-sm leading-relaxed">
                 {service.description}
               </p>
-              
+
               <div className="space-y-3">
                 {service.features.map((feature, i) => (
                   <div key={i} className="flex items-start gap-2">
