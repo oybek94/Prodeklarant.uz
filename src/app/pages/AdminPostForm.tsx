@@ -22,6 +22,54 @@ const emptyPost: Omit<BlogPost, 'id' | 'created_at'> = {
   author: '',
 };
 
+const compressImage = async (file: File): Promise<File> => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target?.result as string;
+      img.onload = () => {
+        const MAX_WIDTH = 1200;
+        const MAX_HEIGHT = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return reject(new Error('Canvas error'));
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob((blob) => {
+          if (!blob) return reject(new Error('Blob error'));
+          const newFileName = file.name.replace(/\.[^/.]+$/, '') + '.webp';
+          const newFile = new File([blob], newFileName, {
+            type: 'image/webp',
+            lastModified: Date.now(),
+          });
+          resolve(newFile);
+        }, 'image/webp', 0.85);
+      };
+      img.onerror = (error) => reject(error);
+    };
+    reader.onerror = (error) => reject(error);
+  });
+};
+
 export default function AdminPostForm() {
   useAuthGuard();
   const { id } = useParams();
@@ -221,19 +269,25 @@ export default function AdminPostForm() {
                 {uploading ? 'Yuklanmoqda...' : 'Rasm yuklash'}
                 <input
                   type="file"
-                  accept="image/jpeg,image/png,image/gif,image/webp"
+                  accept="image/jpeg,image/png,image/gif,image/webp,.webp,.jpg,.jpeg,.png"
                   className="hidden"
                   disabled={uploading}
                   onChange={async (e) => {
-                    const file = e.target.files?.[0];
+                    let file = e.target.files?.[0];
                     if (!file) return;
                     setError('');
                     setUploading(true);
                     try {
+                      // Compress image before upload to solve 413 Payload Too Large limits & save bandwidth
+                      try {
+                        file = await compressImage(file);
+                      } catch (err) {
+                        console.error('Compression failed, using original file', err);
+                      }
                       const url = await uploadImage(file);
                       setForm((f) => ({ ...f, image: url }));
                     } catch (err) {
-                      setError(err instanceof Error ? err.message : 'Yuklash xatosi');
+                      setError(err instanceof Error ? err.message : 'Yuklash xatosi (Rasm hajmi juda katta bo\'lishi mumkin)');
                     } finally {
                       setUploading(false);
                       e.target.value = '';
