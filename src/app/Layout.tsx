@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { usePageMeta } from './hooks/usePageMeta';
+import ContactModal from './components/ContactModal';
 
 const LANGUAGES = [
   { code: 'uz', label: 'O\'zbek' },
@@ -114,16 +115,17 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-800 bg-white">
+      <ContactModal />
       {/* Top Bar - Official Info */}
       <div className="bg-brand-dark text-slate-300 text-xs py-2 border-b border-brand-dark/80 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex space-x-6">
-            <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+            <a href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openContactModal')); }} className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
               <Phone size={14} className="text-accent" /> +998 91 118 70 07
-            </span>
-            <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+            </a>
+            <a href="mailto:info@prodeklarant.uz" className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
               <Mail size={14} className="text-accent" /> info@prodeklarant.uz
-            </span>
+            </a>
             <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
               <MapPin size={14} className="text-accent" /> {t('layout.address')}
             </span>
@@ -172,9 +174,9 @@ export default function Layout() {
 
             {/* CTA Button */}
             <div className="hidden md:block">
-              <Link to="/contact" className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-sm transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
-                {t('layout.contactBtn')} <ArrowRight size={14} />
-              </Link>
+              <button onClick={() => window.dispatchEvent(new Event('openContactModal'))} className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-sm transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
+                {t('layout.contactBtn')} <Phone size={14} />
+              </button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -210,12 +212,12 @@ export default function Layout() {
                   {link.name}
                 </Link>
               ))}
-              <Link
-                to="/contact"
-                className="bg-accent text-brand-dark font-bold py-3 px-4 rounded-md text-center mt-4"
+              <button
+                onClick={() => window.dispatchEvent(new Event('openContactModal'))}
+                className="bg-accent text-brand-dark font-bold py-3 px-4 rounded-md text-center mt-4 flex items-center justify-center gap-2"
               >
-                {t('layout.contactBtn')}
-              </Link>
+                <Phone size={18} /> {t('layout.contactBtn')}
+              </button>
             </nav>
           </motion.div>
         )}
@@ -293,11 +295,11 @@ export default function Layout() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone size={18} className="text-accent flex-shrink-0" />
-                  <span>+998 91 118 70 07</span>
+                  <a href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openContactModal')); }} className="hover:text-accent transition-colors">+998 91 118 70 07</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail size={18} className="text-accent flex-shrink-0" />
-                  <span>info@prodeklarant.uz</span>
+                  <a href="mailto:info@prodeklarant.uz" className="hover:text-accent transition-colors">info@prodeklarant.uz</a>
                 </li>
               </ul>
             </div>
