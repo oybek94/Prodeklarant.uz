@@ -6,3 +6,4 @@ server/blog.db
 public/uploads/*
 !public/uploads/.gitkeep
 public/**/*.webp
+.env
