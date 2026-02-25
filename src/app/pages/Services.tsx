@@ -69,13 +69,16 @@ export default function Services() {
           </motion.div>
         </div>
 
-        {/* Decorative bottom curve */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10">
-          <svg className="relative block w-full h-[50px] md:h-[100px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="#f8fafc"></path>
-            <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,119.29,18.38,165,58,23.2,19.33,48.24,35,77.34,39.87V0Z" opacity=".5" fill="#f8fafc"></path>
-            <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="#f8fafc"></path>
-            <path d="M1200,120H0V71.45C74.87,110.12,152.03,130.13,230,120.5c78.73-9.75,150.31-39.9,228.32-47.36,83.91-8,143.6,21.57,210.87,51.72,71.47,32.08,148.83,46.59,228.69,27.7,78.29-18.57,143.2-54.8,212.87-79.67L1200,23.15V120Z" fill="#f8fafc"></path>
+        {/* Modern Geometric Slanted Transition */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none z-10 drop-shadow-[0_-15px_15px_rgba(0,0,0,0.15)]">
+          <svg className="relative block w-full h-[60px] md:h-[120px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            {/* Main Slate-50 Background cut */}
+            <polygon points="0,120 1200,120 1200,20 0,120" fill="#f8fafc" />
+            {/* Accent overlapping glow line */}
+            <polygon points="1200,20 1200,26 0,120 0,114" fill="#e8a838" />
+            <polygon points="1200,10 1200,20 0,120 0,110" fill="rgba(232, 168, 56, 0.2)" />
+            {/* Subtle brand dark corner */}
+            <polygon points="0,120 0,100 150,120" fill="transparent" />
           </svg>
         </div>
       </section>
@@ -163,8 +166,8 @@ export default function Services() {
               >
                 {/* Step Circle */}
                 <div className={`w-[88px] h-[88px] rounded-full flex items-center justify-center text-3xl font-black mb-8 shadow-[0_0_30px_rgba(0,0,0,0.3)] z-10 transition-all duration-500 group-hover:scale-110 relative ${step === 4
-                    ? 'bg-accent text-brand-dark ring-8 ring-accent/30'
-                    : 'bg-brand-dark border-4 border-slate-700 text-slate-300 group-hover:border-accent group-hover:text-white'
+                  ? 'bg-accent text-brand-dark ring-8 ring-accent/30'
+                  : 'bg-brand-dark border-4 border-slate-700 text-slate-300 group-hover:border-accent group-hover:text-white'
                   }`}>
                   {step}
                   {/* Subtle glow behind circle */}

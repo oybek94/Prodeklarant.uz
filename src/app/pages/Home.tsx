@@ -1,7 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle, Clock, Globe, ShieldCheck, ArrowRight, FileText, Truck, Users, Award, FileCheck, Phone, X, MousePointerClick, Ship, Plane, Package, Leaf } from 'lucide-react';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import {
+  CheckCircle, Globe, ShieldCheck, ArrowRight, FileText, Truck,
+  Users, Award, FileCheck, Phone, MousePointerClick,
+  ChevronLeft, ChevronRight, BarChart
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
@@ -95,16 +102,14 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section */}
-      <section className="relative h-[400px] md:h-[600px] flex items-center justify-center text-white overflow-hidden bg-slate-900 border-b-4 border-accent">
-
-        {/* Cinematic Slider Background */}
+      <section className="relative h-[650px] md:h-[80vh] flex items-center justify-center text-white overflow-hidden bg-slate-900 border-b-4 border-brand">
         <AnimatePresence initial={false}>
           <motion.div
             key={currentSlide}
-            initial={{ opacity: 0, scale: 1.05 }}
+            initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: "easeInOut" }}
+            transition={{ duration: 1.8, ease: "easeInOut" }}
             className="absolute inset-0 z-0 w-full h-full"
           >
             <div
@@ -114,165 +119,124 @@ export default function Home() {
           </motion.div>
         </AnimatePresence>
 
-        {/* Premium Dark Gradient Overlay */}
-        <div className="absolute inset-0 z-[1] bg-gradient-to-t from-[#001226]/90 via-[#001226]/50 to-black/20" aria-hidden="true" />
+        {/* Multi-layered Premium Gradient */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-t from-brand-dark via-brand-dark/60 to-transparent" aria-hidden="true" />
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-brand-dark/90 via-transparent to-brand-dark/90" aria-hidden="true" />
 
-        <div className="container mx-auto px-4 z-10 relative text-center">
+        <div className="container mx-auto px-4 z-10 relative text-center mt-16">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7 }}
+            className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-black tracking-widest text-xs md:text-sm mb-8 uppercase shadow-2xl"
+          >
+            <Globe className="text-accent h-4 w-4" /> Eksport Bojxona Brokeri
+          </motion.div>
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 leading-tight max-w-4xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight max-w-5xl mx-auto tracking-tight drop-shadow-2xl"
           >
             {t('home.hero.title')}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.1 }}
-            className="text-base md:text-xl text-slate-200 mb-8 md:mb-10 max-w-2xl mx-auto"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-lg md:text-2xl text-slate-200 mb-10 max-w-3xl mx-auto font-medium"
           >
             {t('home.hero.subtitle')}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.15 }}
-            className="flex flex-col sm:flex-row justify-center gap-4"
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="flex flex-col sm:flex-row justify-center gap-5"
           >
             <a
               href="#"
               onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openContactModal')); }}
-              className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-all shadow-[0_0_15px_rgba(232,168,56,0.4)] hover:shadow-[0_0_25px_rgba(232,168,56,0.8)] hover:-translate-y-1 block sm:inline-block text-center"
+              className="group bg-accent hover:bg-accent-light text-brand-dark font-black py-4 px-10 rounded-xl uppercase tracking-widest transition-all shadow-[0_0_30px_rgba(232,168,56,0.3)] hover:shadow-[0_0_40px_rgba(232,168,56,0.5)] hover:-translate-y-1 block sm:inline-flex items-center justify-center gap-2 text-sm"
             >
               {t('home.hero.consultation')}
             </a>
             <Link
               to="/services"
-              className="bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 text-white font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-colors"
+              className="group bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white hover:text-brand-dark text-white font-black py-4 px-10 rounded-xl uppercase tracking-widest transition-all block sm:inline-flex items-center justify-center gap-2 hover:-translate-y-1 text-sm"
             >
               {t('home.hero.services')}
             </Link>
           </motion.div>
         </div>
+
+
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white" aria-labelledby="features-heading">
-        <div className="container mx-auto px-4">
+      {/* Carousel Features Section */}
+      <section className="py-16 md:py-24 bg-slate-50 relative -mt-10 z-20" aria-labelledby="features-heading">
+        <div className="container mx-auto px-4 max-w-7xl">
           <h2 id="features-heading" className="sr-only">{t('home.features.title')}</h2>
-          <motion.div
-            variants={stagger}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          <Slider
+            dots={false}
+            infinite={true}
+            speed={500}
+            slidesToShow={4}
+            slidesToScroll={1}
+            autoplay={true}
+            autoplaySpeed={3000}
+            pauseOnHover={true}
+            arrows={false}
+            responsive={[
+              { breakpoint: 1024, settings: { slidesToShow: 3 } },
+              { breakpoint: 768, settings: { slidesToShow: 2 } },
+              { breakpoint: 480, settings: { slidesToShow: 1 } }
+            ]}
+            className="features-slider"
           >
-            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
-                <Clock size={32} />
+            {[
+              { icon: Globe, titleKey: 'home.features.global.title', descKey: 'home.features.global.desc' },
+              { icon: ShieldCheck, titleKey: 'home.features.legal.title', descKey: 'home.features.legal.desc' },
+              { icon: Users, titleKey: 'home.features.team.title', descKey: 'home.features.team.desc' },
+              { icon: BarChart, titleKey: 'home.features.fast.title', descKey: 'home.features.fast.desc' },
+            ].map((f, i) => (
+              <div key={i} className="px-3 py-4">
+                <div className="bg-white rounded-3xl p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 transition-all duration-300 h-full group flex flex-col items-center text-center transform hover:-translate-y-2">
+                  <div className="w-20 h-20 bg-brand/5 group-hover:bg-brand text-brand group-hover:text-white rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 shadow-sm group-hover:shadow-[0_10px_20px_rgba(0,54,102,0.2)] rotate-3 group-hover:-rotate-3">
+                    <f.icon size={36} strokeWidth={1.5} />
+                  </div>
+                  <h3 className="text-xl font-extrabold text-slate-900 mb-3 group-hover:text-brand transition-colors">{t(f.titleKey)}</h3>
+                  <p className="text-slate-500 font-medium leading-relaxed text-sm">{t(f.descKey)}</p>
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.fast.title')}</h3>
-              <p className="text-slate-600">{t('home.features.fast.desc')}</p>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
-                <ShieldCheck size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.legal.title')}</h3>
-              <p className="text-slate-600">{t('home.features.legal.desc')}</p>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
-                <Users size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.team.title')}</h3>
-              <p className="text-slate-600">{t('home.features.team.desc')}</p>
-            </motion.div>
-
-            <motion.div variants={fadeInUp} className="flex flex-col items-center text-center p-6 border border-slate-100 shadow-lg hover:shadow-xl transition-shadow rounded-sm bg-white">
-              <div className="w-16 h-16 bg-brand/10 text-brand rounded-full flex items-center justify-center mb-6">
-                <Globe size={32} />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-3">{t('home.features.global.title')}</h3>
-              <p className="text-slate-600">{t('home.features.global.desc')}</p>
-            </motion.div>
-          </motion.div>
+            ))}
+          </Slider>
         </div>
       </section>
 
       {/* Ish faoliyatimiz raqamlarda */}
       <section className="py-20 md:py-24 bg-brand-dark text-white relative overflow-hidden shadow-2xl" aria-labelledby="stats-heading">
-        {/* Animated Background Elements */}
+        {/* Clean Modern Background Elements for Stats with Brand Logo */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)]"></div>
+          <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/5 skew-x-12 translate-x-32" />
+          <div className="absolute top-0 left-0 w-1/3 h-full bg-white/5 -skew-x-12 -translate-x-32" />
 
-          {/* Animated blurred shapes */}
+          {/* Floating Brand Logo */}
           <motion.div
-            animate={{
-              scale: [1, 1.5, 1],
-              opacity: [0.05, 0.2, 0.05],
-            }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute -top-60 -left-60 w-[500px] h-[500px] bg-accent/30 rounded-full blur-[120px]"
-          />
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.05, 0.15, 0.05],
-            }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute -bottom-60 -right-60 w-[500px] h-[500px] bg-brand-light/30 rounded-full blur-[120px]"
-          />
-
-          {/* Floating Theme Icons in Stats Section */}
-          <motion.div
-            animate={{ y: [0, -20, 0], rotate: [0, 10, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-10 left-[10%] text-white/5"
+            animate={{ y: [0, -30, 0], rotate: [0, 15, 0], scale: [1, 1.1, 1] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[-10%] right-[10%] opacity-[0.03]"
             aria-hidden="true"
           >
-            <Ship size={120} strokeWidth={1} />
+            <img src="/Logo white.png" alt="" className="w-96 h-96 object-contain select-none" />
           </motion.div>
-
           <motion.div
-            animate={{ y: [0, 20, 0], rotate: [0, -15, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-10 right-[10%] text-white/5"
+            animate={{ y: [0, 40, 0], rotate: [0, -25, 0], scale: [1, 1.05, 1] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            className="absolute bottom-[-10%] left-[5%] opacity-[0.03]"
             aria-hidden="true"
           >
-            <Plane size={150} strokeWidth={1} />
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, -15, 0], rotate: [0, 20, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-[10%] right-[30%] text-white/5"
-            aria-hidden="true"
-          >
-            <Package size={80} strokeWidth={1} />
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 15, 0], rotate: [0, -30, 0] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
-            className="absolute bottom-[5%] left-[35%] text-white/5"
-            aria-hidden="true"
-          >
-            <Leaf size={100} strokeWidth={1} />
-          </motion.div>
-
-          {/* Added Truck Icon */}
-          <motion.div
-            animate={{ y: [0, -25, 0], rotate: [0, 12, 0] }}
-            transition={{ duration: 11, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-[5%] right-[35%] text-white/5"
-            aria-hidden="true"
-          >
-            <Truck size={130} strokeWidth={1} />
+            <img src="/Logo white.png" alt="" className="w-80 h-80 object-contain select-none" />
           </motion.div>
         </div>
 
@@ -556,32 +520,32 @@ export default function Home() {
             className="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-light/30 rounded-full blur-[100px]"
           />
 
-          {/* Floating Icons */}
+          {/* Floating Brand Logos in CTA */}
           <motion.div
             animate={{ y: [0, -15, 0], rotate: [0, 8, 0] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-10 right-[15%] text-white/5"
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-5 right-[15%] opacity-[0.04]"
             aria-hidden="true"
           >
-            <Globe size={180} strokeWidth={1} />
+            <img src="/Logo white.png" alt="" className="w-56 h-56 object-contain select-none" />
           </motion.div>
 
           <motion.div
-            animate={{ y: [0, 15, 0], rotate: [0, -8, 0] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-10 left-[15%] text-white/5"
+            animate={{ y: [0, 25, 0], rotate: [0, -12, 0] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute bottom-0 left-[10%] opacity-[0.04]"
             aria-hidden="true"
           >
-            <Truck size={140} strokeWidth={1} />
+            <img src="/Logo white.png" alt="" className="w-48 h-48 object-contain select-none" />
           </motion.div>
 
           <motion.div
             animate={{ y: [0, -10, 0], rotate: [0, 15, 0] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-[40%] left-[45%] text-white/5"
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+            className="absolute top-[30%] left-[45%] opacity-[0.02]"
             aria-hidden="true"
           >
-            <FileCheck size={80} strokeWidth={1} />
+            <img src="/Logo white.png" alt="" className="w-32 h-32 object-contain select-none" />
           </motion.div>
 
           {/* Subtle grid pattern */}
