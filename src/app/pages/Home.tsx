@@ -73,14 +73,14 @@ export default function Home() {
       {/* Hero Section — mobilda pastroq (LCP tezroq), srcset orqali kichik rasm */}
       <section className="relative h-[400px] md:h-[600px] flex items-center justify-center text-white overflow-hidden">
         <div className="absolute inset-0 z-0 bg-brand-dark">
-          <img 
-            src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920" 
+          <img
+            src="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920"
             srcSet="https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
             sizes="100vw"
-            alt="Meva va sabzavotlar eksporti" 
+            alt="Meva va sabzavotlar eksporti"
             width={1920}
             height={1080}
-            fetchPriority="high"
+            loading="eager"
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
@@ -88,7 +88,7 @@ export default function Home() {
         <div className="absolute inset-0 z-[1] bg-black/70" aria-hidden="true" />
 
         <div className="container mx-auto px-4 z-10 relative text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
@@ -96,7 +96,7 @@ export default function Home() {
           >
             {t('home.hero.title')}
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.1 }}
@@ -104,20 +104,20 @@ export default function Home() {
           >
             {t('home.hero.subtitle')}
           </motion.p>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.15 }}
             className="flex flex-col sm:flex-row justify-center gap-4"
           >
-            <Link 
-              to="/contact" 
+            <Link
+              to="/contact"
               className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-colors"
             >
               {t('home.hero.consultation')}
             </Link>
-            <Link 
-              to="/services" 
+            <Link
+              to="/services"
               className="bg-transparent border-2 border-white hover:bg-white hover:text-slate-900 text-white font-bold py-3 px-8 rounded-sm uppercase tracking-wide transition-colors"
             >
               {t('home.hero.services')}
@@ -130,7 +130,7 @@ export default function Home() {
       <section className="py-20 bg-white" aria-labelledby="features-heading">
         <div className="container mx-auto px-4">
           <h2 id="features-heading" className="sr-only">{t('home.features.title')}</h2>
-          <motion.div 
+          <motion.div
             variants={stagger}
             initial="initial"
             whileInView="whileInView"
@@ -197,7 +197,7 @@ export default function Home() {
               >
                 <item.icon size={32} className="text-accent mb-4" aria-hidden />
                 <span className="text-3xl md:text-4xl font-bold text-white mb-1">{item.value}</span>
-                <span className="text-slate-300 text-sm uppercase tracking-wider">{item.label}</span>
+                <span className="text-[10px] sm:text-xs md:text-sm uppercase tracking-wider text-slate-300 text-center break-words w-full px-1">{item.label}</span>
               </div>
             ))}
           </motion.div>
@@ -284,9 +284,8 @@ export default function Home() {
                   whileHover={{ y: -6, transition: { duration: 0.05 } }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: idx * 0.08 }}
-                  className={`relative flex flex-col rounded-2xl overflow-hidden shadow-lg transition-all duration-150 hover:shadow-2xl hover:ring-2 hover:ring-brand/20 ${
-                    isRecommended ? 'ring-2 ring-accent ring-offset-4 ring-offset-slate-50 lg:-mt-2 lg:mb-2 lg:scale-[1.02]' : ''
-                  } ${isVip ? 'bg-slate-900 text-white' : 'bg-white border border-slate-100 hover:border-brand/30'}`}
+                  className={`relative flex flex-col rounded-2xl overflow-hidden shadow-lg transition-all duration-150 hover:shadow-2xl hover:ring-2 hover:ring-brand/20 ${isRecommended ? 'ring-2 ring-accent ring-offset-4 ring-offset-slate-50 lg:-mt-2 lg:mb-2 lg:scale-[1.02]' : ''
+                    } ${isVip ? 'bg-slate-900 text-white' : 'bg-white border border-slate-100 hover:border-brand/30'}`}
                 >
                   <div className={`px-8 pt-6 pb-5 ${isVip ? 'bg-slate-800/50' : key === 'optimal' ? 'bg-brand/10' : 'bg-slate-100'}`}>
                     <div className="flex items-center gap-2 flex-wrap">
@@ -319,13 +318,12 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => setShowPhoneModal(true)}
-                      className={`group w-full font-bold py-4 px-6 rounded-xl uppercase tracking-wider text-sm transition-all duration-200 flex items-center justify-center gap-2 ${
-                        isVip
-                          ? 'bg-accent hover:bg-accent-light text-brand-dark hover:scale-[1.02] active:scale-[0.98]'
-                          : isRecommended
-                            ? 'bg-brand hover:bg-brand-light text-white shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]'
-                            : 'bg-slate-900 hover:bg-slate-800 text-white hover:scale-[1.02] active:scale-[0.98]'
-                      }`}
+                      className={`group w-full font-bold py-4 px-6 rounded-xl uppercase tracking-wider text-sm transition-all duration-200 flex items-center justify-center gap-2 ${isVip
+                        ? 'bg-accent hover:bg-accent-light text-brand-dark hover:scale-[1.02] active:scale-[0.98]'
+                        : isRecommended
+                          ? 'bg-brand hover:bg-brand-light text-white shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-[0.98]'
+                          : 'bg-slate-900 hover:bg-slate-800 text-white hover:scale-[1.02] active:scale-[0.98]'
+                        }`}
                     >
                       <MousePointerClick size={18} className="opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" aria-hidden />
                       {t('home.tariffs.askPrice')}
@@ -397,7 +395,7 @@ export default function Home() {
             <div className="w-20 h-1 bg-accent mx-auto mb-4"></div>
             <p className="text-slate-600">{t('home.partners.subtitle')}</p>
           </div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -405,15 +403,14 @@ export default function Home() {
             className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center"
           >
             {partners.map((partner, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="w-full max-w-[160px] h-20 flex items-center justify-center p-4 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
               >
                 <picture>
-                  <source type="image/webp" srcSet={partner.src.replace(/\.png$/i, '.webp')} />
-                  <img 
-                    src={partner.src} 
-                    alt={partner.alt} 
+                  <img
+                    src={partner.src}
+                    alt={partner.alt}
                     width={160}
                     height={80}
                     className="max-h-full max-w-full w-auto h-auto object-contain"
@@ -429,13 +426,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="py-20 bg-brand-dark text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full opacity-10 pointer-events-none">
-           {/* Abstract shape or pattern could go here */}
-           <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-              <path fill="#FFD700" d="M44.7,-76.4C58.9,-69.2,71.8,-59.1,79.6,-46.9C87.4,-34.7,90.1,-20.4,85.8,-7.1C81.5,6.2,70.2,18.5,60.6,29.6C51,40.7,43.1,50.6,33.4,58.3C23.7,66,12.2,71.5,0.4,70.8C-11.4,70.1,-22.4,63.2,-33.3,55.8C-44.2,48.4,-55,40.5,-63.1,30.3C-71.2,20.1,-76.6,7.6,-76.5,-5.2C-76.4,-18,-70.8,-31.1,-61.6,-41.8C-52.4,-52.5,-39.6,-60.8,-26.6,-68.6C-13.6,-76.4,-0.4,-83.7,13.2,-84.6C26.8,-85.5,41,-80,44.7,-76.4Z" transform="translate(100 100)" />
-            </svg>
-        </div>
-        
+
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-10">
             <div className="md:w-2/3">

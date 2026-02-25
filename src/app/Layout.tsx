@@ -29,6 +29,7 @@ export default function Layout() {
 
   useEffect(() => {
     setIsMenuOpen(false);
+    window.scrollTo(0, 0);
   }, [location.pathname]);
 
   useEffect(() => {
@@ -149,8 +150,7 @@ export default function Layout() {
             {/* Logo: WebP when available, PNG fallback; sized to avoid layout shift */}
             <Link to="/" className="flex items-center gap-2 group">
               <picture>
-                <source type="image/webp" srcSet="/logo.webp" />
-                <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" width={168} height={40} className="h-10 w-auto object-contain" decoding="async" fetchPriority="high" />
+                <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" width={168} height={40} className="h-10 w-auto object-contain" decoding="async" />
               </picture>
             </Link>
 
@@ -160,11 +160,10 @@ export default function Layout() {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm font-semibold uppercase tracking-wide py-2 border-b-2 transition-colors duration-300 ${
-                    location.pathname === link.path
-                      ? 'text-brand border-accent'
-                      : 'text-slate-600 border-transparent hover:text-brand hover:border-brand'
-                  }`}
+                  className={`text-sm font-semibold uppercase tracking-wide py-2 border-b-2 transition-colors duration-300 ${location.pathname === link.path
+                    ? 'text-brand border-accent'
+                    : 'text-slate-600 border-transparent hover:text-brand hover:border-brand'
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -193,21 +192,20 @@ export default function Layout() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-white border-b border-slate-200 overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="md:hidden fixed top-20 left-0 right-0 bg-white border-b border-slate-200 shadow-md z-40 overflow-hidden"
           >
             <nav className="flex flex-col p-4 space-y-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-base font-medium py-2 px-4 rounded-md transition-colors ${
-                    location.pathname === link.path
-                      ? 'bg-brand/10 text-brand'
-                      : 'text-slate-700 hover:bg-slate-50'
-                  }`}
+                  className={`text-base font-medium py-2 px-4 rounded-md transition-colors ${location.pathname === link.path
+                    ? 'bg-brand/10 text-brand'
+                    : 'text-slate-700 hover:bg-slate-50'
+                    }`}
                 >
                   {link.name}
                 </Link>
@@ -236,7 +234,6 @@ export default function Layout() {
             <div>
               <div className="flex items-center gap-2 mb-6">
                 <picture>
-                  <source type="image/webp" srcSet="/logo.webp" />
                   <img
                     src="/logo.png"
                     alt="PRO DEKLARANT"
@@ -307,7 +304,7 @@ export default function Layout() {
           </div>
 
           <div className="border-t border-brand/50 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-            <p>{t('layout.footer.copyright')}</p>
+            <p>{t('layout.footer.copyright', { year: new Date().getFullYear() })}</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <span className="hover:text-white cursor-pointer transition-colors">{t('layout.footer.privacy')}</span>
               <span className="hover:text-white cursor-pointer transition-colors">{t('layout.footer.terms')}</span>

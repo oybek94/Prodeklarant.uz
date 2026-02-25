@@ -52,7 +52,7 @@
       },
       "contactTitle": "Contact",
       "address": "Fergana region, Oltiariq district, Oltiariq town, Mustaqillik Street, 124",
-      "copyright": "© 2024 PRO DEKLARANT. All rights reserved.",
+      "copyright": "© {{year}} PRO DEKLARANT. All rights reserved.",
       "privacy": "Privacy Policy",
       "terms": "Terms of Use"
     }
@@ -65,6 +65,7 @@
       "services": "Our Services"
     },
     "features": {
+      "title": "Our Advantages",
       "fast": {
         "title": "Fast Clearance",
         "desc": "Document preparation in the shortest time and customs control clearance."
@@ -153,7 +154,14 @@
     "partners": {
       "title": "Our Partners",
       "subtitle": "Trusted partners we work with",
-      "items": ["Partner 1", "Partner 2", "Partner 3", "Partner 4", "Partner 5", "Partner 6"]
+      "items": [
+        "Partner 1",
+        "Partner 2",
+        "Partner 3",
+        "Partner 4",
+        "Partner 5",
+        "Partner 6"
+      ]
     },
     "cta": {
       "title": "Get your fruits and vegetables to world markets",
@@ -189,41 +197,78 @@
       "export": {
         "title": "Export Customs Clearance",
         "desc": "Preparation of all necessary documents, filling out and completing customs declaration ( customs declaration) for transferring goods to export regime. We help conduct export quickly and smoothly.",
-        "features": ["Analysis of export contracts", "Service across Uzbekistan", "24/7 online declaration"]
+        "features": [
+          "Analysis of export contracts",
+          "Service across Uzbekistan",
+          "24/7 online declaration"
+        ]
       },
       "import": {
         "title": "Product traceability document preparation",
         "desc": "Preparation of TIR carnet, SMR, invoices, packing lists and similar documents.",
-        "features": ["TIR carnet", "SMR", "Invoice", "Packing list"]
+        "features": [
+          "TIR carnet",
+          "SMR",
+          "Invoice",
+          "Packing list"
+        ]
       },
       "transit": {
         "title": "Contract preparation and electronic database entry",
         "desc": "Preparation of export contracts and their entry into the electronic database.",
-        "features": ["Contract drafting", "Electronic database entry", "Legal advice in contract preparation"]
+        "features": [
+          "Contract drafting",
+          "Electronic database entry",
+          "Legal advice in contract preparation"
+        ]
       },
       "certification": {
         "title": "Certification",
         "desc": "Professional assistance in obtaining phytosanitary certificate and certificate of origin for fruit and vegetable export.",
-        "features": ["Phytosanitary certificate", "Certificate of origin", "Online applications to certification authorities"]
+        "features": [
+          "Phytosanitary certificate",
+          "Certificate of origin",
+          "Online applications to certification authorities"
+        ]
       },
       "warehouse": {
         "title": "Customs Warehouse Services",
         "desc": "Temporary storage of cargo under customs control. Ensuring conditions for unloading, loading and storage of cargo.",
-        "features": ["Secure storage", "Warehouse reporting", "Cargo labeling"]
+        "features": [
+          "Secure storage",
+          "Warehouse reporting",
+          "Cargo labeling"
+        ]
       },
       "consulting": {
         "title": "Customs Consulting",
         "desc": "Professional advice on customs legislation, taxes and benefits for participants in foreign economic activity.",
-        "features": ["HS code determination", "Contract expertise", "Customs audit"]
+        "features": [
+          "HS code determination",
+          "Contract expertise",
+          "Customs audit"
+        ]
       }
     },
     "process": {
       "title": "Work Process",
       "steps": {
-        "1": { "title": "Application", "desc": "Submit documents and get free consultation" },
-        "2": { "title": "Analysis", "desc": "Our specialists will review documents and determine codes" },
-        "3": { "title": "Clearance", "desc": "Declaration is filled and submitted to customs authority" },
-        "4": { "title": "Result", "desc": "Your cargo passes customs and documents are delivered to you" }
+        "1": {
+          "title": "Application",
+          "desc": "Submit documents and get free consultation"
+        },
+        "2": {
+          "title": "Analysis",
+          "desc": "Our specialists will review documents and determine codes"
+        },
+        "3": {
+          "title": "Clearance",
+          "desc": "Declaration is filled and submitted to customs authority"
+        },
+        "4": {
+          "title": "Result",
+          "desc": "Your cargo passes customs and documents are delivered to you"
+        }
       }
     }
   },
@@ -274,7 +319,13 @@
     },
     "values": {
       "title": "Our values",
-      "items": ["Responsibility", "Transparency", "Accuracy", "Speed", "Professionalism"]
+      "items": [
+        "Responsibility",
+        "Transparency",
+        "Accuracy",
+        "Speed",
+        "Professionalism"
+      ]
     },
     "closing": "Prodeklarant — your reliable representative at customs."
   },

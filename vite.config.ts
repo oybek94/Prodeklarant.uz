@@ -20,8 +20,17 @@ export default defineConfig({
   assetsInclude: ['**/*.svg', '**/*.csv'],
 
   build: {
-    chunkSizeWarningLimit: 400,
-    modulePreload: false,
+    chunkSizeWarningLimit: 600,
+    modulePreload: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router'],
+          motion: ['motion/react'],
+          ui: ['lucide-react', 'react-i18next', 'i18next'],
+        },
+      },
+    },
   },
 
   server: {

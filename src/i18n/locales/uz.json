@@ -52,7 +52,7 @@
       },
       "contactTitle": "Bog'lanish",
       "address": "Farg'ona viloyati, Oltiariq tumani, Oltiariq shaharchasi Mustaqillik ko'chasi, 124-uy",
-      "copyright": "© 2024 PRO DEKLARANT. Barcha huquqlar himoyalangan.",
+      "copyright": "© {{year}} PRO DEKLARANT. Barcha huquqlar himoyalangan.",
       "privacy": "Maxfiylik siyosati",
       "terms": "Foydalanish shartlari"
     }
@@ -65,6 +65,7 @@
       "services": "Xizmatlarimiz"
     },
     "features": {
+      "title": "Bizning Afzalliklarimiz",
       "fast": {
         "title": "Tezkor Rasmiylashtirish",
         "desc": "Hujjatlarni eng qisqa muddatlarda tayyorlash va bojxona nazoratidan o'tkazish."
@@ -153,7 +154,14 @@
     "partners": {
       "title": "Hamkorlarimiz",
       "subtitle": "Ishonchli hamkorlarimiz bilan birga",
-      "items": ["Hamkor 1", "Hamkor 2", "Hamkor 3", "Hamkor 4", "Hamkor 5", "Hamkor 6"]
+      "items": [
+        "Hamkor 1",
+        "Hamkor 2",
+        "Hamkor 3",
+        "Hamkor 4",
+        "Hamkor 5",
+        "Hamkor 6"
+      ]
     },
     "cta": {
       "title": "Meva-sabzavotingizni jahon bozoriga yetkazing",
@@ -189,41 +197,78 @@
       "export": {
         "title": "Eksport bojxona rasmiylashtiruvi",
         "desc": "Barcha zarur hujjatlarni tayyorlash, bojxona deklaratsiyasini (GTD) to'ldirish va tovarlarni eksport rejimiga o'tkazish. Eksportni tez va muammosiz amalga oshirishda yordam beramiz.",
-        "features": ["Eksport shartnomalarini tahlil qilish", "O'zbekiston bo'ylab xizmat", "24/7 onlayn deklaratsiya"]
+        "features": [
+          "Eksport shartnomalarini tahlil qilish",
+          "O'zbekiston bo'ylab xizmat",
+          "24/7 onlayn deklaratsiya"
+        ]
       },
       "import": {
         "title": "Tovar kuzatuv hujjatlari tayyorlash",
         "desc": "TIR carnet, SMR, Invoys, qadoq listi va shunga o'xshash hujjatlarni tayyorlash.",
-        "features": ["TIR carnet", "SMR", "Invoys", "Qadoq listi"]
+        "features": [
+          "TIR carnet",
+          "SMR",
+          "Invoys",
+          "Qadoq listi"
+        ]
       },
       "transit": {
         "title": "Shartnomalar tayyorlash va elektron bazaga qo'shish",
         "desc": "Eksport shartnomalarini tayyorlash va ularni elektron bazaga kiritish xizmatlari.",
-        "features": ["Shartnoma tuzish", "Elektron bazaga qo'shish", "Shartnoma tayyorlashda yuridik maslahatlar berish"]
+        "features": [
+          "Shartnoma tuzish",
+          "Elektron bazaga qo'shish",
+          "Shartnoma tayyorlashda yuridik maslahatlar berish"
+        ]
       },
       "certification": {
         "title": "Sertifikatlashtirish",
         "desc": "Meva-sabzavot eksporti uchun fitosanitariya sertifikati va kelib chiqish sertifikatini olishda professional yordam.",
-        "features": ["Fitosanitariya sertifikati", "Kelib chiqish sertifikati", "Sertifikatlash idoralariga onlayn arizalar berish"]
+        "features": [
+          "Fitosanitariya sertifikati",
+          "Kelib chiqish sertifikati",
+          "Sertifikatlash idoralariga onlayn arizalar berish"
+        ]
       },
       "warehouse": {
         "title": "Bojxona ombori xizmatlari",
         "desc": "Yuklarni bojxona nazorati ostida vaqtincha saqlash. Yuklarni tushirish, ortish va saqlash uchun sharoitlarni ta'minlash.",
-        "features": ["Xavfsiz saqlash", "Ombor hisoboti", "Yuklarni markirovkalash"]
+        "features": [
+          "Xavfsiz saqlash",
+          "Ombor hisoboti",
+          "Yuklarni markirovkalash"
+        ]
       },
       "consulting": {
         "title": "Bojxona konsaltingi",
         "desc": "Tashqi iqtisodiy faoliyat ishtirokchilariga bojxona qonunchiligi, soliqlar va imtiyozlar bo'yicha professional maslahatlar.",
-        "features": ["TIF TN kodlarini aniqlash", "Shartnomalarni ekspertiza qilish", "Bojxona audit"]
+        "features": [
+          "TIF TN kodlarini aniqlash",
+          "Shartnomalarni ekspertiza qilish",
+          "Bojxona audit"
+        ]
       }
     },
     "process": {
       "title": "Ish Jarayoni",
       "steps": {
-        "1": { "title": "Murojaat", "desc": "Hujjatlarni yuboring va bepul maslahat oling" },
-        "2": { "title": "Tahlil", "desc": "Mutaxassislarimiz hujjatlarni tekshiradi va kodlarni aniqlaydi" },
-        "3": { "title": "Rasmiylashtirish", "desc": "Deklaratsiya to'ldiriladi va bojxona organiga yuboriladi" },
-        "4": { "title": "Natija", "desc": "Yukingiz bojxonadan o'tadi va hujjatlar sizga taqdim etiladi" }
+        "1": {
+          "title": "Murojaat",
+          "desc": "Hujjatlarni yuboring va bepul maslahat oling"
+        },
+        "2": {
+          "title": "Tahlil",
+          "desc": "Mutaxassislarimiz hujjatlarni tekshiradi va kodlarni aniqlaydi"
+        },
+        "3": {
+          "title": "Rasmiylashtirish",
+          "desc": "Deklaratsiya to'ldiriladi va bojxona organiga yuboriladi"
+        },
+        "4": {
+          "title": "Natija",
+          "desc": "Yukingiz bojxonadan o'tadi va hujjatlar sizga taqdim etiladi"
+        }
       }
     }
   },
@@ -274,7 +319,13 @@
     },
     "values": {
       "title": "Bizning qadriyatlarimiz",
-      "items": ["Mas'uliyat", "Shaffoflik", "Aniqlik", "Tezkorlik", "Professionalizm"]
+      "items": [
+        "Mas'uliyat",
+        "Shaffoflik",
+        "Aniqlik",
+        "Tezkorlik",
+        "Professionalizm"
+      ]
     },
     "closing": "Prodeklarant — bojxonadagi ishonchli vakilingiz."
   },
