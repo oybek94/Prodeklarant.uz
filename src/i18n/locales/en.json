@@ -276,6 +276,9 @@
     "title": "About Us",
     "subtitle": "Prodeklarant — a customs brokerage company specialized in export.",
     "intro": {
+      "badge": "About Us",
+      "slogan1": "Through trust and quality <br />to the",
+      "slogan2": "international arena",
       "p1": "Our main focus is to organize the export process safely, systematically and without hassle. We provide customs clearance, certification, contract preparation and transport documents for fruit, vegetable and other product exporters as a full package.",
       "p2": "We don't just prepare documents — we manage the export process."
     },
