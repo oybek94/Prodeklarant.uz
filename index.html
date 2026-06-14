@@ -10,9 +10,9 @@
     server yo'q holat (statik hosting / vite preview) uchun default sifatida xizmat qiladi.
   -->
   <!-- SEO:start -->
-  <title>PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz</title>
+  <title>PRO DEKLARANT — Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv</title>
   <meta name="description"
-    content="Prodeklarant — meva-sabzavot eksportchilari uchun bojxona rasmiylashtiruv xizmatlari. Yuk deklaratsiyasi, TIR carnet, sertifikatlar, konsultatsiya. Farg'ona viloyati." />
+    content="Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. GTD rasmiylashtirish, sertifikatlar, logistika. Farg'ona viloyati." />
   <link rel="canonical" href="https://prodeklarant.uz/" />
   <meta name="robots" content="index, follow" />
   <meta property="og:type" content="website" />
@@ -20,15 +20,15 @@
   <meta property="og:locale" content="uz_UZ" />
   <meta property="og:locale:alternate" content="ru_RU" />
   <meta property="og:locale:alternate" content="en_US" />
-  <meta property="og:title" content="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" />
+  <meta property="og:title" content="PRO DEKLARANT — Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv" />
   <meta property="og:description"
-    content="Prodeklarant — meva-sabzavot eksportchilari uchun bojxona rasmiylashtiruv xizmatlari. Yuk deklaratsiyasi, TIR carnet, sertifikatlar, konsultatsiya. Farg'ona viloyati." />
+    content="Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. GTD rasmiylashtirish, sertifikatlar, logistika. Farg'ona viloyati." />
   <meta property="og:url" content="https://prodeklarant.uz/" />
   <meta property="og:image" content="https://prodeklarant.uz/logo.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" />
+  <meta name="twitter:title" content="PRO DEKLARANT — Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv" />
   <meta name="twitter:description"
-    content="Prodeklarant — meva-sabzavot eksportchilari uchun bojxona rasmiylashtiruv xizmatlari. Yuk deklaratsiyasi, TIR carnet, sertifikatlar, konsultatsiya. Farg'ona viloyati." />
+    content="Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. GTD rasmiylashtirish, sertifikatlar, logistika. Farg'ona viloyati." />
   <meta name="twitter:image" content="https://prodeklarant.uz/logo.png" />
   <!-- SEO:end -->
   <script>
@@ -51,25 +51,14 @@
   </script>
   <link rel="icon" type="image/png" href="/favicon.png" />
 
-  <!-- Outfit shrifti: preconnect + render-bloklamaydigan yuklash (FCP/LCP uchun) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style"
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
-    media="print" onload="this.media='all'" />
-  <noscript>
-    <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" />
-  </noscript>
+  <!-- Self-hosted shriftlar: kritik woff2 fayllarni preload (FCP/LCP). @font-face → src/styles/fonts.css -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/outfit-1.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/bricolage-2.woff2" crossorigin />
 
-  <!-- Preconnect + responsive preload LCP hero rasmi (mobilga kichik o‘lcham beriladi) -->
-  <link rel="preconnect" href="https://images.pexels.com" crossorigin />
-  <link rel="dns-prefetch" href="https://images.pexels.com" />
+  <!-- Responsive preload LCP hero rasmi (self-hosted, mobilga kichik o‘lcham beriladi) -->
   <link rel="preload" as="image" fetchpriority="high"
-    href="https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=1280"
-    imagesrcset="https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=960 960w, https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=1280 1280w, https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+    href="/images/p1132047-1280.jpg"
+    imagesrcset="/images/p1132047-640.jpg 640w, /images/p1132047-1280.jpg 1280w, /images/p1132047-1920.jpg 1920w"
     imagesizes="100vw" />
 </head>
 

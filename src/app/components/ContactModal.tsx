@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -70,7 +71,7 @@ export default function ContactModal() {
                                 {t('home.tariffs.modalTitle') || "Bog'lanish"}
                             </h3>
                             <p className="text-slate-500 text-sm font-medium px-4">
-                                Sizga qulay usulni tanlang va bizga aloqaga chiqing
+                                {t('contact.modal.subtitle')}
                             </p>
                         </div>
 
@@ -107,10 +108,18 @@ export default function ContactModal() {
                             >
                                 <div className="flex items-center gap-3">
                                     <Phone size={24} className="fill-current" />
-                                    <span>Qo'ng'iroq</span>
+                                    <span>{t('contact.modal.call')}</span>
                                 </div>
                                 <span className="text-sm font-medium opacity-90">+998 91 118 70 07</span>
                             </a>
+
+                            <Link
+                                to="/contact"
+                                onClick={() => setIsOpen(false)}
+                                className="mt-2 inline-block text-sm font-semibold text-brand hover:text-brand-dark transition-colors"
+                            >
+                                {t('contact.modal.formLink')}
+                            </Link>
                         </div>
                     </div>
                 </motion.div>

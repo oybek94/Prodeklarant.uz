@@ -10,6 +10,7 @@ const authRoutes = require('./routes/auth');
 const postsRoutes = require('./routes/posts');
 const uploadRoutes = require('./routes/upload');
 const translateRoutes = require('./routes/translate');
+const contactRoutes = require('./routes/contact');
 
 const SITE_URL = process.env.SITE_URL || 'https://prodeklarant.uz';
 
@@ -36,6 +37,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/posts', postsRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/translate', translateRoutes);
+app.use('/api/contact', contactRoutes);
 
 app.get('/sitemap.xml', (req, res) => {
   const staticPaths = [

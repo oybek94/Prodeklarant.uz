@@ -55,14 +55,16 @@
       "copyright": "© {{year}} PRO DEKLARANT. All rights reserved.",
       "privacy": "Privacy Policy",
       "terms": "Terms of Use"
-    }
+    },
+    "menu": "Menu"
   },
   "home": {
     "hero": {
       "title": "Customs clearance services for fruit and vegetable export",
       "subtitle": "Specialized customs brokerage services for fruit and vegetable exporters.",
       "consultation": "Free Consultation",
-      "services": "Our Services"
+      "services": "Our Services",
+      "badge": "Export Customs Broker"
     },
     "features": {
       "title": "Our Advantages",
@@ -269,7 +271,12 @@
           "title": "Result",
           "desc": "Your cargo passes customs and documents are delivered to you"
         }
-      }
+      },
+      "badge": "Step by step"
+    },
+    "cta": {
+      "title": "Do our services suit you?",
+      "desc": "Contact us right now and get a free consultation. Our specialists will answer all your questions."
     }
   },
   "about": {
@@ -368,7 +375,17 @@
       },
       "message": "Message",
       "messagePlaceholder": "Brief content...",
-      "submit": "Send"
+      "submit": "Send",
+      "submitting": "Sending...",
+      "success": {
+        "title": "Your message has been sent!",
+        "desc": "Our specialists will contact you shortly."
+      }
+    },
+    "modal": {
+      "subtitle": "Choose a convenient way to reach us",
+      "call": "Call",
+      "formLink": "Or leave a detailed message →"
     }
   },
   "notFound": {
@@ -432,7 +449,8 @@
         "date": "January 28, 2026",
         "category": "Reference"
       }
-    }
+    },
+    "loading": "Loading..."
   },
   "blogPost": {
     "back": "Back to blog",

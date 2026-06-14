@@ -7,7 +7,7 @@ import { Link } from 'react-router';
 export default function About() {
   const { t } = useTranslation();
   const stats = [
-    { label: t('about.stats.experience'), value: '10', icon: Award },
+    { label: t('about.stats.experience'), value: '10+', icon: Award },
     { label: t('about.stats.clients'), value: '100+', icon: Users },
     { label: t('about.stats.cargo'), value: '15 000+', icon: FileCheck },
     { label: t('about.stats.countries'), value: '30+', icon: Globe },
@@ -27,8 +27,8 @@ export default function About() {
           className="absolute inset-0 z-0"
         >
           <img
-            src="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            srcSet="https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+            src="/images/p264537-1280.jpg"
+            srcSet="/images/p264537-640.jpg 640w, /images/p264537-1280.jpg 1280w, /images/p264537-1920.jpg 1920w"
             sizes="100vw"
             alt=""
             width={1920}
@@ -83,7 +83,9 @@ export default function About() {
               <div className="relative">
                 <div className="absolute inset-0 bg-brand translate-x-4 translate-y-4 md:translate-x-6 md:translate-y-6 rounded-2xl -z-10"></div>
                 <img
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
+                  src="/images/p3184291-800.jpg"
+                  width={800}
+                  height={533}
                   alt="Team collaboration"
                   className="rounded-2xl shadow-2xl w-full h-auto object-cover relative z-10"
                 />
@@ -280,7 +282,7 @@ export default function About() {
       {/* CTA Section */}
       <section className="py-24 bg-brand-dark relative overflow-hidden text-center text-white">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://images.pexels.com/photos/5842828/pexels-photo-5842828.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="" aria-hidden="true" loading="lazy" className="w-full h-full object-cover" />
+          <img src="/images/p5842828-1280.jpg" alt="" aria-hidden="true" loading="lazy" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/95 to-brand-dark/90 z-0"></div>
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">

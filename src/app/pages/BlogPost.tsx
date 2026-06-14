@@ -9,10 +9,10 @@ import { getPost, getPosts, type BlogPost } from '../api';
 import { slugify } from '../utils/slugify';
 
 const BLOG_IMAGES = [
-  "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=800",
-  "https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=800",
-  "https://images.pexels.com/photos/1410235/pexels-photo-1410235.jpeg?auto=compress&cs=tinysrgb&w=800",
-  "https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "/images/p533280-800.jpg",
+  "/images/p1327838-800.jpg",
+  "/images/p1410235-800.jpg",
+  "/images/p264537-800.jpg",
 ];
 
 export default function BlogPost() {

@@ -36,8 +36,8 @@ export default function Services() {
       <section className="relative z-10 text-white min-h-[50vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            srcSet="https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+            src="/images/p4483610-1280.jpg"
+            srcSet="/images/p4483610-640.jpg 640w, /images/p4483610-1280.jpg 1280w, /images/p4483610-1920.jpg 1920w"
             alt="Services Cargo"
             sizes="100vw"
             width={1920}
@@ -144,7 +144,7 @@ export default function Services() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 inline-block">Bosqichma-bosqich</span>
+            <span className="text-accent font-bold uppercase tracking-widest text-sm mb-4 inline-block">{t('services.process.badge')}</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 uppercase tracking-tight">{t('services.process.title')}</h2>
             <div className="w-20 h-1.5 bg-accent mx-auto rounded-full"></div>
           </motion.div>
@@ -188,10 +188,10 @@ export default function Services() {
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
         <div className="container mx-auto px-4 relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black mb-8 max-w-3xl mx-auto uppercase tracking-tighter">
-            Xizmatlarimiz sizga ma'qul keldimi?
+            {t('services.cta.title')}
           </h2>
           <p className="text-lg md:text-xl font-medium mb-10 max-w-2xl mx-auto text-brand-dark/80">
-            Hoziroq biz bilan bog'laning va bepul konsultatsiyaga ega bo'ling. Bizning mutaxassislar barcha savollaringizga javob beradi.
+            {t('services.cta.desc')}
           </p>
           <Link
             to="/contact"

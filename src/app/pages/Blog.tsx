@@ -10,10 +10,10 @@ import { blogPostPath } from '../utils/slugify';
 const POSTS_PER_PAGE = 7;
 
 const BLOG_IMAGES = [
-  "https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=800",
-  "https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=800",
-  "https://images.pexels.com/photos/1410235/pexels-photo-1410235.jpeg?auto=compress&cs=tinysrgb&w=800",
-  "https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=800",
+  "/images/p533280-800.jpg",
+  "/images/p1327838-800.jpg",
+  "/images/p1410235-800.jpg",
+  "/images/p264537-800.jpg",
 ];
 
 function toDisplayPost(post: BlogPost, lang: string): { id: number; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number } {
@@ -136,7 +136,7 @@ export default function Blog() {
           className="absolute inset-0 z-0"
         >
           <img
-            src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg?auto=compress&cs=tinysrgb&w=1920"
+            src="/images/p265087-1280.jpg"
             alt="Blog background"
             className="w-full h-full object-cover"
             loading="eager"
@@ -172,7 +172,7 @@ export default function Blog() {
         <div className="flex flex-col lg:flex-row gap-12">
           <div className="lg:w-2/3">
             {loading ? (
-              <div className="text-center py-20 text-slate-600">Yuklanmoqda...</div>
+              <div className="text-center py-20 text-slate-600">{t('blog.loading')}</div>
             ) : filteredPosts.length === 0 ? (
               <div className="text-center py-20 text-slate-600">{t('blog.noResults')}</div>
             ) : (
@@ -215,7 +215,7 @@ export default function Blog() {
                             {post.excerpt}
                           </p>
                         </div>
-                        <div className="inline-flex items-center gap-2 text-brand font-black text-sm uppercase tracking-widest hover:text-accent-light transition-colors self-start group/btn">
+                        <div className="inline-flex items-center gap-2 text-brand font-black text-sm uppercase tracking-widest hover:text-accent-dark transition-colors self-start group/btn">
                           {t('blog.readMore')}
                           <ArrowRight size={16} className="transition-transform group-hover/btn:translate-x-1" />
                         </div>

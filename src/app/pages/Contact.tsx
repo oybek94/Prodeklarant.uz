@@ -7,6 +7,7 @@ export default function Contact() {
   const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -17,32 +18,30 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMsg('');
 
-    const BOT_TOKEN = (import.meta as any).env.VITE_TELEGRAM_BOT_TOKEN;
-    const CHAT_ID = (import.meta as any).env.VITE_TELEGRAM_CHAT_ID;
-
-    const text = `📬 *SAYTDAN YANGI XABAR:*\n\n👤 *Ism:* ${formData.name}\n📞 *Tel:* ${formData.phone}\n📝 *Xabar:* ${formData.message}`;
-
+    // Xabar serverga (/api/contact) yuboriladi — Telegram tokeni faqat serverda qoladi.
     try {
-      await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: text,
-          parse_mode: 'Markdown'
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || t('contact.form.error') || "Xatolik yuz berdi. Qayta urinib ko'ring.");
+      }
 
       setIsSubmitted(true);
       setFormData({ name: '', phone: '', message: '' }); // tozalash
-
       setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err) {
-      console.error("Xabar yuborishda xatolik yuz berdi:", err);
-      // Agar xatolik bo'lsa ham foydalanuvchiga yomon ko'rinmasligi uchun (shunchaki o'zida)
+      setErrorMsg(
+        err instanceof Error && err.message
+          ? err.message
+          : (t('contact.form.error') || "Xatolik yuz berdi. Qayta urinib ko'ring.")
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -59,8 +58,8 @@ export default function Contact() {
           className="absolute inset-0 z-0"
         >
           <img
-            src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920"
-            srcSet="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=640 640w, https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1024 1024w, https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1920 1920w"
+            src="/images/p3184360-1280.jpg"
+            srcSet="/images/p3184360-640.jpg 640w, /images/p3184360-1280.jpg 1280w, /images/p3184360-1920.jpg 1920w"
             sizes="100vw"
             alt="Contact Us"
             width={1920}
@@ -184,8 +183,8 @@ export default function Contact() {
                     <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-600 mb-4">
                       <Send size={32} />
                     </div>
-                    <h3 className="text-2xl font-bold text-slate-900">Xabaringiz yuborildi!</h3>
-                    <p className="text-slate-600">Tez orada mutaxassislarimiz siz bilan bog'lanishadi.</p>
+                    <h3 className="text-2xl font-bold text-slate-900">{t('contact.form.success.title')}</h3>
+                    <p className="text-slate-600">{t('contact.form.success.desc')}</p>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
@@ -212,7 +211,7 @@ export default function Contact() {
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+998-90-123-45-67"
+                          placeholder={t('contact.form.phonePlaceholder')}
                           className="w-full px-5 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all font-medium text-slate-800 placeholder:text-slate-400"
                         />
                       </div>
@@ -232,12 +231,18 @@ export default function Contact() {
                       ></textarea>
                     </div>
 
+                    {errorMsg && (
+                      <p role="alert" aria-live="assertive" className="text-sm font-semibold text-red-600 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                        {errorMsg}
+                      </p>
+                    )}
+
                     <button
                       type="submit"
                       disabled={isSubmitting}
                       className="group w-full md:w-auto inline-flex items-center justify-center gap-2 bg-brand text-white px-8 py-4 rounded-xl font-bold uppercase tracking-wider transition-all duration-300 shadow-lg shadow-brand/20 hover:shadow-brand/40 hover:bg-brand-dark hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
-                      {isSubmitting ? 'Yuborilmoqda...' : t('contact.form.submit') || "Yuborish"}
+                      {isSubmitting ? t('contact.form.submitting') : t('contact.form.submit')}
                       <Send size={18} className={`transition-transform ${isSubmitting ? 'animate-pulse' : 'group-hover:translate-x-1 group-hover:-translate-y-1'}`} />
                     </button>
                   </form>
@@ -251,7 +256,7 @@ export default function Contact() {
       {/* Full Width Map Section */}
       <section className="relative h-[500px] w-full mt-10 filter grayscale-[20%] contrast-125">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58279!2d71.48!3d40.39!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38bb84d62a1f8f1f%3A0x0!2sOltiariq%2C%20Uzbekistan!5e0!3m2!1sen!2s!4v1647856743840!5m2!1sen!2s"
+          src="https://maps.google.com/maps?q=40.3736,71.6794&z=14&hl=uz&output=embed"
           width="100%"
           height="100%"
           style={{ border: 0 }}

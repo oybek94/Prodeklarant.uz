@@ -14,31 +14,23 @@ import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
 
+// Self-hosted rasmlar (public/images) — tashqi CDN'ga bog'liqlik yo'q
 const BLOG_IMAGES = [
-  'https://images.pexels.com/photos/533280/pexels-photo-533280.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'https://images.pexels.com/photos/1327838/pexels-photo-1327838.jpeg?auto=compress&cs=tinysrgb&w=600',
-  'https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg?auto=compress&cs=tinysrgb&w=600',
+  '/images/p533280-800.jpg',
+  '/images/p1327838-800.jpg',
+  '/images/p264537-800.jpg',
 ];
 
 const HERO_SLIDES = [
-  {
-    image: 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    alt: 'Sifatli meva va sabzavotlar eksporti'
-  },
-  {
-    image: 'https://images.pexels.com/photos/1367243/pexels-photo-1367243.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    alt: 'Qishloq xo\'jaligi mahsulotlari hosili'
-  },
-  {
-    image: 'https://images.pexels.com/photos/109274/pexels-photo-109274.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    alt: 'Eksportbop sifatli giloslar'
-  }
+  { id: '1132047', alt: 'Sifatli meva va sabzavotlar eksporti' },
+  { id: '1367243', alt: 'Qishloq xo\'jaligi mahsulotlari hosili' },
+  { id: '109274', alt: 'Eksportbop sifatli giloslar' },
 ];
 
-// Pexels rasmini berilgan kenglikka moslash + responsive srcset (mobilga kichik fayl)
-const pexelsAt = (url: string, w: number) => url.replace(/([?&]w=)\d+/, `$1${w}`);
-const pexelsSrcSet = (url: string) =>
-  [640, 960, 1280, 1920].map((w) => `${pexelsAt(url, w)} ${w}w`).join(', ');
+// Local rasmni berilgan kenglikka moslash + responsive srcset (mobilga kichik fayl)
+const localAt = (id: string, w: number) => `/images/p${id}-${w}.jpg`;
+const localSrcSet = (id: string) =>
+  [640, 1280, 1920].map((w) => `${localAt(id, w)} ${w}w`).join(', ');
 
 function formatPostDate(dateStr: string): string {
   if (!dateStr) return '';
@@ -118,8 +110,8 @@ export default function Home() {
             className="absolute inset-0 z-0 w-full h-full"
           >
             <img
-              src={pexelsAt(HERO_SLIDES[currentSlide].image, 1280)}
-              srcSet={pexelsSrcSet(HERO_SLIDES[currentSlide].image)}
+              src={localAt(HERO_SLIDES[currentSlide].id, 1280)}
+              srcSet={localSrcSet(HERO_SLIDES[currentSlide].id)}
               sizes="100vw"
               alt={HERO_SLIDES[currentSlide].alt}
               fetchPriority={currentSlide === 0 ? 'high' : 'low'}
@@ -141,7 +133,7 @@ export default function Home() {
             transition={{ duration: 0.7 }}
             className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white font-black tracking-widest text-xs md:text-sm mb-8 uppercase shadow-2xl"
           >
-            <Globe className="text-accent h-4 w-4" /> Eksport Bojxona Brokeri
+            <Globe className="text-accent h-4 w-4" /> {t('home.hero.badge')}
           </motion.div>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
@@ -165,13 +157,13 @@ export default function Home() {
             transition={{ duration: 0.6, delay: 0.6 }}
             className="flex flex-col sm:flex-row justify-center gap-5"
           >
-            <a
-              href="#"
-              onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openContactModal')); }}
-              className="group bg-accent hover:bg-accent-light text-brand-dark font-black py-4 px-10 rounded-xl uppercase tracking-widest transition-all shadow-[0_0_30px_rgba(232,168,56,0.3)] hover:shadow-[0_0_40px_rgba(232,168,56,0.5)] hover:-translate-y-1 block sm:inline-flex items-center justify-center gap-2 text-sm"
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event('openContactModal'))}
+              className="group bg-accent hover:bg-accent-light text-brand-dark font-black py-4 px-10 rounded-xl uppercase tracking-widest transition-all shadow-[0_0_30px_rgba(232,168,56,0.3)] hover:shadow-[0_0_40px_rgba(232,168,56,0.5)] hover:-translate-y-1 w-full sm:w-auto sm:inline-flex items-center justify-center gap-2 text-sm"
             >
               {t('home.hero.consultation')}
-            </a>
+            </button>
             <Link
               to="/services"
               className="group bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white hover:text-brand-dark text-white font-black py-4 px-10 rounded-xl uppercase tracking-widest transition-all block sm:inline-flex items-center justify-center gap-2 hover:-translate-y-1 text-sm"
@@ -231,24 +223,6 @@ export default function Home() {
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute top-0 right-0 w-1/2 h-full bg-accent/5 skew-x-12 translate-x-32" />
           <div className="absolute top-0 left-0 w-1/3 h-full bg-white/5 -skew-x-12 -translate-x-32" />
-
-          {/* Floating Brand Logo */}
-          <motion.div
-            animate={{ y: [0, -30, 0], rotate: [0, 15, 0], scale: [1, 1.1, 1] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[-10%] right-[10%] opacity-[0.03]"
-            aria-hidden="true"
-          >
-            <img src="/Logo white.png" alt="" className="w-96 h-96 object-contain select-none" />
-          </motion.div>
-          <motion.div
-            animate={{ y: [0, 40, 0], rotate: [0, -25, 0], scale: [1, 1.05, 1] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute bottom-[-10%] left-[5%] opacity-[0.03]"
-            aria-hidden="true"
-          >
-            <img src="/Logo white.png" alt="" className="w-80 h-80 object-contain select-none" />
-          </motion.div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -283,7 +257,7 @@ export default function Home() {
               { label: t('home.stats.experience'), value: '10+', icon: Award },
               { label: t('home.stats.clients'), value: '100+', icon: Users },
               { label: t('home.stats.cargo'), value: '15k+', icon: FileCheck },
-              { label: t('home.stats.countries'), value: '15+', icon: Globe },
+              { label: t('home.stats.countries'), value: '30+', icon: Globe },
             ].map((item, i) => (
               <motion.div
                 key={i}
@@ -323,7 +297,7 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.export.desc')}
               </p>
-              <Link to="/services" className="text-brand font-bold hover:text-accent-light flex items-center gap-2">
+              <Link to="/services" className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
@@ -334,7 +308,7 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.import.desc')}
               </p>
-              <Link to="/services" className="text-brand font-bold hover:text-accent-light flex items-center gap-2">
+              <Link to="/services" className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
@@ -345,14 +319,14 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.certification.desc')}
               </p>
-              <Link to="/services" className="text-brand font-bold hover:text-accent-light flex items-center gap-2">
+              <Link to="/services" className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/services" className="inline-block bg-brand-dark hover:bg-brand text-white font-bold py-3 px-8 rounded-sm transition-colors">
+            <Link to="/services" className="inline-block bg-brand-dark hover:bg-brand text-white font-bold py-3 px-8 rounded-xl transition-colors">
               {t('home.services.viewAll')}
             </Link>
           </div>
@@ -422,7 +396,7 @@ export default function Home() {
                         {tariff?.name || key}
                       </h3>
                       {isRecommended && (
-                        <span className="text-xs font-bold uppercase tracking-wider text-accent">
+                        <span className="text-xs font-bold uppercase tracking-wider bg-accent text-brand-dark px-2.5 py-1 rounded-full">
                           {t('home.tariffs.recommended')}
                         </span>
                       )}
@@ -436,7 +410,7 @@ export default function Home() {
                           <span className={`flex-shrink-0 mt-1 w-5 h-5 rounded-full flex items-center justify-center ${isVip ? 'bg-accent/20 text-accent' : 'bg-brand/10 text-brand'}`}>
                             <CheckCircle size={14} strokeWidth={2.5} aria-hidden />
                           </span>
-                          <span className={`text-sm leading-relaxed ${isVip ? 'text-slate-300' : 'text-slate-600'} ${isBonus ? 'font-semibold text-accent' : ''}`}>
+                          <span className={`text-sm leading-relaxed ${isVip ? 'text-slate-300' : 'text-slate-600'} ${isBonus ? (isVip ? 'font-semibold text-accent' : 'font-semibold text-accent-dark') : ''}`}>
                             {item}
                           </span>
                         </li>
@@ -531,34 +505,6 @@ export default function Home() {
             className="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-light/30 rounded-full blur-[100px]"
           />
 
-          {/* Floating Brand Logos in CTA */}
-          <motion.div
-            animate={{ y: [0, -15, 0], rotate: [0, 8, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-5 right-[15%] opacity-[0.04]"
-            aria-hidden="true"
-          >
-            <img src="/Logo white.png" alt="" className="w-56 h-56 object-contain select-none" />
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, 25, 0], rotate: [0, -12, 0] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-0 left-[10%] opacity-[0.04]"
-            aria-hidden="true"
-          >
-            <img src="/Logo white.png" alt="" className="w-48 h-48 object-contain select-none" />
-          </motion.div>
-
-          <motion.div
-            animate={{ y: [0, -10, 0], rotate: [0, 15, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-            className="absolute top-[30%] left-[45%] opacity-[0.02]"
-            aria-hidden="true"
-          >
-            <img src="/Logo white.png" alt="" className="w-32 h-32 object-contain select-none" />
-          </motion.div>
-
           {/* Subtle grid pattern */}
           <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)]"></div>
         </div>
@@ -591,10 +537,10 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="md:w-1/3 text-center md:text-right"
             >
-              <a href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openContactModal')); }} className="group inline-flex items-center justify-center gap-3 bg-accent hover:bg-accent-light text-brand-dark font-bold py-4 px-10 rounded-xl text-lg transition-all duration-300 shadow-[0_0_20px_rgba(232,168,56,0.3)] hover:shadow-[0_0_35px_rgba(232,168,56,0.6)] hover:-translate-y-1 active:translate-y-0">
+              <button type="button" onClick={() => window.dispatchEvent(new Event('openContactModal'))} className="group inline-flex items-center justify-center gap-3 bg-accent hover:bg-accent-light text-brand-dark font-bold py-4 px-10 rounded-xl text-lg transition-all duration-300 shadow-[0_0_20px_rgba(232,168,56,0.3)] hover:shadow-[0_0_35px_rgba(232,168,56,0.6)] hover:-translate-y-1 active:translate-y-0">
                 <span>{t('home.cta.btn')}</span>
                 <Phone size={20} className="transition-transform duration-300 group-hover:rotate-12" />
-              </a>
+              </button>
             </motion.div>
           </div>
         </div>
@@ -608,7 +554,7 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-slate-900 uppercase">{t('home.blog.title')}</h2>
               <div className="w-20 h-1 bg-accent mt-4"></div>
             </div>
-            <Link to="/blog" className="hidden md:flex items-center gap-2 text-brand font-bold hover:text-accent-light transition-colors">
+            <Link to="/blog" className="hidden md:flex items-center gap-2 text-brand font-bold hover:text-accent-dark transition-colors">
               {t('home.blog.readAll')} <ArrowRight size={16} />
             </Link>
           </div>
@@ -644,7 +590,7 @@ export default function Home() {
           </div>
 
           <div className="mt-8 text-center md:hidden">
-            <Link to="/blog" className="text-brand font-bold hover:text-accent-light flex items-center justify-center gap-2">
+            <Link to="/blog" className="text-brand font-bold hover:text-accent-dark flex items-center justify-center gap-2">
               {t('home.blog.readAll')} <ArrowRight size={16} />
             </Link>
           </div>

@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Phone, Mail, MapPin, ArrowRight } from 'lucide-react';
+import { Menu, X, Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -127,7 +127,7 @@ export default function Layout() {
       <div className="bg-brand-dark text-slate-300 text-xs py-2 border-b border-brand-dark/80 hidden md:block">
         <div className="container mx-auto px-4 flex justify-between items-center">
           <div className="flex space-x-6">
-            <a href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openContactModal')); }} className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
+            <a href="tel:+998911187007" className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
               <Phone size={14} className="text-accent" /> +998 91 118 70 07
             </a>
             <a href="mailto:info@prodeklarant.uz" className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
@@ -181,15 +181,19 @@ export default function Layout() {
 
             {/* CTA Button */}
             <div className="hidden md:block">
-              <button onClick={() => window.dispatchEvent(new Event('openContactModal'))} className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-sm transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
+              <button type="button" onClick={() => window.dispatchEvent(new Event('openContactModal'))} className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-xl transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
                 {t('layout.contactBtn')} <Phone size={14} />
               </button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
+              type="button"
               className="md:hidden text-slate-900 p-2"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label={t('layout.menu')}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -201,6 +205,7 @@ export default function Layout() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
@@ -219,9 +224,29 @@ export default function Layout() {
                   {link.name}
                 </Link>
               ))}
+
+              {/* Til almashtirgich — mobil (yuqori panel mobilda yashirin) */}
+              <div className="flex items-center gap-2 pt-4 mt-2 border-t border-slate-100">
+                {LANGUAGES.map(({ code, label }) => (
+                  <button
+                    key={code}
+                    type="button"
+                    onClick={() => changeLanguage(code)}
+                    aria-pressed={currentLang === code}
+                    className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-colors ${currentLang === code
+                      ? 'bg-brand text-white'
+                      : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
+                      }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+
               <button
+                type="button"
                 onClick={() => window.dispatchEvent(new Event('openContactModal'))}
-                className="bg-accent text-brand-dark font-bold py-3 px-4 rounded-md text-center mt-4 flex items-center justify-center gap-2"
+                className="bg-accent text-brand-dark font-bold py-3 px-4 rounded-xl text-center mt-2 flex items-center justify-center gap-2"
               >
                 <Phone size={18} /> {t('layout.contactBtn')}
               </button>
@@ -257,10 +282,31 @@ export default function Layout() {
                 {t('layout.footer.aboutDesc')}
               </p>
               <div className="flex space-x-4">
-                {/* Social Icons Placeholder */}
-                <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors cursor-pointer">FB</div>
-                <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors cursor-pointer">TG</div>
-                <div className="w-8 h-8 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors cursor-pointer">IG</div>
+                <a
+                  href="https://t.me/+998911187007"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Telegram"
+                  className="w-9 h-9 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors"
+                >
+                  <Send size={16} />
+                </a>
+                <a
+                  href="https://wa.me/998911187007"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="WhatsApp"
+                  className="w-9 h-9 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors"
+                >
+                  <MessageCircle size={16} />
+                </a>
+                <a
+                  href="tel:+998911187007"
+                  aria-label={t('contact.modal.call')}
+                  className="w-9 h-9 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors"
+                >
+                  <Phone size={16} />
+                </a>
               </div>
             </div>
 
@@ -302,7 +348,7 @@ export default function Layout() {
                 </li>
                 <li className="flex items-center gap-3">
                   <Phone size={18} className="text-accent flex-shrink-0" />
-                  <a href="#" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new Event('openContactModal')); }} className="hover:text-accent transition-colors">+998 91 118 70 07</a>
+                  <a href="tel:+998911187007" className="hover:text-accent transition-colors">+998 91 118 70 07</a>
                 </li>
                 <li className="flex items-center gap-3">
                   <Mail size={18} className="text-accent flex-shrink-0" />
@@ -314,10 +360,6 @@ export default function Layout() {
 
           <div className="border-t border-brand/50 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
             <p>{t('layout.footer.copyright', { year: new Date().getFullYear() })}</p>
-            <div className="flex space-x-6 mt-4 md:mt-0">
-              <span className="hover:text-white cursor-pointer transition-colors">{t('layout.footer.privacy')}</span>
-              <span className="hover:text-white cursor-pointer transition-colors">{t('layout.footer.terms')}</span>
-            </div>
           </div>
         </div>
       </footer>

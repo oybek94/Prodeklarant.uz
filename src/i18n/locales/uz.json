@@ -55,14 +55,16 @@
       "copyright": "© {{year}} PRO DEKLARANT. Barcha huquqlar himoyalangan.",
       "privacy": "Maxfiylik siyosati",
       "terms": "Foydalanish shartlari"
-    }
+    },
+    "menu": "Menyu"
   },
   "home": {
     "hero": {
       "title": "Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv xizmatlari",
       "subtitle": "Meva-sabzavot eksportchilari uchun ixtisoslashtirilgan bojxona brokerlik xizmatlari.",
       "consultation": "Bepul Konsultatsiya",
-      "services": "Xizmatlarimiz"
+      "services": "Xizmatlarimiz",
+      "badge": "Eksport Bojxona Brokeri"
     },
     "features": {
       "title": "Bizning Afzalliklarimiz",
@@ -269,7 +271,12 @@
           "title": "Natija",
           "desc": "Yukingiz bojxonadan o'tadi va hujjatlar sizga taqdim etiladi"
         }
-      }
+      },
+      "badge": "Bosqichma-bosqich"
+    },
+    "cta": {
+      "title": "Xizmatlarimiz sizga ma'qul keldimi?",
+      "desc": "Hoziroq biz bilan bog'laning va bepul konsultatsiyaga ega bo'ling. Bizning mutaxassislar barcha savollaringizga javob beradi."
     }
   },
   "about": {
@@ -368,7 +375,17 @@
       },
       "message": "Xabar matni",
       "messagePlaceholder": "Qisqacha mazmun...",
-      "submit": "Yuborish"
+      "submit": "Yuborish",
+      "submitting": "Yuborilmoqda...",
+      "success": {
+        "title": "Xabaringiz yuborildi!",
+        "desc": "Tez orada mutaxassislarimiz siz bilan bog'lanishadi."
+      }
+    },
+    "modal": {
+      "subtitle": "Sizga qulay usulni tanlang va bizga aloqaga chiqing",
+      "call": "Qo'ng'iroq",
+      "formLink": "Yoki batafsil xabar qoldiring →"
     }
   },
   "notFound": {
@@ -432,7 +449,8 @@
         "date": "28 Yanvar, 2026",
         "category": "Ma'lumotnoma"
       }
-    }
+    },
+    "loading": "Yuklanmoqda..."
   },
   "blogPost": {
     "back": "Blogga qaytish",
