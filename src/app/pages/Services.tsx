@@ -35,18 +35,25 @@ export default function Services() {
       {/* Dynamic Hero Section */}
       <section className="relative z-10 text-white min-h-[50vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src="/images/p4483610-1280.jpg"
-            srcSet="/images/p4483610-640.jpg 640w, /images/p4483610-1280.jpg 1280w, /images/p4483610-1920.jpg 1920w"
-            alt="Services Cargo"
-            sizes="100vw"
-            width={1920}
-            height={1080}
-            className="w-full h-full object-cover scale-105"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet="/images/p4483610-640.webp 640w, /images/p4483610-1280.webp 1280w, /images/p4483610-1920.webp 1920w"
+              sizes="100vw"
+            />
+            <img
+              src="/images/p4483610-1280.jpg"
+              srcSet="/images/p4483610-640.jpg 640w, /images/p4483610-1280.jpg 1280w, /images/p4483610-1920.jpg 1920w"
+              alt="Services Cargo"
+              sizes="100vw"
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover scale-105"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
         </div>
         <div className="absolute inset-0 z-[1] bg-gradient-to-r from-brand-dark/95 via-brand-dark/80 to-transparent" aria-hidden="true" />
 

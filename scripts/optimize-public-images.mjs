@@ -59,7 +59,27 @@ async function run() {
     }
   }
 
-  if (created.length) console.log('Optimized images:', created.join(', '));
+  // Hero/Page Images: public/images/*.jpg -> public/images/*.webp
+  const imagesDir = join(publicDir, 'images');
+  let imgFiles = [];
+  try {
+    imgFiles = (await readdir(imagesDir)).filter((n) => n.endsWith('.jpg'));
+  } catch (e) {
+    if (e.code !== 'ENOENT') throw e;
+  }
+  for (const name of imgFiles) {
+    const base = name.replace(/\.jpg$/i, '');
+    try {
+      await sharp(join(imagesDir, name))
+        .webp({ quality: 80 })
+        .toFile(join(imagesDir, `${base}.webp`));
+      created.push(`images/${base}.webp`);
+    } catch (e) {
+      if (e.code !== 'ENOENT') throw e;
+    }
+  }
+
+  if (created.length) console.log('Optimized images:', created.length, 'files created.');
 }
 
 run().catch((err) => {

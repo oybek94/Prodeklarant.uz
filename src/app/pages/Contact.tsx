@@ -57,17 +57,24 @@ export default function Contact() {
           transition={{ duration: 1.5, ease: 'easeOut' }}
           className="absolute inset-0 z-0"
         >
-          <img
-            src="/images/p3184360-1280.jpg"
-            srcSet="/images/p3184360-640.jpg 640w, /images/p3184360-1280.jpg 1280w, /images/p3184360-1920.jpg 1920w"
-            sizes="100vw"
-            alt="Contact Us"
-            width={1920}
-            height={1080}
-            className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet="/images/p3184360-640.webp 640w, /images/p3184360-1280.webp 1280w, /images/p3184360-1920.webp 1920w"
+              sizes="100vw"
+            />
+            <img
+              src="/images/p3184360-1280.jpg"
+              srcSet="/images/p3184360-640.jpg 640w, /images/p3184360-1280.jpg 1280w, /images/p3184360-1920.jpg 1920w"
+              sizes="100vw"
+              alt="Contact Us"
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90 mix-blend-multiply" aria-hidden="true" />
         </motion.div>
 

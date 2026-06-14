@@ -25,18 +25,25 @@ export default function About() {
           transition={{ duration: 1.5, ease: 'easeOut' }}
           className="absolute inset-0 z-0"
         >
-          <img
-            src="/images/p264537-1280.jpg"
-            srcSet="/images/p264537-640.jpg 640w, /images/p264537-1280.jpg 1280w, /images/p264537-1920.jpg 1920w"
-            sizes="100vw"
-            alt=""
-            width={1920}
-            height={1080}
-            className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-            decoding="async"
-          />
+          <picture>
+            <source
+              type="image/webp"
+              srcSet="/images/p264537-640.webp 640w, /images/p264537-1280.webp 1280w, /images/p264537-1920.webp 1920w"
+              sizes="100vw"
+            />
+            <img
+              src="/images/p264537-1280.jpg"
+              srcSet="/images/p264537-640.jpg 640w, /images/p264537-1280.jpg 1280w, /images/p264537-1920.jpg 1920w"
+              sizes="100vw"
+              alt=""
+              width={1920}
+              height={1080}
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/80 via-brand-dark/60 to-brand-dark/90" aria-hidden="true" />
         </motion.div>
 
@@ -81,13 +88,16 @@ export default function About() {
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-brand translate-x-4 translate-y-4 md:translate-x-6 md:translate-y-6 rounded-2xl -z-10"></div>
-                <img
-                  src="/images/p3184291-800.jpg"
-                  width={800}
-                  height={533}
-                  alt="Team collaboration"
-                  className="rounded-2xl shadow-2xl w-full h-auto object-cover relative z-10"
-                />
+                <picture>
+                  <source srcSet="/images/p3184291-800.webp" type="image/webp" />
+                  <img
+                    src="/images/p3184291-800.jpg"
+                    width={800}
+                    height={533}
+                    alt="Team collaboration"
+                    className="rounded-2xl shadow-2xl w-full h-auto object-cover relative z-10"
+                  />
+                </picture>
                 <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-xl shadow-xl z-20 hidden md:block border-l-4 border-accent max-w-xs ring-1 ring-slate-100">
                   <p className="font-bold text-slate-800 text-lg">«{t('about.quote')}»</p>
                 </div>
@@ -281,7 +291,10 @@ export default function About() {
       {/* CTA Section */}
       <section className="py-24 bg-brand-dark relative overflow-hidden text-center text-white">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="/images/p5842828-1280.jpg" alt="" aria-hidden="true" loading="lazy" className="w-full h-full object-cover" />
+          <picture>
+            <source srcSet="/images/p5842828-1280.webp" type="image/webp" />
+            <img src="/images/p5842828-1280.jpg" alt="" aria-hidden="true" loading="lazy" className="w-full h-full object-cover" />
+          </picture>
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/95 to-brand-dark/90 z-0"></div>
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">

@@ -129,13 +129,16 @@ export default function Blog() {
           transition={{ duration: 1.5, ease: 'easeOut' }}
           className="absolute inset-0 z-0"
         >
-          <img
-            src="/images/p265087-1280.jpg"
-            alt="Blog background"
-            className="w-full h-full object-cover"
-            loading="eager"
-            fetchPriority="high"
-          />
+          <picture>
+            <source srcSet="/images/p265087-1280.webp" type="image/webp" />
+            <img
+              src="/images/p265087-1280.jpg"
+              alt="Blog background"
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchPriority="high"
+            />
+          </picture>
           <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90 mix-blend-multiply" aria-hidden="true" />
         </motion.div>
 

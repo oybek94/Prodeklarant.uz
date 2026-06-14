@@ -23,9 +23,9 @@ const HERO_SLIDES = [
 ];
 
 // Local rasmni berilgan kenglikka moslash + responsive srcset (mobilga kichik fayl)
-const localAt = (id: string, w: number) => `/images/p${id}-${w}.jpg`;
-const localSrcSet = (id: string) =>
-  [640, 1280, 1920].map((w) => `${localAt(id, w)} ${w}w`).join(', ');
+const localAt = (id: string, w: number, ext = 'jpg') => `/images/p${id}-${w}.${ext}`;
+const localSrcSet = (id: string, ext = 'jpg') =>
+  [640, 1280, 1920].map((w) => `${localAt(id, w, ext)} ${w}w`).join(', ');
 
 function formatPostDate(dateStr: string): string {
   if (!dateStr) return '';
@@ -110,16 +110,23 @@ export default function Home() {
             transition={{ duration: 1.8, ease: "easeInOut" }}
             className="absolute inset-0 z-0 w-full h-full"
           >
-            <img
-              src={localAt(HERO_SLIDES[currentSlide].id, 1280)}
-              srcSet={localSrcSet(HERO_SLIDES[currentSlide].id)}
-              sizes="100vw"
-              alt={HERO_SLIDES[currentSlide].alt}
-              fetchPriority={currentSlide === 0 ? 'high' : 'low'}
-              loading="eager"
-              decoding="async"
-              className="absolute inset-0 w-full h-full object-cover object-center"
-            />
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={localSrcSet(HERO_SLIDES[currentSlide].id, 'webp')}
+                sizes="100vw"
+              />
+              <img
+                src={localAt(HERO_SLIDES[currentSlide].id, 1280)}
+                srcSet={localSrcSet(HERO_SLIDES[currentSlide].id)}
+                sizes="100vw"
+                alt={HERO_SLIDES[currentSlide].alt}
+                fetchPriority={currentSlide === 0 ? 'high' : 'low'}
+                loading="eager"
+                decoding="async"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+            </picture>
           </motion.div>
         </AnimatePresence>
 
@@ -484,24 +491,28 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 items-center justify-items-center"
           >
-            {partners.map((partner, i) => (
-              <div
-                key={i}
-                className="w-full max-w-[160px] h-20 flex items-center justify-center p-4 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
-              >
-                <picture>
-                  <img
-                    src={partner.src}
-                    alt={partner.alt}
-                    width={160}
-                    height={80}
-                    className="max-h-full max-w-full w-auto h-auto object-contain"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-              </div>
-            ))}
+            {partners.map((partner, i) => {
+              const webpSrc = partner.src.replace(/\.png$/, '.webp');
+              return (
+                <div
+                  key={i}
+                  className="w-full max-w-[160px] h-20 flex items-center justify-center p-4 grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                >
+                  <picture>
+                    <source srcSet={webpSrc} type="image/webp" />
+                    <img
+                      src={partner.src}
+                      alt={partner.alt}
+                      width={160}
+                      height={80}
+                      className="max-h-full max-w-full w-auto h-auto object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
+                </div>
+              );
+            })}
           </motion.div>
         </div>
       </section>

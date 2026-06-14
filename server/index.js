@@ -4,6 +4,7 @@ const config = require('./config');
 const fs = require('fs');
 const express = require('express');
 const helmet = require('helmet');
+const crypto = require('crypto');
 const cors = require('cors');
 const db = require('./db');
 const { slugify } = require('./utils/slugify');
@@ -22,12 +23,29 @@ const PORT = config.PORT;
 // nginx/reverse-proxy orqasida ishlaganda — rate-limit va IP'lar to'g'ri aniqlanishi uchun
 app.set('trust proxy', 1);
 
-// Xavfsizlik header'lari. CSP va COEP o'chirilgan: index.html ichida inline SEO
-// skript, JSON-LD skriptlari va Google Maps iframe bor — default CSP ularni bloklaydi.
-// (To'liq CSP keyinchalik nonce bilan alohida sozlanishi mumkin.)
+// Har bir so'rov uchun unik nonce (CSP uchun)
+app.use((req, res, next) => {
+  res.locals.nonce = crypto.randomBytes(16).toString('base64');
+  next();
+});
+
+// Xavfsizlik header'lari.
 app.use(
   helmet({
-    contentSecurityPolicy: false,
+    contentSecurityPolicy: {
+      useDefaults: true,
+      directives: {
+        "default-src": ["'self'"],
+        "script-src": ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`, "https://maps.googleapis.com"],
+        "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+        "img-src": ["'self'", "data:", "https:", "blob:"],
+        "font-src": ["'self'", "https://fonts.gstatic.com", "data:"],
+        "connect-src": ["'self'", "https://api.telegram.org"],
+        "frame-src": ["'self'", "https://www.google.com", "https://maps.google.com"],
+        "object-src": ["'none'"],
+        "upgrade-insecure-requests": [],
+      },
+    },
     crossOriginEmbedderPolicy: false,
     crossOriginResourcePolicy: { policy: 'cross-origin' },
   })
@@ -122,7 +140,9 @@ if (fs.existsSync(indexHtml)) {
     }
     try {
       const { block, status } = resolveSeo({ pathname: req.path, siteUrl: SITE_URL, db });
-      const html = injectSeo(rawHtml, block);
+      // Nonce'ni HTML ichidagi skriptlarga joylash (xavfsizlik uchun)
+      let html = rawHtml.replace(/<script/g, `<script nonce="${res.locals.nonce}"`);
+      html = injectSeo(html, block);
       res.status(status).set('Content-Type', 'text/html; charset=utf-8').send(html);
     } catch (e) {
       // Injection xato bersa ham sahifa ochilishi uchun original HTML
@@ -130,6 +150,19 @@ if (fs.existsSync(indexHtml)) {
     }
   });
 }
+
+// Markazlashtirilgan xatolik boshqaruvchisi
+app.use((err, req, res, next) => {
+  console.error(`[Error] ${req.method} ${req.url}:`, err);
+
+  const status = err.status || 500;
+  const message = config.IS_PROD ? 'Serverda kutilmagan xatolik yuz berdi' : err.message;
+
+  res.status(status).json({
+    error: message,
+    stack: config.IS_PROD ? undefined : err.stack
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
