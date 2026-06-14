@@ -37,6 +37,7 @@ app.use(
       directives: {
         "default-src": ["'self'"],
         "script-src": ["'self'", (req, res) => `'nonce-${res.locals.nonce}'`, "https://maps.googleapis.com"],
+        "script-src-attr": ["'unsafe-inline'"],
         "style-src": ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
         "img-src": ["'self'", "data:", "https:", "blob:"],
         "font-src": ["'self'", "https://fonts.gstatic.com", "data:"],
