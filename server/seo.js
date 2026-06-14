@@ -141,7 +141,7 @@ function resolveSeo({ pathname, siteUrl, db }) {
     if (post) {
       const title = post.title_uz;
       const excerpt = stripTags(post.excerpt_uz).slice(0, 160);
-      const canonical = `${siteUrl}/blog/${slugify(post.title_uz) || `post-${post.id}`}`;
+      const canonical = `${siteUrl}/blog/${post.slug}`;
       const jsonLd = {
         '@context': 'https://schema.org',
         '@type': 'BlogPosting',
@@ -202,23 +202,18 @@ function findPostBySlug(db, slug) {
   // Legacy format: "<id>-..." → id bo'yicha
   const legacy = slug.match(/^(\d+)-(.+)$/);
   if (legacy) {
-    const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(Number(legacy[1]));
-    if (row) return row;
+    try {
+        const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(Number(legacy[1]));
+        if (row) return row;
+    } catch(e) {}
   }
-  let rows = [];
+  
   try {
-    rows = db.prepare('SELECT * FROM posts').all();
+      const row = db.prepare('SELECT * FROM posts WHERE slug = ?').get(slug);
+      return row || null;
   } catch (e) {
-    return null;
+      return null;
   }
-  return (
-    rows.find(
-      (r) =>
-        slugify(r.title_uz) === slug ||
-        slugify(r.title_ru) === slug ||
-        slugify(r.title_en) === slug
-    ) || null
-  );
 }
 
 const SEO_MARKER = /<!--\s*SEO:start\s*-->[\s\S]*?<!--\s*SEO:end\s*-->/;

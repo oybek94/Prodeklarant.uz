@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const mime = require('mime-types');
 const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
@@ -14,8 +15,9 @@ if (!fs.existsSync(UPLOAD_DIR)) {
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, UPLOAD_DIR),
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname) || '.jpg';
-    const name = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}${ext}`;
+    // Xavfsizlik: Foydalanuvchi yuborgan originalname'dagi extension o'rniga mimetype'dan foydalanish
+    const ext = mime.extension(file.mimetype) || 'bin';
+    const name = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${ext}`;
     cb(null, name);
   },
 });
