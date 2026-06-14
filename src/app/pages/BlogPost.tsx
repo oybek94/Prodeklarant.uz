@@ -1,19 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link } from 'react-router';
 import { ArrowLeft, Calendar, User, Tag, Share2, Eye } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import i18n from '../../i18n';
-import { getPost, getPosts, type BlogPost } from '../api';
+import { getPost, getPostBySlug, incrementView, type BlogPost } from '../api';
 import { slugify } from '../utils/slugify';
-
-const BLOG_IMAGES = [
-  "/images/p533280-800.jpg",
-  "/images/p1327838-800.jpg",
-  "/images/p1410235-800.jpg",
-  "/images/p264537-800.jpg",
-];
+import { fallbackBlogImage } from '../utils/blogImages';
 
 export default function BlogPost() {
   const { t } = useTranslation();
@@ -40,20 +34,20 @@ export default function BlogPost() {
         .finally(() => setLoading(false));
       return;
     }
-    getPosts()
-      .then((posts) => {
-        const found = posts.find(
-          (p) =>
-            slugify(p.title.uz) === slugNorm ||
-            slugify(p.title.ru) === slugNorm ||
-            slugify(p.title.en) === slugNorm
-        );
-        if (found) setPost(found);
-        else setNotFound(true);
-      })
+    getPostBySlug(slugNorm)
+      .then(setPost)
       .catch(() => setNotFound(true))
       .finally(() => setLoading(false));
   }, [slug]);
+
+  // Ko'rishlar sonini har bir maqola uchun bir marta oshiramiz (qayta render'da emas)
+  const viewedIdRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (post && viewedIdRef.current !== post.id) {
+      viewedIdRef.current = post.id;
+      incrementView(post.id);
+    }
+  }, [post]);
 
   // SEO: har doim bir xil hook soni bo‘lishi uchun early return lardan oldin; post bo‘lganda meta yangilanadi
   useEffect(() => {
@@ -62,7 +56,7 @@ export default function BlogPost() {
     const langKey = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
     const title = post.title[langKey];
     const excerpt = post.excerpt[langKey];
-    const image = post.image || BLOG_IMAGES[(post.id - 1) % BLOG_IMAGES.length];
+    const image = post.image || fallbackBlogImage(post.id);
     const prevTitle = document.title;
     document.title = `${title} | ${siteTitle}`;
 
@@ -160,7 +154,7 @@ export default function BlogPost() {
   const excerpt = post.excerpt[lang];
   const category = post.category[lang];
   const body = post.body[lang];
-  const image = post.image || BLOG_IMAGES[(post.id - 1) % BLOG_IMAGES.length];
+  const image = post.image || fallbackBlogImage(post.id);
 
   const handleShare = async () => {
     const url = window.location.href;

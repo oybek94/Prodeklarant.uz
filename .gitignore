@@ -7,3 +7,8 @@ public/uploads/*
 !public/uploads/.gitkeep
 public/**/*.webp
 .env
+
+# Build/test artefaktlari
+build_log.txt
+test-image.png
+*.log

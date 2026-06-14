@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('../db');
 const authMiddleware = require('../middleware/auth');
+const { slugify } = require('../utils/slugify');
 const router = express.Router();
 
 function rowToPost(row) {
@@ -27,14 +28,48 @@ router.get('/', (req, res) => {
   }
 });
 
+// Slug bo'yicha topish — mijoz endi butun ro'yxatni yuklab olishi shart emas.
+// MUHIM: bu yo'l '/:id' dan OLDIN turishi kerak, aks holda '/slug/...' ni
+// '/:id' (id='slug') deb qabul qiladi.
+router.get('/slug/:slug', (req, res) => {
+  try {
+    const slug = String(req.params.slug || '').trim().toLowerCase();
+    if (!slug) return res.status(404).json({ error: 'Post not found' });
+    const rows = db.prepare('SELECT * FROM posts').all();
+    const found = rows.find(
+      (r) =>
+        slugify(r.title_uz) === slug ||
+        slugify(r.title_ru) === slug ||
+        slugify(r.title_en) === slug
+    );
+    if (!found) return res.status(404).json({ error: 'Post not found' });
+    res.json(rowToPost(found));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /:id — endi views'ni OSHIRMAYDI (admin tahrir/preview soxta view bermasin).
+// Haqiqiy o'qishlar POST /:id/view orqali hisoblanadi.
 router.get('/:id', (req, res) => {
   try {
     const id = Number(req.params.id);
     const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(id);
     if (!row) return res.status(404).json({ error: 'Post not found' });
-    db.prepare('UPDATE posts SET views = COALESCE(views, 0) + 1 WHERE id = ?').run(id);
-    const updated = db.prepare('SELECT * FROM posts WHERE id = ?').get(id);
-    res.json(rowToPost(updated));
+    res.json(rowToPost(row));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Ko'rishlar hisoblagichi — maqola sahifasi ochilganda mijoz bir marta chaqiradi.
+router.post('/:id/view', (req, res) => {
+  try {
+    const id = Number(req.params.id);
+    const result = db.prepare('UPDATE posts SET views = COALESCE(views, 0) + 1 WHERE id = ?').run(id);
+    if (result.changes === 0) return res.status(404).json({ error: 'Post not found' });
+    const row = db.prepare('SELECT views FROM posts WHERE id = ?').get(id);
+    res.json({ views: row.views });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

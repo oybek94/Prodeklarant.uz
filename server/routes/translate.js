@@ -1,11 +1,17 @@
 const express = require('express');
 const authMiddleware = require('../middleware/auth');
+const { translateLimiter } = require('../middleware/rateLimit');
+const { OPENAI_API_KEY } = require('../config');
 const { OpenAI } = require('openai');
 const router = express.Router();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Lazy-init: kalit yo'q bo'lsa ham server ishga tushaversin — faqat /translate
+// ishlamaydi (modul yuklanishida emas, so'rov vaqtida 500 qaytadi).
+let openai = null;
+function getOpenAI() {
+  if (!openai) openai = new OpenAI({ apiKey: OPENAI_API_KEY });
+  return openai;
+}
 
 const LANG_NAMES = {
   uz: "o'zbek",
@@ -13,9 +19,9 @@ const LANG_NAMES = {
   en: 'ingliz',
 };
 
-router.post('/', authMiddleware, async (req, res) => {
+router.post('/', translateLimiter, authMiddleware, async (req, res) => {
   try {
-    if (!process.env.OPENAI_API_KEY) {
+    if (!OPENAI_API_KEY) {
       return res.status(500).json({ error: 'OPENAI_API_KEY sozlanmagan' });
     }
     const { sourceLang, title, excerpt, body, category } = req.body;
@@ -37,7 +43,7 @@ category: ${category || ''}
 body Markdown formatda bo'lishi mumkin — Markdown strukturani saqlab tarjima qiling.
 JSON qaytaring: { "${targets[0]}": { "title": "...", "excerpt": "...", "body": "...", "category": "..." }, "${targets[1]}": { "title": "...", "excerpt": "...", "body": "...", "category": "..." } }`;
 
-    const completion = await openai.chat.completions.create({
+    const completion = await getOpenAI().chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: systemPrompt },

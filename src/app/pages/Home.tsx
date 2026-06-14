@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import Slider from "react-slick";
@@ -6,20 +6,15 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import {
   CheckCircle, Globe, ShieldCheck, ArrowRight, FileText, Truck,
-  Users, Award, FileCheck, Phone, MousePointerClick,
-  ChevronLeft, ChevronRight, BarChart
+  Users, Award, FileCheck, Phone, MousePointerClick, BarChart
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
-
-// Self-hosted rasmlar (public/images) — tashqi CDN'ga bog'liqlik yo'q
-const BLOG_IMAGES = [
-  '/images/p533280-800.jpg',
-  '/images/p1327838-800.jpg',
-  '/images/p264537-800.jpg',
-];
+import { fallbackBlogImage } from '../utils/blogImages';
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { Pause, Play } from 'lucide-react';
 
 const HERO_SLIDES = [
   { id: '1132047', alt: 'Sifatli meva va sabzavotlar eksporti' },
@@ -47,15 +42,21 @@ export default function Home() {
   const [postsLoading, setPostsLoading] = useState(true);
 
   const [currentSlide, setCurrentSlide] = useState(0);
+  const reducedMotion = usePrefersReducedMotion();
+  // Foydalanuvchi avtomatik aylanishni to'xtatib qo'ya oladi (WCAG 2.2.2 — Pause/Stop).
+  // Kamaytirilgan animatsiya yoqilgan bo'lsa, boshidan pauza qilingan.
+  const [heroPaused, setHeroPaused] = useState(false);
+  const heroAutoplay = !reducedMotion && !heroPaused;
 
   const lang = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
 
   useEffect(() => {
+    if (!heroAutoplay) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % HERO_SLIDES.length);
     }, 6000); // 6 seconds per slide
     return () => clearInterval(timer);
-  }, []);
+  }, [heroAutoplay]);
 
   useEffect(() => {
     getPosts()
@@ -65,7 +66,7 @@ export default function Home() {
           title: p.title[lang],
           excerpt: (p.excerpt[lang] || '').replace(/<[^>]*>/g, '').slice(0, 160),
           date: p.date || p.created_at || '',
-          image: p.image || BLOG_IMAGES[(p.id - 1) % BLOG_IMAGES.length],
+          image: p.image || fallbackBlogImage(p.id),
         }));
         setLatestPosts(display);
       })
@@ -173,7 +174,32 @@ export default function Home() {
           </motion.div>
         </div>
 
-
+        {/* Hero slayd boshqaruvi — barcha foydalanuvchilar avtomatik aylanishni
+            boshqara oladi (a11y: WCAG 2.2.2). */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-4">
+          <div className="flex items-center gap-2" role="tablist" aria-label={t('home.hero.badge')}>
+            {HERO_SLIDES.map((slide, i) => (
+              <button
+                key={slide.id}
+                type="button"
+                role="tab"
+                aria-selected={currentSlide === i}
+                aria-label={slide.alt}
+                onClick={() => setCurrentSlide(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${currentSlide === i ? 'w-8 bg-accent' : 'w-2 bg-white/50 hover:bg-white/80'}`}
+              />
+            ))}
+          </div>
+          <button
+            type="button"
+            onClick={() => setHeroPaused((p) => !p)}
+            aria-pressed={heroPaused}
+            aria-label={heroPaused ? t('home.hero.play') : t('home.hero.pause')}
+            className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-colors"
+          >
+            {heroPaused ? <Play size={14} /> : <Pause size={14} />}
+          </button>
+        </div>
       </section>
 
       {/* Carousel Features Section */}
@@ -186,9 +212,10 @@ export default function Home() {
             speed={500}
             slidesToShow={4}
             slidesToScroll={1}
-            autoplay={true}
+            autoplay={!reducedMotion}
             autoplaySpeed={3000}
             pauseOnHover={true}
+            pauseOnFocus={true}
             arrows={false}
             responsive={[
               { breakpoint: 1024, settings: { slidesToShow: 3 } },

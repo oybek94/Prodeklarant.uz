@@ -55,6 +55,21 @@ export async function getPost(id: number): Promise<BlogPost> {
   return res.json();
 }
 
+export async function getPostBySlug(slug: string): Promise<BlogPost> {
+  const res = await apiFetch(`/posts/slug/${encodeURIComponent(slug)}`);
+  if (!res.ok) throw new Error('Failed to fetch post');
+  return res.json();
+}
+
+/** Maqola sahifasi ochilganda ko'rishlar sonini bir marta oshiradi (best-effort). */
+export async function incrementView(id: number): Promise<void> {
+  try {
+    await apiFetch(`/posts/${id}/view`, { method: 'POST' });
+  } catch {
+    // view hisoblash muhim emas — xatoni yutamiz
+  }
+}
+
 export async function createPost(data: Omit<BlogPost, 'id' | 'created_at'>): Promise<BlogPost> {
   const payload = {
     title_uz: data.title.uz, title_ru: data.title.ru, title_en: data.title.en,

@@ -1,9 +1,11 @@
 const express = require('express');
+const { contactLimiter } = require('../middleware/rateLimit');
+const { TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID } = require('../config');
 const router = express.Router();
 
 // Token endi FAQAT serverda (server/.env) — client bundle'ga tushmaydi.
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+const BOT_TOKEN = TELEGRAM_BOT_TOKEN;
+const CHAT_ID = TELEGRAM_CHAT_ID;
 
 // HTML parse_mode uchun foydalanuvchi kiritmasini xavfsizlash (injection/buzilishni oldini olish)
 function escapeHtml(s) {
@@ -13,7 +15,7 @@ function escapeHtml(s) {
     .replace(/>/g, '&gt;');
 }
 
-router.post('/', async (req, res) => {
+router.post('/', contactLimiter, async (req, res) => {
   try {
     if (!BOT_TOKEN || !CHAT_ID) {
       console.error('Contact: TELEGRAM_BOT_TOKEN yoki TELEGRAM_CHAT_ID sozlanmagan');

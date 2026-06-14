@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import { useState, type FormEvent } from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, MapPin, Clock, Send, ChevronRight, MessageSquare } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, MessageSquare } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export default function Contact() {
@@ -15,7 +15,7 @@ export default function Contact() {
     message: ''
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMsg('');

@@ -64,7 +64,9 @@
       "subtitle": "Specialized customs brokerage services for fruit and vegetable exporters.",
       "consultation": "Free Consultation",
       "services": "Our Services",
-      "badge": "Export Customs Broker"
+      "badge": "Export Customs Broker",
+      "pause": "Pause slides",
+      "play": "Play slides"
     },
     "features": {
       "title": "Our Advantages",

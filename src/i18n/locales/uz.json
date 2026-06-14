@@ -64,7 +64,9 @@
       "subtitle": "Meva-sabzavot eksportchilari uchun ixtisoslashtirilgan bojxona brokerlik xizmatlari.",
       "consultation": "Bepul Konsultatsiya",
       "services": "Xizmatlarimiz",
-      "badge": "Eksport Bojxona Brokeri"
+      "badge": "Eksport Bojxona Brokeri",
+      "pause": "Slaydlarni to'xtatish",
+      "play": "Slaydlarni davom ettirish"
     },
     "features": {
       "title": "Bizning Afzalliklarimiz",

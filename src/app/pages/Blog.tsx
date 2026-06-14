@@ -6,15 +6,9 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
+import { BLOG_IMAGES, fallbackBlogImage } from '../utils/blogImages';
 
 const POSTS_PER_PAGE = 7;
-
-const BLOG_IMAGES = [
-  "/images/p533280-800.jpg",
-  "/images/p1327838-800.jpg",
-  "/images/p1410235-800.jpg",
-  "/images/p264537-800.jpg",
-];
 
 function toDisplayPost(post: BlogPost, lang: string): { id: number; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number } {
   const l = (lang === 'uz' || lang === 'ru' || lang === 'en') ? lang : 'uz';
@@ -25,7 +19,7 @@ function toDisplayPost(post: BlogPost, lang: string): { id: number; title: strin
     date: post.date,
     author: post.author || 'Prodeklarant',
     category: post.category[l],
-    image: post.image || BLOG_IMAGES[(post.id - 1) % BLOG_IMAGES.length],
+    image: post.image || fallbackBlogImage(post.id),
     views: post.views ?? 0,
   };
 }

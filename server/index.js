@@ -1,7 +1,9 @@
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
+// config — eng birinchi: dotenv'ni yuklaydi va env'ni validatsiya qiladi (fail-fast).
+const config = require('./config');
 const fs = require('fs');
 const express = require('express');
+const helmet = require('helmet');
 const cors = require('cors');
 const db = require('./db');
 const { slugify } = require('./utils/slugify');
@@ -12,10 +14,24 @@ const uploadRoutes = require('./routes/upload');
 const translateRoutes = require('./routes/translate');
 const contactRoutes = require('./routes/contact');
 
-const SITE_URL = process.env.SITE_URL || 'https://prodeklarant.uz';
+const SITE_URL = config.SITE_URL;
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = config.PORT;
+
+// nginx/reverse-proxy orqasida ishlaganda — rate-limit va IP'lar to'g'ri aniqlanishi uchun
+app.set('trust proxy', 1);
+
+// Xavfsizlik header'lari. CSP va COEP o'chirilgan: index.html ichida inline SEO
+// skript, JSON-LD skriptlari va Google Maps iframe bor — default CSP ularni bloklaydi.
+// (To'liq CSP keyinchalik nonce bilan alohida sozlanishi mumkin.)
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
 
 const allowedOrigins = [
   'http://localhost:5173',
@@ -25,8 +41,8 @@ const allowedOrigins = [
   'http://prodeklarant.uz',
   'http://www.prodeklarant.uz',
 ];
-if (process.env.CORS_ORIGIN) {
-  allowedOrigins.push(...process.env.CORS_ORIGIN.split(',').map((s) => s.trim()));
+if (config.CORS_ORIGIN) {
+  allowedOrigins.push(...config.CORS_ORIGIN.split(',').map((s) => s.trim()));
 }
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());

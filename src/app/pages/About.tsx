@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'motion/react';
 import { Award, Users, FileCheck, Globe, Package, DollarSign, Check, Shield, Eye, Target, Zap, Briefcase, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';

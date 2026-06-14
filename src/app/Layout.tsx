@@ -143,6 +143,8 @@ export default function Layout() {
                 key={code}
                 type="button"
                 onClick={() => changeLanguage(code)}
+                aria-pressed={currentLang === code}
+                lang={code}
                 className={`hover:text-white cursor-pointer transition-colors ${currentLang === code ? 'text-white font-semibold' : 'opacity-70 hover:opacity-100'}`}
               >
                 {label}
