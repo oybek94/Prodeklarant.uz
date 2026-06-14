@@ -35,6 +35,11 @@ const HERO_SLIDES = [
   }
 ];
 
+// Pexels rasmini berilgan kenglikka moslash + responsive srcset (mobilga kichik fayl)
+const pexelsAt = (url: string, w: number) => url.replace(/([?&]w=)\d+/, `$1${w}`);
+const pexelsSrcSet = (url: string) =>
+  [640, 960, 1280, 1920].map((w) => `${pexelsAt(url, w)} ${w}w`).join(', ');
+
 function formatPostDate(dateStr: string): string {
   if (!dateStr) return '';
   const d = new Date(dateStr);
@@ -112,9 +117,15 @@ export default function Home() {
             transition={{ duration: 1.8, ease: "easeInOut" }}
             className="absolute inset-0 z-0 w-full h-full"
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center w-full h-full"
-              style={{ backgroundImage: `url(${HERO_SLIDES[currentSlide].image})` }}
+            <img
+              src={pexelsAt(HERO_SLIDES[currentSlide].image, 1280)}
+              srcSet={pexelsSrcSet(HERO_SLIDES[currentSlide].image)}
+              sizes="100vw"
+              alt={HERO_SLIDES[currentSlide].alt}
+              fetchPriority={currentSlide === 0 ? 'high' : 'low'}
+              loading="eager"
+              decoding="async"
+              className="absolute inset-0 w-full h-full object-cover object-center"
             />
           </motion.div>
         </AnimatePresence>

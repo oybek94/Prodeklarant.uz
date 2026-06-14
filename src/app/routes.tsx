@@ -1,10 +1,12 @@
 import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router';
 import Layout from './Layout';
+import Home from './pages/Home';
 import { ErrorPage } from './pages/ErrorPage';
 
-// Lazy-load pages so initial bundle is smaller (~234 KiB savings)
-const Home = lazy(() => import('./pages/Home'));
+// Home — eng muhim (landing) sahifa: eager yuklanadi, shunda Suspense fallback'dan
+// to'liq sahifaga almashish (CLS) bo'lmaydi va LCP'da qo'shimcha chunk round-trip yo'qoladi.
+// Qolgan sahifalar lazy — boshlang'ich bundle kichik qoladi.
 const Services = lazy(() => import('./pages/Services'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
@@ -31,11 +33,7 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <Home />
-          </Suspense>
-        ),
+        Component: Home,
       },
       {
         path: 'services',
