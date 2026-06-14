@@ -116,6 +116,10 @@ const distPath = path.join(__dirname, '..', 'dist');
 const indexHtml = path.join(distPath, 'index.html');
 if (fs.existsSync(indexHtml)) {
   // Statik fayllar (assetlar) — lekin index.html'ni o'zimiz meta bilan beramiz
+  app.use('/assets', express.static(path.join(distPath, 'assets'), { 
+    maxAge: '1y', 
+    immutable: true 
+  }));
   app.use(express.static(distPath, { index: false }));
 
   // Fayl kengaytmasiga o'xshash so'rovlar (masalan .js, .css, .png) bu yerga tushsa,
@@ -143,10 +147,16 @@ if (fs.existsSync(indexHtml)) {
       // Nonce'ni HTML ichidagi skriptlarga joylash (xavfsizlik uchun)
       let html = rawHtml.replace(/<script/g, `<script nonce="${res.locals.nonce}"`);
       html = injectSeo(html, block);
-      res.status(status).set('Content-Type', 'text/html; charset=utf-8').send(html);
+      res.status(status)
+        .set('Cache-Control', 'no-cache, no-store, must-revalidate')
+        .set('Content-Type', 'text/html; charset=utf-8')
+        .send(html);
     } catch (e) {
       // Injection xato bersa ham sahifa ochilishi uchun original HTML
-      res.status(200).set('Content-Type', 'text/html; charset=utf-8').send(rawHtml);
+      res.status(200)
+        .set('Cache-Control', 'no-cache, no-store, must-revalidate')
+        .set('Content-Type', 'text/html; charset=utf-8')
+        .send(rawHtml);
     }
   });
 }
