@@ -18,6 +18,19 @@ export default function NotFound() {
       el.content = desc;
       document.head.appendChild(el);
     }
+    // 404 sahifasi indekslanmasligi kerak (soft 404'ni oldini olish)
+    let robots = document.querySelector('meta[name="robots"]') as HTMLMetaElement | null;
+    const prev = robots?.getAttribute('content') ?? null;
+    if (!robots) {
+      robots = document.createElement('meta');
+      robots.name = 'robots';
+      document.head.appendChild(robots);
+    }
+    robots.setAttribute('content', 'noindex, follow');
+    return () => {
+      // Boshqa sahifaga o'tilganda indekslashni tiklaymiz
+      if (robots) robots.setAttribute('content', prev ?? 'index, follow');
+    };
   }, [t]);
 
   return (

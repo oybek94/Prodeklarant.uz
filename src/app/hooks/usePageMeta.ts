@@ -51,9 +51,19 @@ export function usePageMeta(): void {
     const title = t(`seo.${seoKey}.title`);
     const description = t(`seo.${seoKey}.description`);
     const canonicalUrl = `${window.location.origin}${pathname}`;
+    const ogLocale = lang === 'ru' ? 'ru_RU' : lang === 'en' ? 'en_US' : 'uz_UZ';
 
     document.title = title;
     ensureMeta('name', 'description', description);
     ensureCanonical(canonicalUrl);
+
+    // OG / Twitter teglarni client-navigatsiyada sinxron ushlaymiz
+    ensureMeta('property', 'og:title', title);
+    ensureMeta('property', 'og:description', description);
+    ensureMeta('property', 'og:url', canonicalUrl);
+    ensureMeta('property', 'og:type', 'website');
+    ensureMeta('property', 'og:locale', ogLocale);
+    ensureMeta('name', 'twitter:title', title);
+    ensureMeta('name', 'twitter:description', description);
   }, [pathname, lang, t, i18n.language]);
 }

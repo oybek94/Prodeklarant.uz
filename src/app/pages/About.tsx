@@ -280,7 +280,7 @@ export default function About() {
       {/* CTA Section */}
       <section className="py-24 bg-brand-dark relative overflow-hidden text-center text-white">
         <div className="absolute inset-0 z-0 opacity-20">
-          <img src="https://images.pexels.com/photos/5842828/pexels-photo-5842828.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="CTA bg" className="w-full h-full object-cover" />
+          <img src="https://images.pexels.com/photos/5842828/pexels-photo-5842828.jpeg?auto=compress&cs=tinysrgb&w=1920" alt="" aria-hidden="true" loading="lazy" className="w-full h-full object-cover" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/95 to-brand-dark/90 z-0"></div>
         <div className="container mx-auto px-4 relative z-10 max-w-4xl">

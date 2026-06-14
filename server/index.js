@@ -5,6 +5,7 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 const { slugify } = require('./utils/slugify');
+const { resolveSeo, injectSeo } = require('./seo');
 const authRoutes = require('./routes/auth');
 const postsRoutes = require('./routes/posts');
 const uploadRoutes = require('./routes/upload');
@@ -78,9 +79,29 @@ ${urlEntries.join('\n')}
 const distPath = path.join(__dirname, '..', 'dist');
 const indexHtml = path.join(distPath, 'index.html');
 if (fs.existsSync(indexHtml)) {
-  app.use(express.static(distPath));
+  // index.html'ni o'qib keshda saqlaymiz (har so'rovda diskdan o'qimaslik uchun)
+  const rawHtml = fs.readFileSync(indexHtml, 'utf8');
+
+  // Statik fayllar (assetlar) — lekin index.html'ni o'zimiz meta bilan beramiz
+  app.use(express.static(distPath, { index: false }));
+
   app.get('*', (req, res) => {
-    res.sendFile(indexHtml);
+    // API yo'llari bu yerga tushmasligi kerak (yuqorida ushlangan), lekin himoya uchun:
+    if (req.path.startsWith('/api/')) {
+      return res.status(404).json({ error: 'Not found' });
+    }
+    try {
+      const { block, status } = resolveSeo({
+        pathname: req.path,
+        siteUrl: SITE_URL,
+        db,
+      });
+      const html = injectSeo(rawHtml, block);
+      res.status(status).set('Content-Type', 'text/html; charset=utf-8').send(html);
+    } catch (e) {
+      // Xato bo'lsa ham sahifa ochilishi uchun original HTML
+      res.sendFile(indexHtml);
+    }
   });
 }
 

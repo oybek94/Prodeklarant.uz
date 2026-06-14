@@ -101,12 +101,43 @@ export default function BlogPost() {
     setMeta('property', 'og:image', image);
     setMeta('property', 'og:url', canonicalUrl);
     setMeta('property', 'og:type', 'article');
+    setMeta('property', 'og:locale', langKey === 'ru' ? 'ru_RU' : langKey === 'en' ? 'en_US' : 'uz_UZ');
+    if (post.date) setMeta('property', 'article:published_time', post.date);
     setMeta('name', 'twitter:card', 'summary_large_image');
     setMeta('name', 'twitter:title', title);
     setMeta('name', 'twitter:description', metaDescription);
+    setMeta('name', 'twitter:image', image);
+
+    // Article (BlogPosting) JSON-LD
+    const jsonLd = {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: title,
+      description: metaDescription,
+      image,
+      datePublished: post.date || post.created_at,
+      dateModified: post.created_at || post.date,
+      author: { '@type': 'Organization', name: post.author || 'PRO DEKLARANT' },
+      publisher: {
+        '@type': 'Organization',
+        name: 'PRO DEKLARANT',
+        logo: { '@type': 'ImageObject', url: `${window.location.origin}/logo.png` },
+      },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+    };
+    let ldScript = document.getElementById('json-ld-article') as HTMLScriptElement | null;
+    if (!ldScript) {
+      ldScript = document.createElement('script');
+      ldScript.id = 'json-ld-article';
+      ldScript.type = 'application/ld+json';
+      document.head.appendChild(ldScript);
+    }
+    ldScript.textContent = JSON.stringify(jsonLd);
 
     return () => {
       document.title = prevTitle;
+      const el = document.getElementById('json-ld-article');
+      if (el) el.remove();
     };
   }, [post]);
 

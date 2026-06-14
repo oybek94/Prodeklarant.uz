@@ -13,7 +13,18 @@ const LANGUAGES = [
   { code: 'en', label: 'English' },
 ] as const;
 
-const HREFLANG_IDS = { uz: 'hreflang-uz', ru: 'hreflang-ru', en: 'hreflang-en', 'x-default': 'hreflang-x-default' };
+// Eslatma: sayt barcha tillarda bir xil URL'dan xizmat qiladi (til JS orqali almashadi),
+// shu sabab har xil tilga alohida URL bo'lmagani uchun hreflang qo'llanilmaydi —
+// aks holda Google buni xato deb belgilaydi. Til bo'yicha SEO kerak bo'lsa,
+// /uz/ /ru/ /en/ kabi alohida yo'llar tuzilmasi joriy qilinishi kerak.
+
+// Sahifa nomlari → breadcrumb yorlig'i uchun
+const BREADCRUMB_KEYS: Record<string, string> = {
+  '/services': 'layout.nav.services',
+  '/about': 'layout.nav.about',
+  '/blog': 'layout.nav.blog',
+  '/contact': 'layout.nav.contact',
+};
 
 export default function Layout() {
   const { t } = useTranslation();
@@ -34,67 +45,63 @@ export default function Layout() {
   }, [location.pathname]);
 
   useEffect(() => {
-    const fullUrl = `${window.location.origin}${location.pathname}`;
-    const langs: Array<{ code: string; id: string }> = [
-      { code: 'uz', id: HREFLANG_IDS.uz },
-      { code: 'ru', id: HREFLANG_IDS.ru },
-      { code: 'en', id: HREFLANG_IDS.en },
-      { code: 'x-default', id: HREFLANG_IDS['x-default'] },
-    ];
-    langs.forEach(({ code, id }) => {
-      let link = document.getElementById(id) as HTMLLinkElement | null;
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'alternate';
-        link.id = id;
-        document.head.appendChild(link);
-      }
-      link.setAttribute('hreflang', code);
-      link.setAttribute('href', fullUrl);
-    });
-  }, [location.pathname]);
-
-  useEffect(() => {
-    if (location.pathname !== '/') {
-      const existing = document.getElementById('json-ld-organization');
-      if (existing) existing.remove();
-      return;
-    }
     const baseUrl = window.location.origin;
     const orgId = `${baseUrl}/#organization`;
-    const jsonLd = {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Organization',
-          '@id': orgId,
-          name: 'PRO DEKLARANT',
-          url: baseUrl,
-          logo: `${baseUrl}/logo.png`,
-          description: t('layout.footer.aboutDesc'),
-          contactPoint: {
-            '@type': 'ContactPoint',
-            telephone: '+998-91-118-70-07',
-            email: 'info@prodeklarant.uz',
-            contactType: 'customer service',
-            areaServed: 'UZ',
-          },
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'Oltiariq',
-            addressRegion: "Farg'ona viloyati",
-            addressCountry: 'UZ',
-          },
+    const graph: Record<string, unknown>[] = [
+      {
+        '@type': ['Organization', 'ProfessionalService', 'LocalBusiness'],
+        '@id': orgId,
+        name: 'PRO DEKLARANT',
+        url: baseUrl,
+        logo: `${baseUrl}/logo.png`,
+        image: `${baseUrl}/logo.png`,
+        description: t('layout.footer.aboutDesc'),
+        priceRange: '$$',
+        areaServed: { '@type': 'Country', name: 'Uzbekistan' },
+        contactPoint: {
+          '@type': 'ContactPoint',
+          telephone: '+998-91-118-70-07',
+          email: 'info@prodeklarant.uz',
+          contactType: 'customer service',
+          availableLanguage: ['uz', 'ru', 'en'],
+          areaServed: 'UZ',
         },
-        {
-          '@type': 'WebSite',
-          name: 'PRO DEKLARANT',
-          url: baseUrl,
-          description: t('layout.footer.aboutDesc'),
-          publisher: { '@id': orgId },
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Oltiariq',
+          addressRegion: "Farg'ona viloyati",
+          addressCountry: 'UZ',
         },
-      ],
-    };
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${baseUrl}/#website`,
+        name: 'PRO DEKLARANT',
+        url: baseUrl,
+        description: t('layout.footer.aboutDesc'),
+        inLanguage: ['uz', 'ru', 'en'],
+        publisher: { '@id': orgId },
+      },
+    ];
+
+    // BreadcrumbList — bosh sahifadan tashqari sahifalarda
+    const crumbKey = BREADCRUMB_KEYS[location.pathname];
+    if (crumbKey) {
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: t('layout.nav.home'), item: `${baseUrl}/` },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: t(crumbKey),
+            item: `${baseUrl}${location.pathname}`,
+          },
+        ],
+      });
+    }
+
+    const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
     let script = document.getElementById('json-ld-organization') as HTMLScriptElement | null;
     if (!script) {
       script = document.createElement('script');
