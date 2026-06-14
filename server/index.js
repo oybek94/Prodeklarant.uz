@@ -79,28 +79,36 @@ ${urlEntries.join('\n')}
 const distPath = path.join(__dirname, '..', 'dist');
 const indexHtml = path.join(distPath, 'index.html');
 if (fs.existsSync(indexHtml)) {
-  // index.html'ni o'qib keshda saqlaymiz (har so'rovda diskdan o'qimaslik uchun)
-  const rawHtml = fs.readFileSync(indexHtml, 'utf8');
-
   // Statik fayllar (assetlar) — lekin index.html'ni o'zimiz meta bilan beramiz
   app.use(express.static(distPath, { index: false }));
 
+  // Fayl kengaytmasiga o'xshash so'rovlar (masalan .js, .css, .png) bu yerga tushsa,
+  // demak fayl diskda yo'q — HTML emas, oddiy 404 qaytaramiz (aks holda brauzer
+  // JS o'rniga HTML olib "ERR_ABORTED" beradi).
+  const FILE_EXT = /\.[a-z0-9]{2,5}$/i;
+
   app.get('*', (req, res) => {
-    // API yo'llari bu yerga tushmasligi kerak (yuqorida ushlangan), lekin himoya uchun:
     if (req.path.startsWith('/api/')) {
       return res.status(404).json({ error: 'Not found' });
     }
+    if (FILE_EXT.test(req.path)) {
+      return res.status(404).type('text/plain').send('Not found');
+    }
+    // index.html'ni HAR so'rovda diskdan o'qiymiz — shunda rebuild qilingach
+    // (yangi asset hash'lari) serverni qayta ishga tushirmasdan ham mos keladi.
+    let rawHtml;
     try {
-      const { block, status } = resolveSeo({
-        pathname: req.path,
-        siteUrl: SITE_URL,
-        db,
-      });
+      rawHtml = fs.readFileSync(indexHtml, 'utf8');
+    } catch (e) {
+      return res.status(500).type('text/plain').send('Server error');
+    }
+    try {
+      const { block, status } = resolveSeo({ pathname: req.path, siteUrl: SITE_URL, db });
       const html = injectSeo(rawHtml, block);
       res.status(status).set('Content-Type', 'text/html; charset=utf-8').send(html);
     } catch (e) {
-      // Xato bo'lsa ham sahifa ochilishi uchun original HTML
-      res.sendFile(indexHtml);
+      // Injection xato bersa ham sahifa ochilishi uchun original HTML
+      res.status(200).set('Content-Type', 'text/html; charset=utf-8').send(rawHtml);
     }
   });
 }
