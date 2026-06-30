@@ -131,7 +131,7 @@ export default function Home() {
         <div className="absolute inset-0 z-[1] bg-gradient-to-t from-brand-dark via-brand-dark/60 to-transparent" aria-hidden="true" />
         <div className="absolute inset-0 z-[1] bg-gradient-to-r from-brand-dark/90 via-transparent to-brand-dark/90" aria-hidden="true" />
 
-        <div className="container mx-auto px-4 z-10 relative text-center mt-16">
+        <div className="container mx-auto px-4 z-10 relative text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
