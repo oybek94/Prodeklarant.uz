@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import {
   CheckCircle, Globe, ShieldCheck, ArrowRight, FileText, Truck,
   Users, Award, FileCheck, Phone, MousePointerClick, BarChart
@@ -168,13 +165,13 @@ export default function Home() {
             <button
               type="button"
               onClick={() => window.dispatchEvent(new Event('openContactModal'))}
-              className="group bg-accent hover:bg-accent-light text-brand-dark font-black py-4 px-10 rounded-xl uppercase tracking-widest transition-all shadow-[0_0_30px_rgba(232,168,56,0.3)] hover:shadow-[0_0_40px_rgba(232,168,56,0.5)] hover:-translate-y-1 w-full sm:w-auto sm:inline-flex items-center justify-center gap-2 text-sm"
+              className="group bg-accent hover:bg-accent-light text-brand-dark font-black py-4 px-6 sm:px-10 rounded-xl uppercase tracking-wide sm:tracking-widest transition-all shadow-[0_0_30px_rgba(232,168,56,0.3)] hover:shadow-[0_0_40px_rgba(232,168,56,0.5)] hover:-translate-y-1 w-full sm:w-auto inline-flex items-center justify-center gap-2 text-sm"
             >
               {t('home.hero.consultation')}
             </button>
             <Link
               to="/services"
-              className="group bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white hover:text-brand-dark text-white font-black py-4 px-10 rounded-xl uppercase tracking-widest transition-all block sm:inline-flex items-center justify-center gap-2 hover:-translate-y-1 text-sm"
+              className="group bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white hover:text-brand-dark text-white font-black py-4 px-6 sm:px-10 rounded-xl uppercase tracking-wide sm:tracking-widest transition-all w-full sm:w-auto inline-flex items-center justify-center gap-2 hover:-translate-y-1 text-sm"
             >
               {t('home.hero.services')}
             </Link>
@@ -213,41 +210,22 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-slate-50 relative -mt-10 z-20" aria-labelledby="features-heading">
         <div className="container mx-auto px-4 max-w-7xl">
           <h2 id="features-heading" className="sr-only">{t('home.features.title')}</h2>
-          <Slider
-            dots={false}
-            infinite={true}
-            speed={500}
-            slidesToShow={4}
-            slidesToScroll={1}
-            autoplay={!reducedMotion}
-            autoplaySpeed={3000}
-            pauseOnHover={true}
-            pauseOnFocus={true}
-            arrows={false}
-            responsive={[
-              { breakpoint: 1024, settings: { slidesToShow: 3 } },
-              { breakpoint: 768, settings: { slidesToShow: 2 } },
-              { breakpoint: 480, settings: { slidesToShow: 1 } }
-            ]}
-            className="features-slider"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               { icon: Globe, titleKey: 'home.features.global.title', descKey: 'home.features.global.desc' },
               { icon: ShieldCheck, titleKey: 'home.features.legal.title', descKey: 'home.features.legal.desc' },
               { icon: Users, titleKey: 'home.features.team.title', descKey: 'home.features.team.desc' },
               { icon: BarChart, titleKey: 'home.features.fast.title', descKey: 'home.features.fast.desc' },
             ].map((f, i) => (
-              <div key={i} className="px-3 py-4">
-                <div className="bg-white rounded-3xl p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 transition-all duration-300 h-full group flex flex-col items-center text-center transform hover:-translate-y-2">
-                  <div className="w-20 h-20 bg-brand/5 group-hover:bg-brand text-brand group-hover:text-white rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 shadow-sm group-hover:shadow-[0_10px_20px_rgba(0,54,102,0.2)] rotate-3 group-hover:-rotate-3">
-                    <f.icon size={36} strokeWidth={1.5} />
-                  </div>
-                  <h3 className="text-xl font-extrabold text-slate-900 mb-3 group-hover:text-brand transition-colors">{t(f.titleKey)}</h3>
-                  <p className="text-slate-500 font-medium leading-relaxed text-sm">{t(f.descKey)}</p>
+              <div key={i} className="bg-white rounded-3xl p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] border border-slate-100 transition-all duration-300 h-full group flex flex-col items-center text-center transform hover:-translate-y-2">
+                <div className="w-20 h-20 bg-brand/5 group-hover:bg-brand text-brand group-hover:text-white rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 shadow-sm group-hover:shadow-[0_10px_20px_rgba(0,54,102,0.2)] rotate-3 group-hover:-rotate-3">
+                  <f.icon size={36} strokeWidth={1.5} />
                 </div>
+                <h3 className="text-xl font-extrabold text-slate-900 mb-3 group-hover:text-brand transition-colors">{t(f.titleKey)}</h3>
+                <p className="text-slate-500 font-medium leading-relaxed text-sm">{t(f.descKey)}</p>
               </div>
             ))}
-          </Slider>
+          </div>
         </div>
       </section>
 
