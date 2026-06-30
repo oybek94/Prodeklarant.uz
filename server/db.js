@@ -36,23 +36,41 @@ try {
   if (!e.message?.includes('duplicate column name')) throw e;
 }
 
-// Eski ustunlarda slug yo'q bo'lsa, uni qo'shish (Migratsiya)
+// Eski DB'larda slug ustuni yo'q bo'lsa, uni qo'shish (Migratsiya).
+// MUHIM: SQLite ALTER TABLE orqali UNIQUE ustun qo'shishni qo'llab-quvvatlamaydi
+// ("Cannot add a UNIQUE column"). Shuning uchun ustun oddiy qo'shiladi va
+// UNIQUE alohida indeks orqali ta'minlanadi.
 try {
-  db.exec('ALTER TABLE posts ADD COLUMN slug TEXT UNIQUE');
-  
-  // Eski postlar uchun slug generatsiya qilish
-  const posts = db.prepare('SELECT id, title_uz FROM posts WHERE slug IS NULL').all();
-  const updateSlug = db.prepare('UPDATE posts SET slug = ? WHERE id = ?');
-  
-  const modifySlug = db.transaction((posts) => {
-    for (const post of posts) {
-      let generatedSlug = slugify(post.title_uz) || `post-${post.id}`;
-      updateSlug.run(generatedSlug, post.id);
-    }
-  });
-  modifySlug(posts);
+  db.exec('ALTER TABLE posts ADD COLUMN slug TEXT');
 } catch (e) {
   if (!e.message?.includes('duplicate column name')) throw e;
 }
+
+// Slug'i yo'q eski postlarga slug generatsiya qilish (takrorlanmaslikni ta'minlab)
+const postsWithoutSlug = db
+  .prepare("SELECT id, title_uz FROM posts WHERE slug IS NULL OR slug = ''")
+  .all();
+if (postsWithoutSlug.length > 0) {
+  const usedSlugs = new Set(
+    db
+      .prepare("SELECT slug FROM posts WHERE slug IS NOT NULL AND slug != ''")
+      .all()
+      .map((r) => r.slug)
+  );
+  const updateSlug = db.prepare('UPDATE posts SET slug = ? WHERE id = ?');
+  const modifySlug = db.transaction((rows) => {
+    for (const post of rows) {
+      const base = slugify(post.title_uz) || `post-${post.id}`;
+      // Takrorlansa, id qo'shib noyob qilamiz
+      const candidate = usedSlugs.has(base) ? `${base}-${post.id}` : base;
+      usedSlugs.add(candidate);
+      updateSlug.run(candidate, post.id);
+    }
+  });
+  modifySlug(postsWithoutSlug);
+}
+
+// UNIQUE cheklovni alohida indeks orqali ta'minlash (idempotent — eski DB'lar uchun)
+db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_posts_slug ON posts(slug)');
 
 module.exports = db;
