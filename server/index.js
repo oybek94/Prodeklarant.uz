@@ -75,38 +75,70 @@ app.use('/api/translate', translateRoutes);
 app.use('/api/contact', contactRoutes);
 
 app.get('/sitemap.xml', (req, res) => {
-  const staticPaths = [
-    { path: '/', changefreq: 'weekly', priority: '1.0' },
-    { path: '/services', changefreq: 'monthly', priority: '0.8' },
-    { path: '/about', changefreq: 'monthly', priority: '0.8' },
-    { path: '/contact', changefreq: 'monthly', priority: '0.8' },
-    { path: '/blog', changefreq: 'weekly', priority: '0.9' },
-  ];
   let posts = [];
   try {
-    posts = db.prepare('SELECT id, title_uz, created_at FROM posts ORDER BY created_at DESC').all();
+    posts = db.prepare('SELECT id, slug, title_uz, created_at FROM posts ORDER BY created_at DESC').all();
   } catch (e) {
     // ignore
   }
+  // Eng so'nggi post sanasi — postlar ro'yxatini ko'rsatadigan sahifalar (/ va /blog)
+  // shu postlar o'zgarganda yangilanadi, shuning uchun ularga lastmod beramiz.
+  const latestPostDate = posts.length && posts[0].created_at
+    ? new Date(posts[0].created_at).toISOString().slice(0, 10)
+    : '';
+  const staticPaths = [
+    { path: '/', changefreq: 'weekly', priority: '1.0', lastmod: latestPostDate },
+    { path: '/services', changefreq: 'monthly', priority: '0.8' },
+    { path: '/about', changefreq: 'monthly', priority: '0.8' },
+    { path: '/contact', changefreq: 'monthly', priority: '0.8' },
+    { path: '/blog', changefreq: 'weekly', priority: '0.9', lastmod: latestPostDate },
+  ];
   const escapeXml = (s) => String(s)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
+
+  // Ko'p tilli: uz — prefikssiz, ru/en — prefiksli. Har bir URL o'zining hreflang
+  // alternate to'plamini o'z ichiga oladi (Google til versiyalarini bog'laydi).
+  const LOCALES = ['uz', 'ru', 'en'];
+  const wl = (base, loc) => (loc === 'uz' ? base : base === '/' ? `/${loc}` : `/${loc}${base}`);
+
+  // basePath uchun har til bo'yicha bittadan <url> (ichida to'liq hreflang to'plami).
+  const urlBlock = (base, { changefreq, priority, lastmod }) =>
+    LOCALES.map((loc) => {
+      const alts = LOCALES.map(
+        (l) => `    <xhtml:link rel="alternate" hreflang="${l}" href="${escapeXml(SITE_URL + wl(base, l))}"/>`
+      );
+      alts.push(
+        `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(SITE_URL + base)}"/>`
+      );
+      return (
+        `  <url>\n` +
+        `    <loc>${escapeXml(SITE_URL + wl(base, loc))}</loc>\n` +
+        `${alts.join('\n')}\n` +
+        (lastmod ? `    <lastmod>${lastmod}</lastmod>\n` : '') +
+        `    <changefreq>${changefreq}</changefreq>\n` +
+        `    <priority>${priority}</priority>\n` +
+        `  </url>`
+      );
+    }).join('\n');
+
   const urlEntries = [
-    ...staticPaths.map(({ path: p, changefreq, priority }) =>
-      `  <url><loc>${escapeXml(SITE_URL + p)}</loc><changefreq>${changefreq}</changefreq><priority>${priority}</priority></url>`
+    ...staticPaths.map(({ path: p, changefreq, priority, lastmod }) =>
+      urlBlock(p, { changefreq, priority, lastmod })
     ),
     ...posts.map((row) => {
-      const slug = slugify(row.title_uz) || `post-${row.id}`;
-      const loc = `${SITE_URL}/blog/${encodeURIComponent(slug)}`;
+      // MUHIM: canonical/lookup bilan mos bo'lishi uchun saqlangan `slug`dan foydalanamiz
+      // (slugify(title) EMAS — u sarlavha o'zgarsa yoki dublikat bo'lsa mos kelmaydi).
+      const slug = row.slug || slugify(row.title_uz) || `post-${row.id}`;
       const lastmod = row.created_at ? new Date(row.created_at).toISOString().slice(0, 10) : '';
-      return `  <url><loc>${escapeXml(loc)}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}<changefreq>monthly</changefreq><priority>0.7</priority></url>`;
+      return urlBlock(`/blog/${slug}`, { changefreq: 'monthly', priority: '0.7', lastmod });
     }),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 ${urlEntries.join('\n')}
 </urlset>`;
   res.set('Content-Type', 'application/xml; charset=utf-8');
@@ -134,6 +166,28 @@ if (fs.existsSync(indexHtml)) {
     }
     if (FILE_EXT.test(req.path)) {
       return res.status(404).type('text/plain').send('Not found');
+    }
+    // Blog slug 301 redirect: /blog/<eski-slug> → /blog/<joriy-slug> (til prefiksini saqlab).
+    // Sarlavha o'zgarib slug yangilanganda eski indekslangan URL'lar 404 bo'lmasin.
+    const blogM = req.path.match(/^(\/(?:ru|en))?\/blog\/(.+)$/);
+    if (blogM) {
+      const prefix = blogM[1] || '';
+      const reqSlug = decodeURIComponent(blogM[2]).trim().toLowerCase();
+      try {
+        const current = db.prepare('SELECT 1 FROM posts WHERE slug = ?').get(reqSlug);
+        if (!current) {
+          const redir = db
+            .prepare(
+              'SELECT p.slug AS slug FROM post_redirects r JOIN posts p ON p.id = r.post_id WHERE r.old_slug = ?'
+            )
+            .get(reqSlug);
+          if (redir && redir.slug && redir.slug !== reqSlug) {
+            return res.redirect(301, `${prefix}/blog/${encodeURIComponent(redir.slug)}`);
+          }
+        }
+      } catch (e) {
+        // redirect qidiruvi xato bersa — oddiy oqimda davom etamiz (404/SEO injection)
+      }
     }
     // index.html'ni HAR so'rovda diskdan o'qiymiz — shunda rebuild qilingach
     // (yangi asset hash'lari) serverni qayta ishga tushirmasdan ham mos keladi.

@@ -73,4 +73,14 @@ if (postsWithoutSlug.length > 0) {
 // UNIQUE cheklovni alohida indeks orqali ta'minlash (idempotent — eski DB'lar uchun)
 db.exec('CREATE UNIQUE INDEX IF NOT EXISTS idx_posts_slug ON posts(slug)');
 
+// Slug o'zgarganda eski URL'lar 404 bo'lib qolmasligi uchun eski→yangi xaritasi.
+// Server /blog/<eski-slug> so'rovini joriy slug'ga 301 redirect qiladi (SEO: link equity saqlanadi).
+db.exec(`
+  CREATE TABLE IF NOT EXISTS post_redirects (
+    old_slug TEXT PRIMARY KEY,
+    post_id INTEGER NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+
 module.exports = db;

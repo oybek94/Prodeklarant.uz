@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { localeFromPath, stripLocale, withLocale, SUPPORTED_LOCALES, type Locale } from '../utils/locale';
 
 const ROUTE_SEO_KEYS: Record<string, string> = {
   '/': 'home',
@@ -12,7 +13,8 @@ const ROUTE_SEO_KEYS: Record<string, string> = {
 
 /** BlogPost o‘zi meta o‘rnatadi; faqat /blog/:slug dan boshqa sahifalarda ishlaymiz */
 function isBlogPostPath(pathname: string): boolean {
-  return pathname.startsWith('/blog/') && pathname !== '/blog';
+  const base = stripLocale(pathname);
+  return base.startsWith('/blog/') && base !== '/blog';
 }
 
 function ensureMeta(nameOrProp: 'name' | 'property', key: string, content: string): void {
@@ -38,24 +40,43 @@ function ensureCanonical(href: string): void {
   }
 }
 
+function ensureAlternate(hreflang: string, href: string): void {
+  let el = document.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`) as HTMLLinkElement | null;
+  if (!el) {
+    el = document.createElement('link');
+    el.rel = 'alternate';
+    el.hreflang = hreflang;
+    document.head.appendChild(el);
+  }
+  el.href = href;
+}
+
 export function usePageMeta(): void {
   const { pathname } = useLocation();
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language?.split('-')[0] || 'uz';
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isBlogPostPath(pathname)) return;
-    const seoKey = ROUTE_SEO_KEYS[pathname];
+    const basePath = stripLocale(pathname);
+    const seoKey = ROUTE_SEO_KEYS[basePath];
     if (!seoKey) return;
 
+    const lang = localeFromPath(pathname);
     const title = t(`seo.${seoKey}.title`);
     const description = t(`seo.${seoKey}.description`);
-    const canonicalUrl = `${window.location.origin}${pathname}`;
+    const origin = window.location.origin;
+    const canonicalUrl = `${origin}${withLocale(basePath, lang)}`;
     const ogLocale = lang === 'ru' ? 'ru_RU' : lang === 'en' ? 'en_US' : 'uz_UZ';
 
     document.title = title;
     ensureMeta('name', 'description', description);
     ensureCanonical(canonicalUrl);
+
+    // hreflang alternates — har bir til uchun alohida URL + x-default (uz).
+    (SUPPORTED_LOCALES as readonly Locale[]).forEach((loc) =>
+      ensureAlternate(loc, `${origin}${withLocale(basePath, loc)}`)
+    );
+    ensureAlternate('x-default', `${origin}${basePath}`);
 
     // OG / Twitter teglarni client-navigatsiyada sinxron ushlaymiz
     ensureMeta('property', 'og:title', title);
@@ -65,5 +86,5 @@ export function usePageMeta(): void {
     ensureMeta('property', 'og:locale', ogLocale);
     ensureMeta('name', 'twitter:title', title);
     ensureMeta('name', 'twitter:description', description);
-  }, [pathname, lang, t, i18n.language]);
+  }, [pathname, t]);
 }

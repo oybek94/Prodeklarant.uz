@@ -2,9 +2,11 @@ import { motion } from 'motion/react';
 import { Award, Users, FileCheck, Globe, Package, DollarSign, Check, Shield, Eye, Target, Zap, Briefcase, ChevronRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+import { useLocalePath } from '../utils/locale';
 
 export default function About() {
   const { t } = useTranslation();
+  const lp = useLocalePath();
   const stats = [
     { label: t('about.stats.experience'), value: '10+', icon: Award },
     { label: t('about.stats.clients'), value: '100+', icon: Users },
@@ -94,7 +96,7 @@ export default function About() {
                     src="/images/p3184291-800.jpg"
                     width={800}
                     height={533}
-                    alt="Team collaboration"
+                    alt="PRO DEKLARANT jamoasi bojxona rasmiylashtiruv ustida ishlamoqda"
                     className="rounded-2xl shadow-2xl w-full h-auto object-cover relative z-10"
                   />
                 </picture>
@@ -303,7 +305,7 @@ export default function About() {
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold mb-10 tracking-tight leading-tight">{t('about.closing')}</h2>
           <Link
-            to="/contact"
+            to={lp('/contact')}
             className="group inline-flex items-center gap-3 bg-accent hover:bg-white text-brand-dark font-black uppercase px-10 py-5 rounded-2xl text-lg transition-all hover:scale-105 active:scale-95 shadow-[0_10px_40px_rgba(232,168,56,0.3)] hover:shadow-[0_15px_50px_rgba(255,255,255,0.4)]"
           >
             {t('layout.footer.contactTitle')}

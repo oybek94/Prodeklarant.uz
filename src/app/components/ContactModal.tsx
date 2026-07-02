@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router';
+import { useLocalePath } from '../utils/locale';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +15,7 @@ const WhatsAppIcon = () => (
 
 export default function ContactModal() {
     const { t } = useTranslation();
+    const lp = useLocalePath();
     const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
@@ -114,7 +116,7 @@ export default function ContactModal() {
                             </a>
 
                             <Link
-                                to="/contact"
+                                to={lp('/contact')}
                                 onClick={() => setIsOpen(false)}
                                 className="mt-2 inline-block text-sm font-semibold text-brand hover:text-brand-dark transition-colors"
                             >

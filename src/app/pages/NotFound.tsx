@@ -3,9 +3,11 @@ import { Link } from 'react-router';
 import { motion } from 'motion/react';
 import { Home, ArrowRight, FileQuestion } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useLocalePath } from '../utils/locale';
 
 export default function NotFound() {
   const { t } = useTranslation();
+  const lp = useLocalePath();
 
   useEffect(() => {
     document.title = t('seo.notFound.title');
@@ -62,7 +64,7 @@ export default function NotFound() {
               <h1 className="text-2xl font-bold text-slate-900 mb-3">{t('notFound.title')}</h1>
               <p className="text-slate-600 mb-8 max-w-sm mx-auto">{t('notFound.message')}</p>
               <Link
-                to="/"
+                to={lp('/')}
                 className="inline-flex items-center justify-center gap-2 bg-brand-dark text-white font-bold uppercase tracking-wide px-8 py-4 rounded-xl hover:bg-brand hover:text-accent-light transition-colors focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2"
               >
                 <Home size={20} />
@@ -72,7 +74,7 @@ export default function NotFound() {
             </div>
           </div>
           <p className="text-center text-slate-500 text-sm mt-8">
-            <Link to="/contact" className="underline hover:text-brand">{t('notFound.needHelp')}</Link>
+            <Link to={lp('/contact')} className="underline hover:text-brand">{t('notFound.needHelp')}</Link>
           </p>
         </motion.div>
       </div>

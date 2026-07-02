@@ -166,6 +166,17 @@ router.put('/:id', authMiddleware, (req, res) => {
         }
     }
 
+    // Slug o'zgargan bo'lsa — eski slug'ni redirect xaritasiga yozamiz (301 uchun).
+    if (newSlug !== row.slug && row.slug) {
+      try {
+        db.prepare('INSERT OR REPLACE INTO post_redirects (old_slug, post_id) VALUES (?, ?)').run(row.slug, id);
+        // Yangi slug ilgari redirect sifatida yozilgan bo'lsa — loop bo'lmasligi uchun o'chiramiz.
+        db.prepare('DELETE FROM post_redirects WHERE old_slug = ?').run(newSlug);
+      } catch (e) {
+        // redirect yozib bo'lmasa ham postni yangilashni to'xtatmaymiz
+      }
+    }
+
     db.prepare(`
       UPDATE posts SET
         title_uz = ?, title_ru = ?, title_en = ?, slug = ?,

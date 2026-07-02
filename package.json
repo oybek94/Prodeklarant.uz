@@ -8,7 +8,8 @@
     "dev": "vite",
     "dev:server": "node server/index.js",
     "optimize-images": "node scripts/optimize-public-images.mjs",
-    "prebuild": "npm run optimize-images"
+    "generate-og": "node scripts/generate-og-image.mjs",
+    "prebuild": "npm run generate-og && npm run optimize-images"
   },
   "dependencies": {
     "@uiw/react-md-editor": "^4.0.11",

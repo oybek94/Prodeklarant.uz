@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
+import { useLocalePath } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { Pause, Play } from 'lucide-react';
@@ -35,7 +36,7 @@ function formatPostDate(dateStr: string): string {
 
 export default function Home() {
   const { t } = useTranslation();
-  const [latestPosts, setLatestPosts] = useState<{ id: number; title: string; excerpt: string; date: string; image: string }[]>([]);
+  const [latestPosts, setLatestPosts] = useState<{ id: number; slug: string; title: string; excerpt: string; date: string; image: string }[]>([]);
   const [postsLoading, setPostsLoading] = useState(true);
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -46,6 +47,7 @@ export default function Home() {
   const heroAutoplay = !reducedMotion && !heroPaused;
 
   const lang = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
+  const lp = useLocalePath();
 
   useEffect(() => {
     if (!heroAutoplay) return;
@@ -60,6 +62,7 @@ export default function Home() {
       .then((data) => {
         const display = data.slice(0, 3).map((p: BlogPost) => ({
           id: p.id,
+          slug: p.slug,
           title: p.title[lang],
           excerpt: (p.excerpt[lang] || '').replace(/<[^>]*>/g, '').slice(0, 160),
           date: p.date || p.created_at || '',
@@ -170,7 +173,7 @@ export default function Home() {
               {t('home.hero.consultation')}
             </button>
             <Link
-              to="/services"
+              to={lp('/services')}
               className="group bg-white/10 backdrop-blur-sm border border-white/30 hover:bg-white hover:text-brand-dark text-white font-black py-4 px-6 sm:px-10 rounded-xl uppercase tracking-wide sm:tracking-widest transition-all w-full sm:w-auto inline-flex items-center justify-center gap-2 hover:-translate-y-1 text-sm"
             >
               {t('home.hero.services')}
@@ -309,7 +312,7 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.export.desc')}
               </p>
-              <Link to="/services" className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
+              <Link to={lp('/services')} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
@@ -320,7 +323,7 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.import.desc')}
               </p>
-              <Link to="/services" className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
+              <Link to={lp('/services')} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
@@ -331,14 +334,14 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.certification.desc')}
               </p>
-              <Link to="/services" className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
+              <Link to={lp('/services')} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/services" className="inline-block bg-brand-dark hover:bg-brand text-white font-bold py-3 px-8 rounded-xl transition-colors">
+            <Link to={lp('/services')} className="inline-block bg-brand-dark hover:bg-brand text-white font-bold py-3 px-8 rounded-xl transition-colors">
               {t('home.services.viewAll')}
             </Link>
           </div>
@@ -570,7 +573,7 @@ export default function Home() {
               <h2 className="text-3xl font-bold text-slate-900 uppercase">{t('home.blog.title')}</h2>
               <div className="w-20 h-1 bg-accent mt-4"></div>
             </div>
-            <Link to="/blog" className="hidden md:flex items-center gap-2 text-brand font-bold hover:text-accent-dark transition-colors">
+            <Link to={lp('/blog')} className="hidden md:flex items-center gap-2 text-brand font-bold hover:text-accent-dark transition-colors">
               {t('home.blog.readAll')} <ArrowRight size={16} />
             </Link>
           </div>
@@ -582,7 +585,7 @@ export default function Home() {
               <div className="col-span-full text-center py-12 text-slate-500">{t('home.blog.noPosts') || 'Hozircha maqolalar yo\'q.'}</div>
             ) : (
               latestPosts.map((post) => (
-                <Link key={post.id} to={blogPostPath(post.id, post.title)} className="group block cursor-pointer">
+                <Link key={post.id} to={lp(blogPostPath(post))} className="group block cursor-pointer">
                   <div className="h-48 overflow-hidden rounded-sm mb-4">
                     <img
                       src={post.image}
@@ -606,7 +609,7 @@ export default function Home() {
           </div>
 
           <div className="mt-8 text-center md:hidden">
-            <Link to="/blog" className="text-brand font-bold hover:text-accent-dark flex items-center justify-center gap-2">
+            <Link to={lp('/blog')} className="text-brand font-bold hover:text-accent-dark flex items-center justify-center gap-2">
               {t('home.blog.readAll')} <ArrowRight size={16} />
             </Link>
           </div>

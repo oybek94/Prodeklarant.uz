@@ -6,14 +6,16 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
+import { useLocalePath } from '../utils/locale';
 import { BLOG_IMAGES, fallbackBlogImage } from '../utils/blogImages';
 
 const POSTS_PER_PAGE = 7;
 
-function toDisplayPost(post: BlogPost, lang: string): { id: number; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number } {
+function toDisplayPost(post: BlogPost, lang: string): { id: number; slug: string; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number } {
   const l = (lang === 'uz' || lang === 'ru' || lang === 'en') ? lang : 'uz';
   return {
     id: post.id,
+    slug: post.slug,
     title: post.title[l],
     excerpt: post.excerpt[l],
     date: post.date,
@@ -26,7 +28,7 @@ function toDisplayPost(post: BlogPost, lang: string): { id: number; title: strin
 
 export function useBlogPosts() {
   const { t } = useTranslation();
-  const [posts, setPosts] = useState<{ id: number; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number }[]>([]);
+  const [posts, setPosts] = useState<{ id: number; slug: string; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const lang = i18n.language?.split('-')[0] || 'uz';
 
@@ -36,6 +38,7 @@ export function useBlogPosts() {
       .catch(() => {
         const fallback = [1, 2, 3, 4].map((id, i) => ({
           id,
+          slug: '',
           title: t(`blog.posts.${id}.title`),
           excerpt: t(`blog.posts.${id}.excerpt`),
           date: t(`blog.posts.${id}.date`),
@@ -55,6 +58,7 @@ export function useBlogPosts() {
 export default function Blog() {
   const { t } = useTranslation();
   const { posts: blogPosts, loading } = useBlogPosts();
+  const lp = useLocalePath();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -133,7 +137,8 @@ export default function Blog() {
             <source srcSet="/images/p265087-1280.webp" type="image/webp" />
             <img
               src="/images/p265087-1280.jpg"
-              alt="Blog background"
+              alt=""
+              aria-hidden="true"
               className="w-full h-full object-cover"
               loading="eager"
               fetchPriority="high"
@@ -204,7 +209,7 @@ export default function Blog() {
                             <span className="flex items-center gap-1.5"><Eye size={14} className="text-slate-400" /> {post.views}</span>
                           </div>
                           <h2 className="text-2xl md:text-3xl font-extrabold text-slate-900 mb-4 group-hover:text-brand transition-colors tracking-tight leading-snug">
-                            <Link to={blogPostPath(post.id, post.title)} className="focus:outline-none before:absolute before:inset-0">
+                            <Link to={lp(blogPostPath(post))} className="focus:outline-none before:absolute before:inset-0">
                               {post.title}
                             </Link>
                           </h2>

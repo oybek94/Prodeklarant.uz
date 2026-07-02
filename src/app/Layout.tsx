@@ -1,10 +1,11 @@
-import { Outlet, Link, useLocation } from 'react-router';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { usePageMeta } from './hooks/usePageMeta';
+import { useLocalePath, localeFromPath, stripLocale, withLocale, type Locale } from './utils/locale';
 import ContactModal from './components/ContactModal';
 
 const LANGUAGES = [
@@ -30,13 +31,24 @@ export default function Layout() {
   const { t } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const currentLang = i18n.language?.split('-')[0] || 'uz';
+  const navigate = useNavigate();
+  const currentLang = localeFromPath(location.pathname);
+  const lp = useLocalePath();
+  const activePath = stripLocale(location.pathname);
 
   usePageMeta();
 
+  // URL — tilning yagona manbai: prefiks o'zgarsa i18n'ni unga moslashtiramiz.
+  useEffect(() => {
+    if ((i18n.language?.split('-')[0] || 'uz') !== currentLang) {
+      i18n.changeLanguage(currentLang);
+    }
+  }, [currentLang]);
+
   const changeLanguage = (code: string) => {
-    i18n.changeLanguage(code);
     localStorage.setItem('language', code);
+    const base = stripLocale(location.pathname);
+    navigate(withLocale(base, code as Locale) + location.search);
   };
 
   useEffect(() => {
@@ -57,6 +69,13 @@ export default function Layout() {
         image: `${baseUrl}/logo.png`,
         description: t('layout.footer.aboutDesc'),
         priceRange: '$$',
+        telephone: '+998-91-118-70-07',
+        email: 'info@prodeklarant.uz',
+        // Ijtimoiy/messenjer profillar — lokal SEO va Knowledge Graph uchun
+        sameAs: [
+          'https://t.me/+998911187007',
+          'https://wa.me/998911187007',
+        ],
         areaServed: { '@type': 'Country', name: 'Uzbekistan' },
         contactPoint: {
           '@type': 'ContactPoint',
@@ -72,6 +91,20 @@ export default function Layout() {
           addressRegion: "Farg'ona viloyati",
           addressCountry: 'UZ',
         },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 40.357075,
+          longitude: 71.494720,
+        },
+        // 24/7 ochiq — Google konvensiyasi: opens 00:00, closes 23:59, barcha kunlar.
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            opens: '00:00',
+            closes: '23:59',
+          },
+        ],
       },
       {
         '@type': 'WebSite',
@@ -84,13 +117,13 @@ export default function Layout() {
       },
     ];
 
-    // BreadcrumbList — bosh sahifadan tashqari sahifalarda
-    const crumbKey = BREADCRUMB_KEYS[location.pathname];
+    // BreadcrumbList — bosh sahifadan tashqari sahifalarda (til prefiksini hisobga olamiz)
+    const crumbKey = BREADCRUMB_KEYS[stripLocale(location.pathname)];
     if (crumbKey) {
       graph.push({
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: t('layout.nav.home'), item: `${baseUrl}/` },
+          { '@type': 'ListItem', position: 1, name: t('layout.nav.home'), item: `${baseUrl}${withLocale('/', currentLang)}` },
           {
             '@type': 'ListItem',
             position: 2,
@@ -159,7 +192,7 @@ export default function Layout() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-20">
             {/* Logo: WebP when available, PNG fallback; sized to avoid layout shift */}
-            <Link to="/" className="flex items-center gap-2 group">
+            <Link to={lp('/')} className="flex items-center gap-2 group">
               <picture>
                 <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" width={168} height={40} className="h-10 w-auto object-contain" decoding="async" />
               </picture>
@@ -170,8 +203,8 @@ export default function Layout() {
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
-                  to={link.path}
-                  className={`text-sm font-semibold uppercase tracking-wide py-2 border-b-2 transition-colors duration-300 ${location.pathname === link.path
+                  to={lp(link.path)}
+                  className={`text-sm font-semibold uppercase tracking-wide py-2 border-b-2 transition-colors duration-300 ${activePath === link.path
                     ? 'text-brand border-accent'
                     : 'text-slate-600 border-transparent hover:text-brand hover:border-brand'
                     }`}
@@ -217,8 +250,8 @@ export default function Layout() {
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
-                  to={link.path}
-                  className={`text-base font-medium py-2 px-4 rounded-md transition-colors ${location.pathname === link.path
+                  to={lp(link.path)}
+                  className={`text-base font-medium py-2 px-4 rounded-md transition-colors ${activePath === link.path
                     ? 'bg-brand/10 text-brand'
                     : 'text-slate-700 hover:bg-slate-50'
                     }`}
@@ -318,7 +351,7 @@ export default function Layout() {
               <ul className="space-y-3 text-sm">
                 {navLinks.map((link) => (
                   <li key={link.path}>
-                    <Link to={link.path} className="hover:text-accent transition-colors">
+                    <Link to={lp(link.path)} className="hover:text-accent transition-colors">
                       {link.name}
                     </Link>
                   </li>
@@ -332,7 +365,7 @@ export default function Layout() {
               <ul className="space-y-3 text-sm">
                 {(['export', 'import', 'transit', 'certification', 'warehouse', 'consulting'] as const).map((key) => (
                   <li key={key}>
-                    <Link to="/services" className="hover:text-accent transition-colors">
+                    <Link to={lp('/services')} className="hover:text-accent transition-colors">
                       {t(`services.items.${key}.title`)}
                     </Link>
                   </li>

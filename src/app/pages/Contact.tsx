@@ -67,7 +67,8 @@ export default function Contact() {
               src="/images/p3184360-1280.jpg"
               srcSet="/images/p3184360-640.jpg 640w, /images/p3184360-1280.jpg 1280w, /images/p3184360-1920.jpg 1920w"
               sizes="100vw"
-              alt="Contact Us"
+              alt=""
+              aria-hidden="true"
               width={1920}
               height={1080}
               className="w-full h-full object-cover"

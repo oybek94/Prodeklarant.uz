@@ -10,11 +10,25 @@ const resources = {
   en: { translation: en },
 };
 
+// Boshlang'ich til: avval URL prefiksi (/ru, /en), keyin localStorage, oxirida uz.
+// URL — tilning yagona manbai bo'lgani uchun u localStorage'dan ustun turadi.
+function initialLang(): string {
+  if (typeof window !== 'undefined') {
+    const seg = window.location.pathname.split('/')[1];
+    if (seg === 'ru' || seg === 'en') return seg;
+  }
+  if (typeof localStorage !== 'undefined') {
+    const stored = localStorage.getItem('language');
+    if (stored) return stored;
+  }
+  return 'uz';
+}
+
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: (typeof localStorage !== 'undefined' ? localStorage.getItem('language') : null) || 'uz',
+    lng: initialLang(),
     fallbackLng: 'uz',
     interpolation: {
       escapeValue: false,

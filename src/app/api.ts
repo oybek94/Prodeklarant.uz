@@ -32,6 +32,7 @@ export async function login(password: string): Promise<{ token: string }> {
 
 export type BlogPost = {
   id: number;
+  slug: string;
   title: { uz: string; ru: string; en: string };
   excerpt: { uz: string; ru: string; en: string };
   body: { uz: string; ru: string; en: string };

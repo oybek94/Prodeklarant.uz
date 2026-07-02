@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { createBrowserRouter } from 'react-router';
+import { lazy, Suspense, type ComponentType } from 'react';
+import { createBrowserRouter, type RouteObject } from 'react-router';
 import Layout from './Layout';
 import Home from './pages/Home';
 import { ErrorPage } from './pages/ErrorPage';
@@ -25,96 +25,56 @@ function PageFallback() {
   );
 }
 
+/** lazy komponentni Suspense bilan o'raydi */
+function wrap(C: ComponentType) {
+  return () => (
+    <Suspense fallback={<PageFallback />}>
+      <C />
+    </Suspense>
+  );
+}
+
+// Ko'p tilli public sahifalar. Har til daraxtida yangi obyektlar bilan ishlatiladi
+// (react-router route obyektlarini qayta ishlatishdan qochamiz).
+function publicChildren(): RouteObject[] {
+  return [
+    { index: true, Component: Home },
+    { path: 'services', Component: wrap(Services) },
+    { path: 'about', Component: wrap(About) },
+    { path: 'contact', Component: wrap(Contact) },
+    { path: 'blog', Component: wrap(Blog) },
+    { path: 'blog/:slug', Component: wrap(BlogPost) },
+    { path: '*', Component: wrap(NotFound) },
+  ];
+}
+
+// Admin — faqat default (uz) yo'lda, tilga bog'liq emas.
+function adminChildren(): RouteObject[] {
+  return [
+    { path: 'admin', Component: wrap(AdminLogin) },
+    { path: 'admin/blog', Component: wrap(AdminBlog) },
+    { path: 'admin/blog/new', Component: wrap(AdminPostForm) },
+    { path: 'admin/blog/:id/edit', Component: wrap(AdminPostForm) },
+  ];
+}
+
 export const router = createBrowserRouter([
+  {
+    path: '/ru',
+    Component: Layout,
+    errorElement: <ErrorPage />,
+    children: publicChildren(),
+  },
+  {
+    path: '/en',
+    Component: Layout,
+    errorElement: <ErrorPage />,
+    children: publicChildren(),
+  },
   {
     path: '/',
     Component: Layout,
     errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        Component: Home,
-      },
-      {
-        path: 'services',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <Services />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'about',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <About />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'contact',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <Contact />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'blog',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <Blog />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'blog/:slug',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <BlogPost />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'admin',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <AdminLogin />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'admin/blog',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <AdminBlog />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'admin/blog/new',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <AdminPostForm />
-          </Suspense>
-        ),
-      },
-      {
-        path: 'admin/blog/:id/edit',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <AdminPostForm />
-          </Suspense>
-        ),
-      },
-      {
-        path: '*',
-        Component: () => (
-          <Suspense fallback={<PageFallback />}>
-            <NotFound />
-          </Suspense>
-        ),
-      },
-    ],
+    children: [...adminChildren(), ...publicChildren()],
   },
 ]);

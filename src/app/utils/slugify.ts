@@ -26,6 +26,13 @@ export function slugify(text: string): string {
     .slice(0, 80);
 }
 
-export function blogPostPath(_id: number, title: string): string {
-  return `/blog/${slugify(title)}`;
+/**
+ * Blog post URL'ini yagona manbadan (saqlangan `slug`) quradi.
+ * Slug bo'lmasa (masalan i18n fallback postlari) sarlavhadan generatsiya qiladi,
+ * u ham bo'lmasa `post-{id}` ga tushadi. MUHIM: bu server'dagi saqlangan slug bilan
+ * mos bo'lishi shart — aks holda havola/sitemap 404 beradi.
+ */
+export function blogPostPath(post: { id: number; slug?: string; title?: string }): string {
+  const slug = post.slug || (post.title ? slugify(post.title) : '') || `post-${post.id}`;
+  return `/blog/${slug}`;
 }

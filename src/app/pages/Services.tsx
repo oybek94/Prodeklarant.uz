@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { FileText, Truck, ShieldCheck, Globe, Package, CheckSquare, BarChart, ChevronRight, CheckCircle2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
+import { useLocalePath } from '../utils/locale';
 
 // Make icons map to service keys
 const SERVICE_ICONS: Record<string, any> = {
@@ -17,6 +18,7 @@ const SERVICE_KEYS = ['export', 'import', 'transit', 'certification', 'warehouse
 
 export default function Services() {
   const { t } = useTranslation();
+  const lp = useLocalePath();
 
   const services = SERVICE_KEYS.map((key, index) => {
     const IconComponent = SERVICE_ICONS[key];
@@ -44,7 +46,8 @@ export default function Services() {
             <img
               src="/images/p4483610-1280.jpg"
               srcSet="/images/p4483610-640.jpg 640w, /images/p4483610-1280.jpg 1280w, /images/p4483610-1920.jpg 1920w"
-              alt="Services Cargo"
+              alt=""
+              aria-hidden="true"
               sizes="100vw"
               width={1920}
               height={1080}
@@ -201,7 +204,7 @@ export default function Services() {
             {t('services.cta.desc')}
           </p>
           <Link
-            to="/contact"
+            to={lp('/contact')}
             className="inline-flex items-center gap-3 bg-brand-dark text-white hover:bg-white hover:text-brand-dark px-8 py-4 rounded-xl font-bold uppercase transition-all duration-300 shadow-xl hover:-translate-y-1 hover:shadow-2xl hover:ring-2 hover:ring-white ring-offset-2 ring-offset-accent"
           >
             {t('layout.contactBtn')} <ChevronRight size={20} />

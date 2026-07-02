@@ -6,12 +6,13 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import i18n from '../../i18n';
 import { getPost, getPostBySlug, incrementView, type BlogPost } from '../api';
-import { slugify } from '../utils/slugify';
+import { useLocalePath, withLocale, type Locale } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
 
 export default function BlogPost() {
   const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
+  const lp = useLocalePath();
   const [post, setPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
   const [notFound, setNotFound] = useState(false);
@@ -60,11 +61,11 @@ export default function BlogPost() {
     const prevTitle = document.title;
     document.title = `${title} | ${siteTitle}`;
 
-    const slug = slugify(title);
-    const pathWithSlug = `/blog/${slug}`;
-    const canonicalUrl = `${window.location.origin}${pathWithSlug}`;
-    if (window.location.pathname !== pathWithSlug) {
-      window.history.replaceState(null, '', pathWithSlug);
+    // Saqlangan slug (yagona manba) + joriy til prefiksi bilan kanonik yo'l.
+    const canonicalPath = withLocale(`/blog/${post.slug}`, langKey);
+    const canonicalUrl = `${window.location.origin}${canonicalPath}`;
+    if (window.location.pathname !== canonicalPath) {
+      window.history.replaceState(null, '', canonicalPath);
     }
 
     const metaDescription = (excerpt || title).replace(/<[^>]*>/g, '').slice(0, 160);
@@ -88,6 +89,23 @@ export default function BlogPost() {
       link.href = canonicalUrl;
       document.head.appendChild(link);
     }
+
+    // hreflang alternates — har til uchun bir xil slug, alohida URL.
+    const setAlternate = (hreflang: string, href: string) => {
+      let el = document.querySelector(`link[rel="alternate"][hreflang="${hreflang}"]`) as HTMLLinkElement | null;
+      if (!el) {
+        el = document.createElement('link');
+        el.rel = 'alternate';
+        el.hreflang = hreflang;
+        document.head.appendChild(el);
+      }
+      el.href = href;
+    };
+    const origin = window.location.origin;
+    (['uz', 'ru', 'en'] as Locale[]).forEach((loc) =>
+      setAlternate(loc, `${origin}${withLocale(`/blog/${post.slug}`, loc)}`)
+    );
+    setAlternate('x-default', `${origin}/blog/${post.slug}`);
 
     setMeta('name', 'description', metaDescription);
     setMeta('property', 'og:title', title);
@@ -143,7 +161,7 @@ export default function BlogPost() {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
         <h1 className="text-4xl font-bold text-slate-900 mb-4">{t('blogPost.notFound')}</h1>
-        <Link to="/blog" className="text-brand font-bold hover:underline flex items-center gap-2">
+        <Link to={lp('/blog')} className="text-brand font-bold hover:underline flex items-center gap-2">
           <ArrowLeft size={20} /> {t('blogPost.back')}
         </Link>
       </div>
@@ -192,7 +210,7 @@ export default function BlogPost() {
         <div className="absolute inset-0 bg-brand-dark/50"></div>
         <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-brand-dark to-transparent">
           <div className="container mx-auto px-4 max-w-4xl">
-            <Link to="/blog" className="text-accent hover:text-white mb-4 inline-flex items-center gap-2 font-bold uppercase text-xs tracking-wider transition-colors">
+            <Link to={lp('/blog')} className="text-accent hover:text-white mb-4 inline-flex items-center gap-2 font-bold uppercase text-xs tracking-wider transition-colors">
               <ArrowLeft size={16} /> {t('blogPost.back')}
             </Link>
             <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight max-w-4xl">{title}</h1>
