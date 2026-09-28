@@ -2,13 +2,14 @@ import { defineConfig } from 'vite'
 import path from 'path'
 import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import { nonBlockingCss } from './vite-plugin-non-blocking-css'
 
+// Eslatma: avvalgi `nonBlockingCss` plugini (CSS'ni preload+onload bilan yuklash) olib
+// tashlandi. SSR'dan keyin sahifa HTML'da to'liq keladi — CSS bloklamasa, sekin tarmoqda
+// sahifa avval uslubsiz chiziladi va CSS kelganda butun sahifa siljiydi (CLS ~0.8).
 export default defineConfig(({ isSsrBuild }) => ({
   plugins: [
     react(),
     tailwindcss(),
-    nonBlockingCss(),
   ],
   resolve: {
     alias: {
