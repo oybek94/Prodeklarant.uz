@@ -3,15 +3,14 @@ import { Link, useLoaderData } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Calendar, User, ArrowRight, Eye, X, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import type { BlogPost } from '../api';
-import type { PostsData } from '../data';
+import type { PostsData, PostSummary } from '../data';
 import { blogPostPath } from '../utils/slugify';
 import { useLocalePath } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
 
 const POSTS_PER_PAGE = 7;
 
-function toDisplayPost(post: BlogPost, lang: string): { id: number; slug: string; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number } {
+function toDisplayPost(post: PostSummary, lang: string): { id: number; slug: string; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number } {
   const l = (lang === 'uz' || lang === 'ru' || lang === 'en') ? lang : 'uz';
   return {
     id: post.id,

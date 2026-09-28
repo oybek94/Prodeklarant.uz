@@ -13,7 +13,9 @@ export type DataContext = {
   findPost: (slug: string) => BlogPost | null | Promise<BlogPost | null>;
 };
 
-export type PostsData = { posts: BlogPost[] };
+/** Ro'yxat sahifalari uchun — to'liq matn (body) kerak emas. */
+export type PostSummary = Omit<BlogPost, 'body'>;
+export type PostsData = { posts: PostSummary[] };
 export type PostData = { post: BlogPost | null };
 
 function serverData(context: unknown): DataContext | null {
@@ -25,7 +27,8 @@ async function loadPosts(context: unknown, limit: number): Promise<PostsData> {
   try {
     const server = serverData(context);
     const posts = server ? await server.listPosts(limit) : await getPosts(limit);
-    return { posts };
+    // body'ni tashlaymiz: SSR hydration JSON'i (HTML ichida) keraksiz kattalashmasin
+    return { posts: posts.map(({ body: _body, ...summary }) => summary) };
   } catch {
     return { posts: [] };
   }

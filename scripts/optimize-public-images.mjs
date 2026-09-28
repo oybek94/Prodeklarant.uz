@@ -9,8 +9,9 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const publicDir = join(__dirname, '..', 'public');
 
-const LOGO_MAX_WIDTH = 672;   // 2x display ~336px
-const PARTNER_MAX_WIDTH = 224; // 2x display ~111–221px
+const LOGO_MAX_WIDTH = 384;   // 2x header display (h-10 → ~192x40px)
+// Hamkorlar logotipi quti ichida ko'rsatiladi: max-w-[160px] h-20 p-4 → 128x48px; 2x = 256x96
+const PARTNER_BOX = { width: 256, height: 96 };
 
 async function run() {
   let sharp;
@@ -50,7 +51,7 @@ async function run() {
     const base = name.replace(/\.png$/i, '');
     try {
       await sharp(join(partnersDir, name))
-        .resize(PARTNER_MAX_WIDTH, null, { withoutEnlargement: true })
+        .resize(PARTNER_BOX.width, PARTNER_BOX.height, { fit: 'inside', withoutEnlargement: true })
         .webp({ quality: 85 })
         .toFile(join(partnersDir, `${base}.webp`));
       created.push(`partners/${base}.webp`);

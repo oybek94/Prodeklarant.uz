@@ -19,10 +19,12 @@ const HERO_SLIDES = [
   { id: '109274', alt: 'Eksportbop sifatli giloslar' },
 ];
 
-// Local rasmni berilgan kenglikka moslash + responsive srcset (mobilga kichik fayl)
+// Local rasmni berilgan kenglikka moslash + responsive srcset (mobilga kichik fayl).
+// 960w — mobil (DPR ~2) uchun: 1280w'ga nisbatan ~35% yengil. index.html'dagi hero
+// preload imagesrcset shu ro'yxat bilan bir xil bo'lishi shart (aks holda 2 marta yuklanadi).
 const localAt = (id: string, w: number, ext = 'jpg') => `/images/p${id}-${w}.${ext}`;
 const localSrcSet = (id: string, ext = 'jpg') =>
-  [640, 1280, 1920].map((w) => `${localAt(id, w, ext)} ${w}w`).join(', ');
+  [640, 960, 1280, 1920].map((w) => `${localAt(id, w, ext)} ${w}w`).join(', ');
 
 // Server (SSR) va brauzer bir xil natija berishi uchun vaqt zonasiga bog'liq emas:
 // "YYYY-MM-DD..." qatoridan to'g'ridan-to'g'ri o'qiymiz.
@@ -86,13 +88,15 @@ export default function Home() {
     }
   };
 
+  // width/height — 128x48 qutidagi haqiqiy ko'rinish o'lchami (fayllar 2x: 256x96 ichida,
+  // scripts/optimize-public-images.mjs). To'g'ri nisbat layout shift'ni oldini oladi.
   const partners = [
-    { src: '/partners/agro505.png', alt: 'Oltiariq agro 505' },
-    { src: '/partners/eximagro.png', alt: 'EXIM AGRO' },
-    { src: '/partners/havvogroup.png', alt: 'HAVVO GROUP' },
-    { src: '/partners/agropark-fergana.png', alt: 'Агропарк Фергана' },
-    { src: '/partners/uzbagro.png', alt: 'UZBAGRO' },
-    { src: '/partners/fruitvoyage.png', alt: 'Fruit Voyage' },
+    { src: '/partners/agro505.png', alt: 'Oltiariq agro 505', width: 48, height: 48 },
+    { src: '/partners/eximagro.png', alt: 'EXIM AGRO', width: 128, height: 28 },
+    { src: '/partners/havvogroup.png', alt: 'HAVVO GROUP', width: 121, height: 48 },
+    { src: '/partners/agropark-fergana.png', alt: 'Агропарк Фергана', width: 126, height: 48 },
+    { src: '/partners/uzbagro.png', alt: 'UZBAGRO', width: 64, height: 48 },
+    { src: '/partners/fruitvoyage.png', alt: 'Fruit Voyage', width: 45, height: 48 },
   ];
 
   return (
@@ -482,8 +486,8 @@ export default function Home() {
                     <img
                       src={partner.src}
                       alt={partner.alt}
-                      width={160}
-                      height={80}
+                      width={partner.width}
+                      height={partner.height}
                       className="max-h-full max-w-full w-auto h-auto object-contain"
                       loading="lazy"
                       decoding="async"

@@ -157,7 +157,7 @@ function buildAlternates(siteUrl, basePath) {
 /**
  * Marshrut uchun <head> ichiga joylanadigan SEO teglar bloki (markerlar orasidagi qism).
  */
-function buildSeoBlock({ siteUrl, title, description, canonical, ogType, ogImage, robots, jsonLd, locale, alternates }) {
+function buildSeoBlock({ siteUrl, title, description, canonical, ogType, ogImage, robots, jsonLd, locale, alternates, extraHead }) {
   const loc = locale || DEFAULT_LOCALE;
   const usingDefaultOg = !ogImage;
   const img = absUrl(siteUrl, ogImage || DEFAULT_OG_IMAGE);
@@ -197,8 +197,19 @@ function buildSeoBlock({ siteUrl, title, description, canonical, ogType, ogImage
       `<script type="application/ld+json" id="json-ld-article">${JSON.stringify(jsonLd).replace(/</g, '\\u003c')}</script>`
     );
   }
+  if (extraHead && extraHead.length) {
+    lines.push(...extraHead);
+  }
   return lines.join('\n    ');
 }
+
+// Bosh sahifa LCP hero rasmi — faqat bosh sahifada preload qilinadi. imagesrcset
+// Home.tsx'dagi hero <source srcSet> bilan AYNAN bir xil bo'lishi shart.
+const HOME_HERO_PRELOAD = [
+  '<link rel="preload" as="image" fetchpriority="high" href="/images/p1132047-1280.webp"' +
+    ' imagesrcset="/images/p1132047-640.webp 640w, /images/p1132047-960.webp 960w, /images/p1132047-1280.webp 1280w, /images/p1132047-1920.webp 1920w"' +
+    ' imagesizes="100vw" type="image/webp" />',
+];
 
 /**
  * Berilgan path bo'yicha SEO ma'lumotlarini aniqlaydi.
@@ -238,6 +249,7 @@ function resolveSeo({ pathname, siteUrl, db }) {
         ogType: 'website',
         locale,
         alternates: buildAlternates(siteUrl, basePath),
+        extraHead: basePath === '/' ? HOME_HERO_PRELOAD : undefined,
       }),
     };
   }

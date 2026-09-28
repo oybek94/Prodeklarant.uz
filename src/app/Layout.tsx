@@ -187,10 +187,10 @@ export default function Layout() {
       <header className="sticky top-0 z-50 bg-white shadow-md border-b border-slate-100">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center h-20">
-            {/* Logo: WebP when available, PNG fallback; sized to avoid layout shift */}
+            {/* Logo: 768px palitrali PNG (~6 KB, 4x); width/height haqiqiy nisbatda (4.8:1) — layout shift yo'q */}
             <Link to={lp('/')} className="flex items-center gap-2 group">
               <picture>
-                <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" width={168} height={40} className="h-10 w-auto object-contain" decoding="async" />
+                <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" width={192} height={40} className="h-10 w-auto object-contain" decoding="async" />
               </picture>
             </Link>
 
@@ -302,7 +302,7 @@ export default function Layout() {
                   <img
                     src="/logo.png"
                     alt="PRO DEKLARANT"
-                    width={128}
+                    width={154}
                     height={32}
                     className="h-8 w-auto object-contain brightness-0 invert"
                     decoding="async"
