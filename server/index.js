@@ -8,7 +8,7 @@ const crypto = require('crypto');
 const cors = require('cors');
 const db = require('./db');
 const { slugify } = require('./utils/slugify');
-const { resolveSeo, injectSeo } = require('./seo');
+const { resolveSeo, injectSeo, indexableServicePaths } = require('./seo');
 const { renderApp } = require('./ssr');
 const authRoutes = require('./routes/auth');
 const postsRoutes = require('./routes/posts');
@@ -95,6 +95,8 @@ app.get('/sitemap.xml', (req, res) => {
     { path: '/about', changefreq: 'monthly', priority: '0.8' },
     { path: '/contact', changefreq: 'monthly', priority: '0.8' },
     { path: '/blog', changefreq: 'weekly', priority: '0.9', lastmod: latestPostDate },
+    // Xizmat sahifalari — faqat matni tayyor bo'lganlari (src/content/services.json: indexable)
+    ...indexableServicePaths().map((p) => ({ path: p, changefreq: 'monthly', priority: '0.8' })),
   ];
   const escapeXml = (s) => String(s)
     .replace(/&/g, '&amp;')

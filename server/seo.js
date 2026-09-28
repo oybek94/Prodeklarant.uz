@@ -12,6 +12,13 @@
  */
 
 const { slugify } = require('./utils/slugify');
+// Alohida xizmat sahifalari (/services/:slug) — frontend bilan umumiy konfiguratsiya va matnlar
+const SERVICE_PAGES = require('../src/content/services.json').pages;
+const LOCALE_TEXTS = {
+  uz: require('../src/i18n/locales/uz.json'),
+  ru: require('../src/i18n/locales/ru.json'),
+  en: require('../src/i18n/locales/en.json'),
+};
 
 const SITE_NAME = 'PRO DEKLARANT';
 const DEFAULT_IMAGE = '/logo.png'; // JSON-LD publisher/organization logotipi uchun
@@ -254,6 +261,27 @@ function resolveSeo({ pathname, siteUrl, db }) {
     };
   }
 
+  // Xizmat sahifasi: /services/:slug — sarlavha/tavsif services.items.<itemKey> matnlaridan.
+  // indexable=false (mijoz matni hali yo'q) → noindex; sitemap'ga ham kirmaydi.
+  const serviceMatch = basePath.match(/^\/services\/([^/]+)$/);
+  const servicePage = serviceMatch && SERVICE_PAGES.find((p) => p.slug === serviceMatch[1]);
+  if (servicePage) {
+    const item = LOCALE_TEXTS[locale].services.items[servicePage.itemKey] || {};
+    return {
+      status: 200,
+      block: buildSeoBlock({
+        siteUrl,
+        title: `${item.title} — ${SITE_NAME}`,
+        description: item.desc,
+        canonical: canonicalBase,
+        ogType: 'website',
+        robots: servicePage.indexable ? 'index, follow' : 'noindex, follow',
+        locale,
+        alternates: buildAlternates(siteUrl, basePath),
+      }),
+    };
+  }
+
   // Blog maqolasi: /blog/:slug (yoki /ru/blog/:slug)
   const blogMatch = basePath.match(/^\/blog\/(.+)$/);
   if (blogMatch) {
@@ -358,4 +386,9 @@ function injectSeo(html, block) {
   return html.replace('</head>', () => `    ${block}\n  </head>`);
 }
 
-module.exports = { resolveSeo, injectSeo };
+/** Sitemap uchun: matni tayyor (indexable) xizmat sahifalari yo'llari. */
+function indexableServicePaths() {
+  return SERVICE_PAGES.filter((p) => p.indexable).map((p) => `/services/${p.slug}`);
+}
+
+module.exports = { resolveSeo, injectSeo, indexableServicePaths };

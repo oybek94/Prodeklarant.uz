@@ -38,6 +38,7 @@ function lazyPage(factory: () => Promise<PageModule>) {
 // to'liq sahifaga almashish (CLS) bo'lmaydi va LCP'da qo'shimcha chunk round-trip yo'qoladi.
 // Qolgan sahifalar lazy — boshlang'ich bundle kichik qoladi.
 const Services = lazyPage(() => import('./pages/Services'));
+const ServicePage = lazyPage(() => import('./pages/ServicePage'));
 const About = lazyPage(() => import('./pages/About'));
 const Contact = lazyPage(() => import('./pages/Contact'));
 const Blog = lazyPage(() => import('./pages/Blog'));
@@ -62,6 +63,7 @@ function publicChildren(): RouteObject[] {
   return [
     { index: true, Component: Home, loader: homeLoader },
     { path: 'services', ...Services },
+    { path: 'services/:slug', ...ServicePage },
     { path: 'about', ...About },
     { path: 'contact', ...Contact },
     { path: 'blog', ...Blog, loader: blogLoader },

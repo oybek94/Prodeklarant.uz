@@ -1,0 +1,8 @@
+{
+  "_comment": "Alohida xizmat sahifalari: /services/<slug> (+ /ru, /en). itemKey — locales ichidagi services.items.<itemKey> (sarlavha, tavsif, tarkib). Qo'shimcha matn: servicePages.<slug>.body (paragraflar massivi). indexable=false — sahifa noindex va sitemap'da yo'q; mijoz matni qo'shilgach true qiling.",
+  "pages": [
+    { "slug": "gtd", "itemKey": "export", "indexable": false },
+    { "slug": "tir-cmr", "itemKey": "import", "indexable": false },
+    { "slug": "sertifikatlashtirish", "itemKey": "certification", "indexable": false }
+  ]
+}

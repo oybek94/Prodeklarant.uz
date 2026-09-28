@@ -175,8 +175,6 @@
     "blog": {
       "title": "So'nggi Yangiliklar",
       "readAll": "Barchasini o'qish",
-      "loading": "Yuklanmoqda...",
-      "noPosts": "Hozircha maqolalar yo'q.",
       "date": "15 Fevral, 2026",
       "posts": {
         "1": {
@@ -469,5 +467,9 @@
       "rate": "Juda ko'p urinish. Birozdan so'ng qayta urinib ko'ring yoki messenjer orqali yozing.",
       "server": "Yuborib bo'lmadi. Qayta urinib ko'ring yoki messenjer orqali yozing."
     }
+  },
+  "servicePages": {
+    "todo": "TODO: mijozdan matn — xizmat tafsilotlari, ish jarayoni, muddatlar va kerakli hujjatlar.",
+    "featuresTitle": "Xizmat tarkibi"
   }
 }

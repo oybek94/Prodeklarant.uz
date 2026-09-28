@@ -3,6 +3,7 @@ import { FileText, Truck, ShieldCheck, Globe, Package, CheckSquare, BarChart, Ch
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router';
 import { useLocalePath } from '../utils/locale';
+import { servicePath } from '../utils/services';
 
 // Make icons map to service keys
 const SERVICE_ICONS: Record<string, any> = {
@@ -117,7 +118,11 @@ export default function Services() {
                 </div>
 
                 <h2 className="text-2xl font-extrabold text-slate-900 mb-4 group-hover:text-brand transition-colors tracking-tight">
-                  {service.title}
+                  {servicePath(service.key) !== '/services' ? (
+                    <Link to={lp(servicePath(service.key))} className="hover:underline underline-offset-4">{service.title}</Link>
+                  ) : (
+                    service.title
+                  )}
                 </h2>
 
                 <p className="text-slate-600 mb-8 leading-relaxed font-medium flex-grow">

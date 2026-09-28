@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { localeFromPath, stripLocale, withLocale, SUPPORTED_LOCALES, type Locale } from '../utils/locale';
+import { findServicePage } from '../utils/services';
 
 const ROUTE_SEO_KEYS: Record<string, string> = {
   '/': 'home',
@@ -59,11 +60,19 @@ export function usePageMeta(): void {
     if (isBlogPostPath(pathname)) return;
     const basePath = stripLocale(pathname);
     const seoKey = ROUTE_SEO_KEYS[basePath];
-    if (!seoKey) return;
+    // Xizmat sahifasi (/services/:slug) — server/seo.js bilan bir xil qoida
+    const servicePage = findServicePage(basePath.match(/^\/services\/([^/]+)$/)?.[1]);
+    if (!seoKey && !servicePage) return;
 
     const lang = localeFromPath(pathname);
-    const title = t(`seo.${seoKey}.title`);
-    const description = t(`seo.${seoKey}.description`);
+    const title = servicePage
+      ? `${t(`services.items.${servicePage.itemKey}.title`)} — PRO DEKLARANT`
+      : t(`seo.${seoKey}.title`);
+    const description = servicePage
+      ? t(`services.items.${servicePage.itemKey}.desc`)
+      : t(`seo.${seoKey}.description`);
+    // Matni hali tayyor bo'lmagan xizmat sahifalari indekslanmaydi (services.json: indexable)
+    ensureMeta('name', 'robots', servicePage && !servicePage.indexable ? 'noindex, follow' : 'index, follow');
     const origin = window.location.origin;
     const canonicalUrl = `${origin}${withLocale(basePath, lang)}`;
     const ogLocale = lang === 'ru' ? 'ru_RU' : lang === 'en' ? 'en_US' : 'uz_UZ';

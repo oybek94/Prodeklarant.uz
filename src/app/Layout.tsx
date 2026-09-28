@@ -7,6 +7,7 @@ import i18n from '../i18n';
 import { usePageMeta } from './hooks/usePageMeta';
 import { useLocalePath, localeFromPath, stripLocale, withLocale, type Locale } from './utils/locale';
 import { SITE_URL } from './utils/site';
+import { findServicePage, servicePath } from './utils/services';
 import ContactModal from './components/ContactModal';
 import { openContactModal } from './utils/contactModal';
 import { JsonLd } from './components/JsonLd';
@@ -122,17 +123,36 @@ export default function Layout() {
     ];
 
     // BreadcrumbList — bosh sahifadan tashqari sahifalarda (til prefiksini hisobga olamiz)
-    const crumbKey = BREADCRUMB_KEYS[stripLocale(location.pathname)];
+    const basePath = stripLocale(location.pathname);
+    const crumbKey = BREADCRUMB_KEYS[basePath];
+    const home = { '@type': 'ListItem', position: 1, name: t('layout.nav.home'), item: `${baseUrl}${withLocale('/', currentLang)}` };
     if (crumbKey) {
       graph.push({
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: t('layout.nav.home'), item: `${baseUrl}${withLocale('/', currentLang)}` },
+          home,
           {
             '@type': 'ListItem',
             position: 2,
             name: t(crumbKey),
             item: `${baseUrl}${location.pathname}`,
+          },
+        ],
+      });
+    }
+    // Xizmat sahifasi: Bosh sahifa → Xizmatlar → <xizmat>
+    const servicePage = findServicePage(basePath.match(/^\/services\/([^/]+)$/)?.[1]);
+    if (servicePage) {
+      graph.push({
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          home,
+          { '@type': 'ListItem', position: 2, name: t('layout.nav.services'), item: `${baseUrl}${withLocale('/services', currentLang)}` },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: t(`services.items.${servicePage.itemKey}.title`),
+            item: `${baseUrl}${withLocale(`/services/${servicePage.slug}`, currentLang)}`,
           },
         ],
       });
@@ -362,7 +382,7 @@ export default function Layout() {
               <ul className="space-y-3 text-sm">
                 {(['export', 'import', 'transit', 'certification', 'warehouse', 'consulting'] as const).map((key) => (
                   <li key={key}>
-                    <Link to={lp('/services')} className="hover:text-accent transition-colors">
+                    <Link to={lp(servicePath(key))} className="hover:text-accent transition-colors">
                       {t(`services.items.${key}.title`)}
                     </Link>
                   </li>

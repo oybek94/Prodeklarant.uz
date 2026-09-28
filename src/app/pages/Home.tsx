@@ -12,6 +12,7 @@ import { useLocalePath } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { openContactModal } from '../utils/contactModal';
+import { servicePath } from '../utils/services';
 import { Pause, Play } from 'lucide-react';
 
 const HERO_SLIDES = [
@@ -315,7 +316,7 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.export.desc')}
               </p>
-              <Link to={lp('/services')} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
+              <Link to={lp(servicePath('export'))} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
@@ -326,7 +327,7 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.import.desc')}
               </p>
-              <Link to={lp('/services')} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
+              <Link to={lp(servicePath('import'))} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
@@ -337,7 +338,7 @@ export default function Home() {
               <p className="text-slate-600 mb-6">
                 {t('home.services.certification.desc')}
               </p>
-              <Link to={lp('/services')} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
+              <Link to={lp(servicePath('certification'))} className="text-brand font-bold hover:text-accent-dark flex items-center gap-2">
                 {t('home.services.more')} <ArrowRight size={16} />
               </Link>
             </div>
@@ -568,7 +569,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Latest Blog Posts */}
+      {/* Latest Blog Posts — maqola bo'lmasa blok umuman ko'rsatilmaydi */}
+      {latestPosts.length > 0 && (
       <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-end mb-12">
@@ -582,10 +584,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {latestPosts.length === 0 ? (
-              <div className="col-span-full text-center py-12 text-slate-500">{t('home.blog.noPosts') || 'Hozircha maqolalar yo\'q.'}</div>
-            ) : (
-              latestPosts.map((post) => (
+            {latestPosts.map((post) => (
                 <Link key={post.id} to={lp(blogPostPath(post))} className="group block cursor-pointer">
                   <div className="h-48 overflow-hidden rounded-sm mb-4">
                     <img
@@ -605,8 +604,7 @@ export default function Home() {
                     {post.excerpt}
                   </p>
                 </Link>
-              ))
-            )}
+            ))}
           </div>
 
           <div className="mt-8 text-center md:hidden">
@@ -616,6 +614,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
     </div>
   );
 }
