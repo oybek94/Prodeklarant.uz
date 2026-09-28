@@ -92,6 +92,7 @@ export default function Layout() {
         },
         address: {
           '@type': 'PostalAddress',
+          streetAddress: "Mustaqillik ko'chasi, 124",
           addressLocality: 'Oltiariq',
           addressRegion: "Farg'ona viloyati",
           addressCountry: 'UZ',

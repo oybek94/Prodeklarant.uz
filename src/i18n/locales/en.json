@@ -471,5 +471,20 @@
   "servicePages": {
     "todo": "TODO: text from client — service details, process steps, timelines and required documents.",
     "featuresTitle": "What's included"
+  },
+  "trust": {
+    "testimonials": {
+      "title": "What our clients say"
+    },
+    "products": {
+      "title": "Products and destinations",
+      "productsLabel": "Products",
+      "destinationsLabel": "Export destinations"
+    },
+    "priceFrom": "from {{price}}",
+    "currency": {
+      "UZS": "UZS",
+      "USD": "USD"
+    }
   }
 }

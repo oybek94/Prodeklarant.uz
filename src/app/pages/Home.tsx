@@ -13,6 +13,9 @@ import { fallbackBlogImage } from '../utils/blogImages';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { openContactModal } from '../utils/contactModal';
 import { servicePath } from '../utils/services';
+import { siteData, formatAmount } from '../utils/siteData';
+import Testimonials from '../components/Testimonials';
+import ProductsDestinations from '../components/ProductsDestinations';
 import { Pause, Play } from 'lucide-react';
 
 const HERO_SLIDES = [
@@ -352,6 +355,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Mahsulotlar / Yo'nalishlar — site-data.json; bo'sh bo'lsa chizilmaydi */}
+      <ProductsDestinations />
+
       {/* Tariflar haqida ma'lumot */}
       <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden shadow-inner" aria-labelledby="tariffs-heading">
         {/* Decorative background for Tariffs */}
@@ -396,6 +402,8 @@ export default function Home() {
               const features = Array.isArray(tariff?.features) ? tariff.features : [];
               const isRecommended = key === 'optimal';
               const isVip = key === 'vip';
+              // "…dan boshlab" narx — ixtiyoriy (site-data.json: tariffPrices); bo'lmasa faqat tugma
+              const price = siteData.tariffPrices[key];
               return (
                 <motion.div
                   key={key}
@@ -436,6 +444,11 @@ export default function Home() {
                       );
                     })}
                   </ul>
+                  {price && (
+                    <p className={`px-8 text-lg font-extrabold ${isVip ? 'text-accent' : 'text-brand-dark'}`}>
+                      {t('trust.priceFrom', { price: `${formatAmount(price.amount)} ${t(`trust.currency.${price.currency}`)}` })}
+                    </p>
+                  )}
                   <div className="p-8 pt-4">
                     <button
                       type="button"
@@ -501,6 +514,9 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
+
+      {/* Mijozlar fikri — site-data.json; bo'sh bo'lsa chizilmaydi */}
+      <Testimonials />
 
       {/* CTA Section */}
       <section className="py-24 bg-brand-dark text-white relative overflow-hidden shadow-2xl">

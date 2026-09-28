@@ -471,5 +471,20 @@
   "servicePages": {
     "todo": "TODO: mijozdan matn — xizmat tafsilotlari, ish jarayoni, muddatlar va kerakli hujjatlar.",
     "featuresTitle": "Xizmat tarkibi"
+  },
+  "trust": {
+    "testimonials": {
+      "title": "Mijozlarimiz fikri"
+    },
+    "products": {
+      "title": "Mahsulotlar va yo'nalishlar",
+      "productsLabel": "Mahsulotlar",
+      "destinationsLabel": "Eksport yo'nalishlari"
+    },
+    "priceFrom": "Boshlang'ich narx: {{price}}",
+    "currency": {
+      "UZS": "so'm",
+      "USD": "USD"
+    }
   }
 }

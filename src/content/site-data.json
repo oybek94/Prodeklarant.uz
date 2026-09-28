@@ -1,0 +1,17 @@
+{
+  "_comment": [
+    "Bosh sahifadagi ishonch bloklari uchun ma'lumot. Bo'sh qoldirilgan blok saytda ko'rinmaydi.",
+    "testimonials: [{ \"name\": \"...\", \"company\": \"...\", \"text\": { \"uz\": \"...\", \"ru\": \"...\", \"en\": \"...\" } yoki bitta tilda \"...\", \"photo\": \"/images/clients/ism.webp\" (ixtiyoriy) }]",
+    "tariffPrices: { \"start\": { \"amount\": 500000, \"currency\": \"UZS\" }, ... } — null bo'lsa kartada faqat \"Narxni so'rash\" tugmasi. currency: UZS yoki USD.",
+    "productsHandled: leadForm.products kalitlari (gilos, uzum, orik, piyoz).",
+    "destinations: [{ \"uz\": \"Rossiya\", \"ru\": \"Россия\", \"en\": \"Russia\" }]"
+  ],
+  "testimonials": [],
+  "tariffPrices": {
+    "start": null,
+    "optimal": null,
+    "vip": null
+  },
+  "productsHandled": ["gilos", "uzum", "orik", "piyoz"],
+  "destinations": []
+}

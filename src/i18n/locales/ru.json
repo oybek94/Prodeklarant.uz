@@ -471,5 +471,20 @@
   "servicePages": {
     "todo": "TODO: текст от клиента — подробности услуги, этапы работы, сроки и необходимые документы.",
     "featuresTitle": "Что входит в услугу"
+  },
+  "trust": {
+    "testimonials": {
+      "title": "Отзывы клиентов"
+    },
+    "products": {
+      "title": "Продукция и направления",
+      "productsLabel": "Продукция",
+      "destinationsLabel": "Направления экспорта"
+    },
+    "priceFrom": "от {{price}}",
+    "currency": {
+      "UZS": "сум",
+      "USD": "USD"
+    }
   }
 }
