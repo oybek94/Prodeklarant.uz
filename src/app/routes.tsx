@@ -1,21 +1,51 @@
 import { lazy, Suspense, type ComponentType } from 'react';
-import { createBrowserRouter, type RouteObject } from 'react-router';
+import type { RouteObject } from 'react-router';
 import Layout from './Layout';
 import Home from './pages/Home';
 import { ErrorPage } from './pages/ErrorPage';
+import { homeLoader, blogLoader, blogPostLoader } from './data';
+
+type PageModule = { default: ComponentType };
+
+/**
+ * Lazy sahifa + oldindan yuklash (preload).
+ *
+ * SSR'dan keyin hydration paytida lazy chunk hali yuklanmagan bo'lsa, React server HTML'ni
+ * saqlab turadi, lekin shu vaqtda yuqoridagi komponent yangilansa Suspense fallback'ga
+ * qaytib ketishi (miltillash/CLS) mumkin. Shuning uchun main.tsx hydration'dan OLDIN
+ * joriy marshrut sahifasini `handle.preload()` orqali yuklab oladi — keyin sahifa
+ * sinxron render bo'ladi.
+ */
+function lazyPage(factory: () => Promise<PageModule>) {
+  let Loaded: ComponentType | null = null;
+  const Lazy = lazy(factory);
+  const preload = () =>
+    factory().then((m) => {
+      Loaded = m.default;
+    });
+  function Page() {
+    const C = Loaded ?? Lazy;
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <C />
+      </Suspense>
+    );
+  }
+  return { Component: Page, handle: { preload } };
+}
 
 // Home — eng muhim (landing) sahifa: eager yuklanadi, shunda Suspense fallback'dan
 // to'liq sahifaga almashish (CLS) bo'lmaydi va LCP'da qo'shimcha chunk round-trip yo'qoladi.
 // Qolgan sahifalar lazy — boshlang'ich bundle kichik qoladi.
-const Services = lazy(() => import('./pages/Services'));
-const About = lazy(() => import('./pages/About'));
-const Contact = lazy(() => import('./pages/Contact'));
-const Blog = lazy(() => import('./pages/Blog'));
-const BlogPost = lazy(() => import('./pages/BlogPost'));
-const AdminLogin = lazy(() => import('./pages/AdminLogin'));
-const AdminBlog = lazy(() => import('./pages/AdminBlog'));
-const AdminPostForm = lazy(() => import('./pages/AdminPostForm'));
-const NotFound = lazy(() => import('./pages/NotFound'));
+const Services = lazyPage(() => import('./pages/Services'));
+const About = lazyPage(() => import('./pages/About'));
+const Contact = lazyPage(() => import('./pages/Contact'));
+const Blog = lazyPage(() => import('./pages/Blog'));
+const BlogPost = lazyPage(() => import('./pages/BlogPost'));
+const AdminLogin = lazyPage(() => import('./pages/AdminLogin'));
+const AdminBlog = lazyPage(() => import('./pages/AdminBlog'));
+const AdminPostForm = lazyPage(() => import('./pages/AdminPostForm'));
+const NotFound = lazyPage(() => import('./pages/NotFound'));
 
 function PageFallback() {
   return (
@@ -25,56 +55,44 @@ function PageFallback() {
   );
 }
 
-/** lazy komponentni Suspense bilan o'raydi */
-function wrap(C: ComponentType) {
-  return () => (
-    <Suspense fallback={<PageFallback />}>
-      <C />
-    </Suspense>
-  );
-}
-
 // Ko'p tilli public sahifalar. Har til daraxtida yangi obyektlar bilan ishlatiladi
 // (react-router route obyektlarini qayta ishlatishdan qochamiz).
 function publicChildren(): RouteObject[] {
   return [
-    { index: true, Component: Home },
-    { path: 'services', Component: wrap(Services) },
-    { path: 'about', Component: wrap(About) },
-    { path: 'contact', Component: wrap(Contact) },
-    { path: 'blog', Component: wrap(Blog) },
-    { path: 'blog/:slug', Component: wrap(BlogPost) },
-    { path: '*', Component: wrap(NotFound) },
+    { index: true, Component: Home, loader: homeLoader },
+    { path: 'services', ...Services },
+    { path: 'about', ...About },
+    { path: 'contact', ...Contact },
+    { path: 'blog', ...Blog, loader: blogLoader },
+    { path: 'blog/:slug', ...BlogPost, loader: blogPostLoader },
+    { path: '*', ...NotFound },
   ];
 }
 
-// Admin — faqat default (uz) yo'lda, tilga bog'liq emas.
+// Admin — faqat default (uz) yo'lda, tilga bog'liq emas. Server admin sahifalarini
+// SSR qilmaydi (faqat brauzerda render bo'ladi).
 function adminChildren(): RouteObject[] {
   return [
-    { path: 'admin', Component: wrap(AdminLogin) },
-    { path: 'admin/blog', Component: wrap(AdminBlog) },
-    { path: 'admin/blog/new', Component: wrap(AdminPostForm) },
-    { path: 'admin/blog/:id/edit', Component: wrap(AdminPostForm) },
+    { path: 'admin', ...AdminLogin },
+    { path: 'admin/blog', ...AdminBlog },
+    { path: 'admin/blog/new', ...AdminPostForm },
+    { path: 'admin/blog/:id/edit', ...AdminPostForm },
   ];
 }
 
-export const router = createBrowserRouter([
-  {
-    path: '/ru',
+function layoutRoute(path: string, children: RouteObject[]): RouteObject {
+  return {
+    path,
     Component: Layout,
     errorElement: <ErrorPage />,
-    children: publicChildren(),
-  },
-  {
-    path: '/en',
-    Component: Layout,
-    errorElement: <ErrorPage />,
-    children: publicChildren(),
-  },
-  {
-    path: '/',
-    Component: Layout,
-    errorElement: <ErrorPage />,
-    children: [...adminChildren(), ...publicChildren()],
-  },
-]);
+    // SSR bo'lmagan (dev / admin) holatda loader'lar tugaguncha ko'rsatiladi
+    HydrateFallback: PageFallback,
+    children,
+  };
+}
+
+export const routes: RouteObject[] = [
+  layoutRoute('/ru', publicChildren()),
+  layoutRoute('/en', publicChildren()),
+  layoutRoute('/', [...adminChildren(), ...publicChildren()]),
+];

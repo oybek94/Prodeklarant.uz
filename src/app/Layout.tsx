@@ -1,12 +1,14 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import { usePageMeta } from './hooks/usePageMeta';
 import { useLocalePath, localeFromPath, stripLocale, withLocale, type Locale } from './utils/locale';
+import { SITE_URL } from './utils/site';
 import ContactModal from './components/ContactModal';
+import { JsonLd } from './components/JsonLd';
 
 const LANGUAGES = [
   { code: 'uz', label: 'O\'zbek' },
@@ -56,8 +58,9 @@ export default function Layout() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  useEffect(() => {
-    const baseUrl = window.location.origin;
+  // Organization + WebSite + BreadcrumbList JSON-LD — render qilinadi (SSR'da xom HTML'da bo'ladi).
+  const jsonLd = useMemo(() => {
+    const baseUrl = SITE_URL;
     const orgId = `${baseUrl}/#organization`;
     const graph: Record<string, unknown>[] = [
       {
@@ -134,16 +137,8 @@ export default function Layout() {
       });
     }
 
-    const jsonLd = { '@context': 'https://schema.org', '@graph': graph };
-    let script = document.getElementById('json-ld-organization') as HTMLScriptElement | null;
-    if (!script) {
-      script = document.createElement('script');
-      script.id = 'json-ld-organization';
-      script.type = 'application/ld+json';
-      document.head.appendChild(script);
-    }
-    script.textContent = JSON.stringify(jsonLd);
-  }, [location.pathname, t]);
+    return { '@context': 'https://schema.org', '@graph': graph };
+  }, [location.pathname, currentLang, t]);
 
   const navLinks = [
     { name: t('layout.nav.home'), path: '/' },
@@ -155,6 +150,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col font-sans text-slate-800 bg-white">
+      <JsonLd id="json-ld-organization" data={jsonLd} />
       <ContactModal />
       {/* Top Bar - Official Info */}
       <div className="bg-brand-dark text-slate-300 text-xs py-2 border-b border-brand-dark/80 hidden md:block">

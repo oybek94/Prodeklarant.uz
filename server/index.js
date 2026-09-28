@@ -9,6 +9,7 @@ const cors = require('cors');
 const db = require('./db');
 const { slugify } = require('./utils/slugify');
 const { resolveSeo, injectSeo } = require('./seo');
+const { renderApp } = require('./ssr');
 const authRoutes = require('./routes/auth');
 const postsRoutes = require('./routes/posts');
 const uploadRoutes = require('./routes/upload');
@@ -159,8 +160,10 @@ if (fs.existsSync(indexHtml)) {
   // demak fayl diskda yo'q — HTML emas, oddiy 404 qaytaramiz (aks holda brauzer
   // JS o'rniga HTML olib "ERR_ABORTED" beradi).
   const FILE_EXT = /\.[a-z0-9]{2,5}$/i;
+  const ROOT_DIV = '<div id="root"></div>';
+  const isAdminPath = (p) => /^(\/(ru|en))?\/admin(\/|$)/.test(p);
 
-  app.get('*', (req, res) => {
+  app.get('*', async (req, res) => {
     if (req.path.startsWith('/api/')) {
       return res.status(404).json({ error: 'Not found' });
     }
@@ -199,9 +202,22 @@ if (fs.existsSync(indexHtml)) {
     }
     try {
       const { block, status } = resolveSeo({ pathname: req.path, siteUrl: SITE_URL, db });
-      // Nonce'ni HTML ichidagi skriptlarga joylash (xavfsizlik uchun)
+      // Nonce'ni HTML ichidagi skriptlarga joylash (xavfsizlik uchun). Faqat shablonga —
+      // SSR HTML o'z skriptlariga nonce'ni o'zi qo'yadi.
       let html = rawHtml.replace(/<script/g, `<script nonce="${res.locals.nonce}"`);
       html = injectSeo(html, block);
+
+      // SSR: sahifa matnini <div id="root"> ichiga joylaymiz. Admin — faqat brauzerda.
+      // Status kodi resolveSeo'dan (noma'lum yo'l → 404) — SSR uni o'zgartirmaydi.
+      if (!isAdminPath(req.path)) {
+        const rendered = await renderApp({ url: `${SITE_URL}${req.originalUrl}`, nonce: res.locals.nonce });
+        if (rendered && rendered.redirect) {
+          return res.redirect(rendered.status || 302, rendered.redirect);
+        }
+        if (rendered && typeof rendered.html === 'string') {
+          html = html.replace(ROOT_DIV, () => `<div id="root">${rendered.html}</div>`);
+        }
+      }
       res.status(status)
         .set('Cache-Control', 'no-cache, no-store, must-revalidate')
         .set('Content-Type', 'text/html; charset=utf-8')

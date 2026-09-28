@@ -1,13 +1,18 @@
-import { RouterProvider } from 'react-router';
+import type { ReactNode } from 'react';
+import { RouterProvider, type createBrowserRouter } from 'react-router';
 import { MotionConfig } from 'motion/react';
-import { router } from './routes';
 
-export default function App() {
+/** Brauzer va server (entry-server.tsx) uchun umumiy o'ram. */
+export function AppShell({ children }: { children: ReactNode }) {
   // reducedMotion="user" — prefers-reduced-motion yoqilgan foydalanuvchilarda
   // barcha framer-motion transform/layout animatsiyalari o'chiriladi (opacity qoladi).
+  return <MotionConfig reducedMotion="user">{children}</MotionConfig>;
+}
+
+export default function App({ router }: { router: ReturnType<typeof createBrowserRouter> }) {
   return (
-    <MotionConfig reducedMotion="user">
+    <AppShell>
       <RouterProvider router={router} />
-    </MotionConfig>
+    </AppShell>
   );
 }

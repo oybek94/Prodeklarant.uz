@@ -1,45 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
-import { useParams, Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import { ArrowLeft, Calendar, User, Tag, Share2, Eye } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import i18n from '../../i18n';
-import { getPost, getPostBySlug, incrementView, type BlogPost } from '../api';
+import { incrementView } from '../api';
+import type { PostData } from '../data';
 import { useLocalePath, withLocale, type Locale } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
 
 export default function BlogPost() {
-  const { t } = useTranslation();
-  const { slug } = useParams<{ slug: string }>();
+  const { t, i18n } = useTranslation();
   const lp = useLocalePath();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [notFound, setNotFound] = useState(false);
+  // Loader (data.ts: blogPostLoader) — serverda DB'dan, brauzerda /api orqali
+  const { post } = useLoaderData() as PostData;
   const [sharedFeedback, setSharedFeedback] = useState(false);
   const lang = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
-
-  useEffect(() => {
-    if (!slug) {
-      setNotFound(true);
-      setLoading(false);
-      return;
-    }
-    const slugNorm = slug.trim().toLowerCase();
-    const legacyMatch = slugNorm.match(/^(\d+)-(.+)$/);
-    if (legacyMatch) {
-      const id = Number(legacyMatch[1]);
-      getPost(id)
-        .then(setPost)
-        .catch(() => setNotFound(true))
-        .finally(() => setLoading(false));
-      return;
-    }
-    getPostBySlug(slugNorm)
-      .then(setPost)
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false));
-  }, [slug]);
 
   // Ko'rishlar sonini har bir maqola uchun bir marta oshiramiz (qayta render'da emas)
   const viewedIdRef = useRef<number | null>(null);
@@ -54,7 +30,7 @@ export default function BlogPost() {
   useEffect(() => {
     if (!post) return;
     const siteTitle = 'PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz';
-    const langKey = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
+    const langKey = lang;
     const title = post.title[langKey];
     const excerpt = post.excerpt[langKey];
     const image = post.image || fallbackBlogImage(post.id);
@@ -151,13 +127,9 @@ export default function BlogPost() {
       const el = document.getElementById('json-ld-article');
       if (el) el.remove();
     };
-  }, [post]);
+  }, [post, lang]);
 
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-slate-50">Yuklanmoqda...</div>;
-  }
-
-  if (notFound || !post) {
+  if (!post) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
         <h1 className="text-4xl font-bold text-slate-900 mb-4">{t('blogPost.notFound')}</h1>

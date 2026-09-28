@@ -63,4 +63,6 @@ module.exports = {
   TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
   TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
   CORS_ORIGIN: process.env.CORS_ORIGIN,
+  // Server-side render (dist-ssr). Favqulodda holatda SSR=off bilan o'chirish mumkin.
+  SSR_ENABLED: String(process.env.SSR || 'on').toLowerCase() !== 'off',
 };

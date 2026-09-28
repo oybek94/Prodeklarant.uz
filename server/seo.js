@@ -339,9 +339,11 @@ const SEO_MARKER = /<!--\s*SEO:start\s*-->[\s\S]*?<!--\s*SEO:end\s*-->/;
  */
 function injectSeo(html, block) {
   const replacement = `<!-- SEO:start -->\n    ${block}\n    <!-- SEO:end -->`;
-  if (SEO_MARKER.test(html)) return html.replace(SEO_MARKER, replacement);
+  // Funksiya orqali almashtiramiz: matndagi "$&", "$'" kabi qatorlar maxsus naqsh
+  // sifatida talqin qilinmasin (sarlavha/tavsifda "$" bo'lishi mumkin).
+  if (SEO_MARKER.test(html)) return html.replace(SEO_MARKER, () => replacement);
   // Marker bo'lmasa </head> dan oldin qo'shamiz
-  return html.replace('</head>', `    ${block}\n  </head>`);
+  return html.replace('</head>', () => `    ${block}\n  </head>`);
 }
 
 module.exports = { resolveSeo, injectSeo };

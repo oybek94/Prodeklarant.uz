@@ -93,7 +93,19 @@ pnpm install
 # yoki: npm install
 ```
 
-`dist/` papkasi yaratilgan va `server/node_modules` mavjud bo'lishi kerak.
+`dist/` va `dist-ssr/` papkalari yaratilgan va `server/node_modules` mavjud bo'lishi kerak.
+
+**SSR (server-side render):** `pnpm build` ikki qadamdan iborat — `dist/` (brauzer uchun) va
+`dist-ssr/entry-server.js` (server uchun). Express har bir sahifani to'liq HTML bilan qaytaradi
+(Yandex/Google JS'siz ham matn va H1'ni ko'radi). Tekshirish:
+
+```bash
+curl -s https://prodeklarant.uz/services | grep -i "<h1"
+```
+
+Har build'dan keyin **`pm2 restart prodeklarant` shart** — server yangi `dist-ssr` ni faqat
+restart'da yuklaydi (restart qilinmaguncha xavfsiz rejimda SSR'siz ishlaydi). Muammo bo'lsa,
+`server/.env` ga `SSR=off` yozib restart qiling — sayt avvalgidek ishlaydi.
 
 ---
 
@@ -328,6 +340,9 @@ cd /var/www/prodeklarant.uz
 ```
 
 Yoki Windows’dan: `deploy/deploy-from-local.ps1` ni o'zgaruvchilarni sozlab ishga tushiring — u SSH orqali shu buyruqni serverda bajaradi.
+
+> Eslatma: `deploy/` papkasi repoda yo'q. Qo'lda deploy qilganda ketma-ketlik:
+> `git pull && pnpm install && pnpm build && (cd server && pnpm install) && pm2 restart prodeklarant`.
 
 ---
 

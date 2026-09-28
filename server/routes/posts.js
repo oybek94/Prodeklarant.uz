@@ -2,23 +2,8 @@ const express = require('express');
 const db = require('../db');
 const authMiddleware = require('../middleware/auth');
 const { slugify } = require('../utils/slugify');
+const { rowToPost } = require('../services/posts');
 const router = express.Router();
-
-function rowToPost(row) {
-  return {
-    id: row.id,
-    slug: row.slug,
-    title: { uz: row.title_uz, ru: row.title_ru, en: row.title_en },
-    excerpt: { uz: row.excerpt_uz, ru: row.excerpt_ru, en: row.excerpt_en },
-    body: { uz: row.body_uz, ru: row.body_ru, en: row.body_en },
-    date: row.date,
-    category: { uz: row.category_uz, ru: row.category_ru, en: row.category_en },
-    image: row.image || '',
-    author: row.author || '',
-    views: row.views ?? 0,
-    created_at: row.created_at,
-  };
-}
 
 // Xotirada saqlanadigan oddiy view cheklovi (IP bo'yicha)
 const viewedPosts = new Set();

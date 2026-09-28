@@ -1,10 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Link } from 'react-router';
+import { Link, useLoaderData } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Calendar, User, ArrowRight, Eye, X, ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n';
-import { getPosts, type BlogPost } from '../api';
+import type { BlogPost } from '../api';
+import type { PostsData } from '../data';
 import { blogPostPath } from '../utils/slugify';
 import { useLocalePath } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
@@ -26,20 +26,13 @@ function toDisplayPost(post: BlogPost, lang: string): { id: number; slug: string
   };
 }
 
-export function useBlogPosts() {
-  const [posts, setPosts] = useState<{ id: number; slug: string; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number }[]>([]);
-  const [loading, setLoading] = useState(true);
+/** Loader (data.ts: blogLoader) ma'lumotini joriy tilga moslab qaytaradi. */
+function useBlogPosts() {
+  const { i18n } = useTranslation();
+  const { posts } = useLoaderData() as PostsData;
   const lang = i18n.language?.split('-')[0] || 'uz';
-
-  useEffect(() => {
-    getPosts()
-      .then((data) => setPosts(data.map((p) => toDisplayPost(p, lang))))
-      // Xatoda o'ylab topilgan (demo) maqolalar ko'rsatilmaydi — bo'sh holat.
-      .catch(() => setPosts([]))
-      .finally(() => setLoading(false));
-  }, [lang]);
-
-  return { posts, loading };
+  const display = useMemo(() => posts.map((p) => toDisplayPost(p, lang)), [posts, lang]);
+  return { posts: display, loading: false };
 }
 
 export default function Blog() {

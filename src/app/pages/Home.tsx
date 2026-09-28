@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import { useState, useEffect, useMemo } from 'react';
+import { Link, useLoaderData } from 'react-router';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   CheckCircle, Globe, ShieldCheck, ArrowRight, FileText, Truck,
   Users, Award, FileCheck, Phone, MousePointerClick, BarChart
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../i18n';
-import { getPosts, type BlogPost } from '../api';
+import type { PostsData } from '../data';
 import { blogPostPath } from '../utils/slugify';
 import { useLocalePath } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
@@ -25,19 +24,22 @@ const localAt = (id: string, w: number, ext = 'jpg') => `/images/p${id}-${w}.${e
 const localSrcSet = (id: string, ext = 'jpg') =>
   [640, 1280, 1920].map((w) => `${localAt(id, w, ext)} ${w}w`).join(', ');
 
+// Server (SSR) va brauzer bir xil natija berishi uchun vaqt zonasiga bog'liq emas:
+// "YYYY-MM-DD..." qatoridan to'g'ridan-to'g'ri o'qiymiz.
 function formatPostDate(dateStr: string): string {
   if (!dateStr) return '';
+  const m = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (m) return `${m[3]}.${m[2]}.${m[1]} `;
   const d = new Date(dateStr);
-  const day = String(d.getDate()).padStart(2, '0');
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const year = d.getFullYear();
-  return `${day}.${month}.${year} `;
+  if (Number.isNaN(d.getTime())) return '';
+  const day = String(d.getUTCDate()).padStart(2, '0');
+  const month = String(d.getUTCMonth() + 1).padStart(2, '0');
+  return `${day}.${month}.${d.getUTCFullYear()} `;
 }
 
 export default function Home() {
-  const { t } = useTranslation();
-  const [latestPosts, setLatestPosts] = useState<{ id: number; slug: string; title: string; excerpt: string; date: string; image: string }[]>([]);
-  const [postsLoading, setPostsLoading] = useState(true);
+  const { t, i18n } = useTranslation();
+  const { posts } = useLoaderData() as PostsData;
 
   const [currentSlide, setCurrentSlide] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
@@ -57,22 +59,18 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [heroAutoplay]);
 
-  useEffect(() => {
-    getPosts(3)
-      .then((data) => {
-        const display = data.slice(0, 3).map((p: BlogPost) => ({
-          id: p.id,
-          slug: p.slug,
-          title: p.title[lang],
-          excerpt: (p.excerpt[lang] || '').replace(/<[^>]*>/g, '').slice(0, 160),
-          date: p.date || p.created_at || '',
-          image: p.image || fallbackBlogImage(p.id),
-        }));
-        setLatestPosts(display);
-      })
-      .catch(() => setLatestPosts([]))
-      .finally(() => setPostsLoading(false));
-  }, [lang]);
+  const latestPosts = useMemo(
+    () =>
+      posts.slice(0, 3).map((p) => ({
+        id: p.id,
+        slug: p.slug,
+        title: p.title[lang],
+        excerpt: (p.excerpt[lang] || '').replace(/<[^>]*>/g, '').slice(0, 160),
+        date: p.date || p.created_at || '',
+        image: p.image || fallbackBlogImage(p.id),
+      })),
+    [posts, lang]
+  );
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
     whileInView: { opacity: 1, y: 0 },
@@ -579,9 +577,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {postsLoading ? (
-              <div className="col-span-full text-center py-12 text-slate-500">{t('home.blog.loading') || 'Yuklanmoqda...'}</div>
-            ) : latestPosts.length === 0 ? (
+            {latestPosts.length === 0 ? (
               <div className="col-span-full text-center py-12 text-slate-500">{t('home.blog.noPosts') || 'Hozircha maqolalar yo\'q.'}</div>
             ) : (
               latestPosts.map((post) => (

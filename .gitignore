@@ -1,5 +1,6 @@
 node_modules
 dist
+dist-ssr
 server/node_modules
 server/.env
 server/blog.db

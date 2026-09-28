@@ -10,16 +10,13 @@ const resources = {
   en: { translation: en },
 };
 
-// Boshlang'ich til: avval URL prefiksi (/ru, /en), keyin localStorage, oxirida uz.
-// URL — tilning yagona manbai bo'lgani uchun u localStorage'dan ustun turadi.
+// Boshlang'ich til faqat URL prefiksidan (/ru, /en; prefikssiz — uz). URL — tilning
+// yagona manbai: server (SSR) ham shu qoida bilan render qiladi, localStorage'dagi til
+// ishlatilsa hydration'da server HTML bilan mos kelmay qoladi.
 function initialLang(): string {
   if (typeof window !== 'undefined') {
     const seg = window.location.pathname.split('/')[1];
     if (seg === 'ru' || seg === 'en') return seg;
-  }
-  if (typeof localStorage !== 'undefined') {
-    const stored = localStorage.getItem('language');
-    if (stored) return stored;
   }
   return 'uz';
 }
