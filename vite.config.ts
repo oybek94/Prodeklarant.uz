@@ -25,6 +25,11 @@ export default defineConfig(({ isSsrBuild }) => ({
     noExternal: true,
   },
 
+  // SSR bundle ichidagi React doim production rejimida ishlasin. Vite SSR build'da
+  // process.env.NODE_ENV'ni almashtirmaydi, serverda esa NODE_ENV o'rnatilmagan bo'lishi
+  // mumkin — unda React development rejimida (sekinroq, log'da ogohlantirishlar) ishlaydi.
+  define: isSsrBuild ? { 'process.env.NODE_ENV': JSON.stringify('production') } : undefined,
+
   build: {
     chunkSizeWarningLimit: 600,
     modulePreload: true,
