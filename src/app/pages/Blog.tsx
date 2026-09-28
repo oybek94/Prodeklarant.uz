@@ -7,7 +7,7 @@ import i18n from '../../i18n';
 import { getPosts, type BlogPost } from '../api';
 import { blogPostPath } from '../utils/slugify';
 import { useLocalePath } from '../utils/locale';
-import { BLOG_IMAGES, fallbackBlogImage } from '../utils/blogImages';
+import { fallbackBlogImage } from '../utils/blogImages';
 
 const POSTS_PER_PAGE = 7;
 
@@ -27,7 +27,6 @@ function toDisplayPost(post: BlogPost, lang: string): { id: number; slug: string
 }
 
 export function useBlogPosts() {
-  const { t } = useTranslation();
   const [posts, setPosts] = useState<{ id: number; slug: string; title: string; excerpt: string; date: string; author: string; category: string; image: string; views: number }[]>([]);
   const [loading, setLoading] = useState(true);
   const lang = i18n.language?.split('-')[0] || 'uz';
@@ -35,22 +34,10 @@ export function useBlogPosts() {
   useEffect(() => {
     getPosts()
       .then((data) => setPosts(data.map((p) => toDisplayPost(p, lang))))
-      .catch(() => {
-        const fallback = [1, 2, 3, 4].map((id, i) => ({
-          id,
-          slug: '',
-          title: t(`blog.posts.${id}.title`),
-          excerpt: t(`blog.posts.${id}.excerpt`),
-          date: t(`blog.posts.${id}.date`),
-          author: ['Azizbek Rahimov', 'Dilnoza Karimova', 'Jamshid Aliyev', 'Azizbek Rahimov'][i],
-          category: t(`blog.posts.${id}.category`),
-          image: BLOG_IMAGES[i],
-          views: 0,
-        }));
-        setPosts(fallback);
-      })
+      // Xatoda o'ylab topilgan (demo) maqolalar ko'rsatilmaydi — bo'sh holat.
+      .catch(() => setPosts([]))
       .finally(() => setLoading(false));
-  }, [lang, t]);
+  }, [lang]);
 
   return { posts, loading };
 }

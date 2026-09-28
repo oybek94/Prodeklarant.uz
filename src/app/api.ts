@@ -44,10 +44,12 @@ export type BlogPost = {
   created_at: string;
 };
 
-export async function getPosts(): Promise<BlogPost[]> {
-  const res = await apiFetch('/posts');
+/** Postlar ro'yxati. Server `{ data, pagination }` qaytaradi (limit ≤ 50). */
+export async function getPosts(limit = 50): Promise<BlogPost[]> {
+  const res = await apiFetch(`/posts?limit=${limit}`);
   if (!res.ok) throw new Error('Failed to fetch posts');
-  return res.json();
+  const json = await res.json();
+  return Array.isArray(json) ? json : Array.isArray(json?.data) ? json.data : [];
 }
 
 export async function getPost(id: number): Promise<BlogPost> {

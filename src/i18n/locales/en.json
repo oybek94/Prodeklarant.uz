@@ -426,32 +426,6 @@
     "prevPage": "Previous page",
     "nextPage": "Next page",
     "pageNumber": "Page {{page}}",
-    "posts": {
-      "1": {
-        "title": "New benefits in export customs payments introduced",
-        "excerpt": "From March 1, 2024, new tax and customs benefits came into force in the customs clearance process for exporters. What benefits will these changes bring to entrepreneurs?",
-        "date": "February 15, 2026",
-        "category": "Legislation"
-      },
-      "2": {
-        "title": "Reminder for foreign economic activity participants",
-        "excerpt": "What to pay attention to when concluding import contracts? We will discuss in detail the INCOTERMS-2020 rules and their impact on customs value.",
-        "date": "February 10, 2026",
-        "category": "Tips"
-      },
-      "3": {
-        "title": "Latest news in logistics and transport",
-        "excerpt": "Changes in international freight directions. New transport corridors and their impact on Uzbekistan's export potential.",
-        "date": "February 5, 2026",
-        "category": "Logistics"
-      },
-      "4": {
-        "title": "Customs warehouse: types and requirements",
-        "excerpt": "What is the difference between open and closed customs warehouses? Full information on storage periods and conditions for goods.",
-        "date": "January 28, 2026",
-        "category": "Reference"
-      }
-    },
     "loading": "Loading..."
   },
   "blogPost": {

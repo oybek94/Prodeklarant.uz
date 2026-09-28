@@ -426,32 +426,6 @@
     "prevPage": "Oldingi sahifa",
     "nextPage": "Keyingi sahifa",
     "pageNumber": "Sahifa {{page}}",
-    "posts": {
-      "1": {
-        "title": "Eksport bojxona to'lovlarida yangi imtiyozlar joriy etildi",
-        "excerpt": "2024-yil 1-martdan boshlab eksport qiluvchilar uchun bojxona rasmiylashtiruvi jarayonida yangi soliq va bojxona imtiyozlari kuchga kirdi. Ushbu o'zgarishlar tadbirkorlarga qanday foyda keltiradi?",
-        "date": "15 Fevral, 2026",
-        "category": "Qonunchilik"
-      },
-      "2": {
-        "title": "Tashqi iqtisodiy faoliyat (TIF) qatnashchilari uchun eslatma",
-        "excerpt": "Import shartnomalarini tuzishda nimalarga e'tibor berish kerak? INKOTERMS-2020 qoidalari va ularning bojxona qiymatiga ta'siri haqida batafsil to'xtalamiz.",
-        "date": "10 Fevral, 2026",
-        "category": "Maslahatlar"
-      },
-      "3": {
-        "title": "Logistika va transport sohasidagi so'nggi yangiliklar",
-        "excerpt": "Xalqaro yuk tashish yo'nalishlarida o'zgarishlar. Yangi transport koridorlari va ularning O'zbekiston eksport salohiyatiga ta'siri.",
-        "date": "05 Fevral, 2026",
-        "category": "Logistika"
-      },
-      "4": {
-        "title": "Bojxona ombori: turlari va talablari",
-        "excerpt": "Ochiq va yopiq turdagi bojxona omborlari o'rtasidagi farq nima? Tovar saqlash muddatlari va shartlari haqida to'liq ma'lumot.",
-        "date": "28 Yanvar, 2026",
-        "category": "Ma'lumotnoma"
-      }
-    },
     "loading": "Yuklanmoqda..."
   },
   "blogPost": {

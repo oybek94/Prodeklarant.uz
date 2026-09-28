@@ -58,7 +58,7 @@ export default function Home() {
   }, [heroAutoplay]);
 
   useEffect(() => {
-    getPosts()
+    getPosts(3)
       .then((data) => {
         const display = data.slice(0, 3).map((p: BlogPost) => ({
           id: p.id,
