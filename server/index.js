@@ -15,6 +15,7 @@ const postsRoutes = require('./routes/posts');
 const uploadRoutes = require('./routes/upload');
 const translateRoutes = require('./routes/translate');
 const contactRoutes = require('./routes/contact');
+const leadsRoutes = require('./routes/leads');
 
 const SITE_URL = config.SITE_URL;
 
@@ -74,6 +75,7 @@ app.use('/api/posts', postsRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/translate', translateRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/leads', leadsRoutes);
 
 app.get('/sitemap.xml', (req, res) => {
   let posts = [];

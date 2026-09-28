@@ -11,6 +11,7 @@ import { blogPostPath } from '../utils/slugify';
 import { useLocalePath } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
+import { openContactModal } from '../utils/contactModal';
 import { Pause, Play } from 'lucide-react';
 
 const HERO_SLIDES = [
@@ -169,7 +170,7 @@ export default function Home() {
           >
             <button
               type="button"
-              onClick={() => window.dispatchEvent(new Event('openContactModal'))}
+              onClick={() => openContactModal()}
               className="group bg-accent hover:bg-accent-light text-brand-dark font-black py-4 px-6 sm:px-10 rounded-xl uppercase tracking-wide sm:tracking-widest transition-all shadow-[0_0_30px_rgba(232,168,56,0.3)] hover:shadow-[0_0_40px_rgba(232,168,56,0.5)] hover:-translate-y-1 w-full sm:w-auto inline-flex items-center justify-center gap-2 text-sm"
             >
               {t('home.hero.consultation')}
@@ -437,7 +438,7 @@ export default function Home() {
                   <div className="p-8 pt-4">
                     <button
                       type="button"
-                      onClick={() => window.dispatchEvent(new Event('openContactModal'))}
+                      onClick={() => openContactModal({ tariff: key })}
                       className={`group w-full font-bold py-4 px-6 rounded-xl uppercase tracking-wider text-sm transition-all duration-200 flex items-center justify-center gap-2 ${isVip
                         ? 'bg-accent hover:bg-accent-light text-brand-dark hover:scale-[1.02] active:scale-[0.98]'
                         : isRecommended
@@ -558,7 +559,7 @@ export default function Home() {
               transition={{ delay: 0.2 }}
               className="md:w-1/3 text-center md:text-right"
             >
-              <button type="button" onClick={() => window.dispatchEvent(new Event('openContactModal'))} className="group inline-flex items-center justify-center gap-3 bg-accent hover:bg-accent-light text-brand-dark font-bold py-4 px-10 rounded-xl text-lg transition-all duration-300 shadow-[0_0_20px_rgba(232,168,56,0.3)] hover:shadow-[0_0_35px_rgba(232,168,56,0.6)] hover:-translate-y-1 active:translate-y-0">
+              <button type="button" onClick={() => openContactModal()} className="group inline-flex items-center justify-center gap-3 bg-accent hover:bg-accent-light text-brand-dark font-bold py-4 px-10 rounded-xl text-lg transition-all duration-300 shadow-[0_0_20px_rgba(232,168,56,0.3)] hover:shadow-[0_0_35px_rgba(232,168,56,0.6)] hover:-translate-y-1 active:translate-y-0">
                 <span>{t('home.cta.btn')}</span>
                 <Phone size={20} className="transition-transform duration-300 group-hover:rotate-12" />
               </button>

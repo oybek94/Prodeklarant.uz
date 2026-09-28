@@ -385,9 +385,7 @@
       }
     },
     "modal": {
-      "subtitle": "Sizga qulay usulni tanlang va bizga aloqaga chiqing",
-      "call": "Qo'ng'iroq",
-      "formLink": "Yoki batafsil xabar qoldiring →"
+      "call": "Qo'ng'iroq"
     }
   },
   "notFound": {
@@ -439,5 +437,37 @@
     "linkCopied": "Link nusxalandi!",
     "related": "O'xshash Maqolalar",
     "tags": "Teglar"
+  },
+  "leadForm": {
+    "subtitle": "Ma'lumotlaringizni qoldiring — biz siz bilan bog'lanamiz.",
+    "tariffLabel": "Tanlangan tarif",
+    "name": "Ismingiz",
+    "phone": "Telefon raqam",
+    "product": "Mahsulot",
+    "productPlaceholder": "Tanlang...",
+    "products": {
+      "gilos": "Gilos",
+      "uzum": "Uzum",
+      "orik": "O'rik",
+      "piyoz": "Piyoz",
+      "other": "Boshqa"
+    },
+    "country": "Eksport davlati (ixtiyoriy)",
+    "countryPlaceholder": "Masalan: Rossiya",
+    "comment": "Izoh (ixtiyoriy)",
+    "submit": "Yuborish",
+    "sending": "Yuborilmoqda...",
+    "orMessenger": "yoki to'g'ridan-to'g'ri yozing",
+    "success": {
+      "title": "Arizangiz qabul qilindi",
+      "desc": "Mutaxassisimiz siz bilan bog'lanadi."
+    },
+    "errors": {
+      "required": "Ushbu maydonni to'ldiring",
+      "invalid_phone": "Raqamni +998 XX XXX XX XX ko'rinishida kiriting",
+      "too_long": "Matn juda uzun",
+      "rate": "Juda ko'p urinish. Birozdan so'ng qayta urinib ko'ring yoki messenjer orqali yozing.",
+      "server": "Yuborib bo'lmadi. Qayta urinib ko'ring yoki messenjer orqali yozing."
+    }
   }
 }

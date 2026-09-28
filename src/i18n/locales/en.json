@@ -385,9 +385,7 @@
       }
     },
     "modal": {
-      "subtitle": "Choose a convenient way to reach us",
-      "call": "Call",
-      "formLink": "Or leave a detailed message →"
+      "call": "Call"
     }
   },
   "notFound": {
@@ -439,5 +437,37 @@
     "linkCopied": "Link copied!",
     "related": "Related Articles",
     "tags": "Tags"
+  },
+  "leadForm": {
+    "subtitle": "Leave your details and we will get back to you.",
+    "tariffLabel": "Selected plan",
+    "name": "Your name",
+    "phone": "Phone number",
+    "product": "Product",
+    "productPlaceholder": "Select...",
+    "products": {
+      "gilos": "Cherries",
+      "uzum": "Grapes",
+      "orik": "Apricots",
+      "piyoz": "Onions",
+      "other": "Other"
+    },
+    "country": "Destination country (optional)",
+    "countryPlaceholder": "e.g. Russia",
+    "comment": "Comment (optional)",
+    "submit": "Send",
+    "sending": "Sending...",
+    "orMessenger": "or message us directly",
+    "success": {
+      "title": "Request received",
+      "desc": "Our specialist will contact you."
+    },
+    "errors": {
+      "required": "Please fill in this field",
+      "invalid_phone": "Enter the number as +998 XX XXX XX XX",
+      "too_long": "Text is too long",
+      "rate": "Too many attempts. Please try again later or message us directly.",
+      "server": "Could not send. Please try again or message us directly."
+    }
   }
 }

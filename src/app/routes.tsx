@@ -45,6 +45,7 @@ const BlogPost = lazyPage(() => import('./pages/BlogPost'));
 const AdminLogin = lazyPage(() => import('./pages/AdminLogin'));
 const AdminBlog = lazyPage(() => import('./pages/AdminBlog'));
 const AdminPostForm = lazyPage(() => import('./pages/AdminPostForm'));
+const AdminLeads = lazyPage(() => import('./pages/AdminLeads'));
 const NotFound = lazyPage(() => import('./pages/NotFound'));
 
 function PageFallback() {
@@ -77,6 +78,7 @@ function adminChildren(): RouteObject[] {
     { path: 'admin/blog', ...AdminBlog },
     { path: 'admin/blog/new', ...AdminPostForm },
     { path: 'admin/blog/:id/edit', ...AdminPostForm },
+    { path: 'admin/leads', ...AdminLeads },
   ];
 }
 

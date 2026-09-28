@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router';
-import { useLocalePath } from '../utils/locale';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Phone } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import LeadForm from './LeadForm';
+import { CONTACT_MODAL_EVENT, TARIFFS, type ContactModalDetail, type Tariff } from '../utils/contactModal';
 
 const TelegramIcon = () => (
     <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.62-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.15 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .28z" /></svg>
@@ -15,14 +15,28 @@ const WhatsAppIcon = () => (
 
 export default function ContactModal() {
     const { t } = useTranslation();
-    const lp = useLocalePath();
     const [isOpen, setIsOpen] = useState(false);
+    const [tariff, setTariff] = useState<Tariff | null>(null);
+    // Har ochilishda forma yangidan boshlansin (oldingi muvaffaqiyat/xato holati qolmasin)
+    const [formKey, setFormKey] = useState(0);
 
     useEffect(() => {
-        const handleOpen = () => setIsOpen(true);
-        window.addEventListener('openContactModal', handleOpen);
-        return () => window.removeEventListener('openContactModal', handleOpen);
+        const handleOpen = (e: Event) => {
+            const requested = (e as CustomEvent<ContactModalDetail>).detail?.tariff;
+            setTariff(requested && TARIFFS.includes(requested) ? requested : null);
+            setFormKey((k) => k + 1);
+            setIsOpen(true);
+        };
+        window.addEventListener(CONTACT_MODAL_EVENT, handleOpen);
+        return () => window.removeEventListener(CONTACT_MODAL_EVENT, handleOpen);
     }, []);
+
+    useEffect(() => {
+        if (!isOpen) return;
+        const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false);
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -46,7 +60,7 @@ export default function ContactModal() {
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.95, y: 20 }}
                     transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
-                    className="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-8 text-center relative overflow-hidden"
+                    className="bg-white rounded-2xl shadow-2xl max-w-md w-full max-h-[92vh] overflow-y-auto p-6 sm:p-8 text-center relative overflow-x-hidden"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Decorative background */}
@@ -65,7 +79,7 @@ export default function ContactModal() {
                             </button>
                         </div>
 
-                        <div className="mb-8">
+                        <div className="mb-6">
                             <div className="w-16 h-16 bg-brand-light/20 text-brand rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-sm">
                                 <Phone size={28} strokeWidth={2.5} />
                             </div>
@@ -73,8 +87,16 @@ export default function ContactModal() {
                                 {t('home.tariffs.modalTitle') || "Bog'lanish"}
                             </h3>
                             <p className="text-slate-500 text-sm font-medium px-4">
-                                {t('contact.modal.subtitle')}
+                                {t('leadForm.subtitle')}
                             </p>
+                        </div>
+
+                        <LeadForm key={formKey} tariff={tariff} onClose={() => setIsOpen(false)} />
+
+                        <div className="flex items-center gap-3 my-6 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                            <span className="flex-1 h-px bg-slate-200" />
+                            {t('leadForm.orMessenger')}
+                            <span className="flex-1 h-px bg-slate-200" />
                         </div>
 
                         <div className="flex flex-col gap-3">
@@ -114,14 +136,6 @@ export default function ContactModal() {
                                 </div>
                                 <span className="text-sm font-medium opacity-90">+998 91 118 70 07</span>
                             </a>
-
-                            <Link
-                                to={lp('/contact')}
-                                onClick={() => setIsOpen(false)}
-                                className="mt-2 inline-block text-sm font-semibold text-brand hover:text-brand-dark transition-colors"
-                            >
-                                {t('contact.modal.formLink')}
-                            </Link>
                         </div>
                     </div>
                 </motion.div>

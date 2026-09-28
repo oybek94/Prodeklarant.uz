@@ -60,6 +60,9 @@ export default function AdminBlog() {
           <h1 className="text-2xl font-bold text-slate-900 uppercase">Maqolalar boshqaruvi</h1>
         </div>
         <div className="flex items-center gap-4">
+          <Link to="/admin/leads" className="text-sm font-bold text-brand hover:text-brand-dark">
+            Arizalar
+          </Link>
           <button onClick={handleLogout} className="text-sm text-slate-600 hover:text-red-600">
             Chiqish
           </button>

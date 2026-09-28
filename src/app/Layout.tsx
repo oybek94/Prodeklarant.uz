@@ -8,6 +8,7 @@ import { usePageMeta } from './hooks/usePageMeta';
 import { useLocalePath, localeFromPath, stripLocale, withLocale, type Locale } from './utils/locale';
 import { SITE_URL } from './utils/site';
 import ContactModal from './components/ContactModal';
+import { openContactModal } from './utils/contactModal';
 import { JsonLd } from './components/JsonLd';
 
 const LANGUAGES = [
@@ -212,7 +213,7 @@ export default function Layout() {
 
             {/* CTA Button */}
             <div className="hidden md:block">
-              <button type="button" onClick={() => window.dispatchEvent(new Event('openContactModal'))} className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-xl transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
+              <button type="button" onClick={() => openContactModal()} className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-xl transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
                 {t('layout.contactBtn')} <Phone size={14} />
               </button>
             </div>
@@ -276,7 +277,7 @@ export default function Layout() {
 
               <button
                 type="button"
-                onClick={() => window.dispatchEvent(new Event('openContactModal'))}
+                onClick={() => openContactModal()}
                 className="bg-accent text-brand-dark font-bold py-3 px-4 rounded-xl text-center mt-2 flex items-center justify-center gap-2"
               >
                 <Phone size={18} /> {t('layout.contactBtn')}

@@ -83,4 +83,24 @@ db.exec(`
   )
 `);
 
+// Saytdan kelgan arizalar (Bog'lanish / Bepul konsultatsiya / Narxni so'rash modali).
+// Admin panel: /admin/leads. telegram_sent — Telegram xabari yetib bordimi (0/1).
+db.exec(`
+  CREATE TABLE IF NOT EXISTS leads (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    product TEXT,
+    country TEXT,
+    comment TEXT,
+    tariff TEXT,
+    source_path TEXT,
+    locale TEXT,
+    status TEXT NOT NULL DEFAULT 'new',
+    telegram_sent INTEGER NOT NULL DEFAULT 0,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`);
+db.exec('CREATE INDEX IF NOT EXISTS idx_leads_created ON leads(created_at)');
+
 module.exports = db;

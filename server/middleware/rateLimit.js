@@ -32,4 +32,14 @@ const translateLimiter = rateLimit({
   max: 20,
 });
 
-module.exports = { loginLimiter, contactLimiter, translateLimiter };
+// Leads (ariza formasi) — spam'ga qarshi: bitta IP'dan 10 daqiqada 5 ta ariza.
+// Xato (4xx) javoblar hisoblanmaydi — raqamni noto'g'ri yozgan odam bloklanib qolmasin
+// (noto'g'ri so'rovlar baribir DB'ga yozilmaydi).
+const leadsLimiter = rateLimit({
+  ...common,
+  windowMs: 10 * 60 * 1000,
+  max: 5,
+  skipFailedRequests: true,
+});
+
+module.exports = { loginLimiter, contactLimiter, translateLimiter, leadsLimiter };

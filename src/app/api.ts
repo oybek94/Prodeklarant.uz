@@ -165,3 +165,73 @@ export async function uploadImage(file: File): Promise<string> {
   if (!res.ok) throw new Error(data.error || 'Yuklash xatosi');
   return data.url;
 }
+
+// ---- Arizalar (leads) ----
+
+export type LeadPayload = {
+  name: string;
+  phone: string;
+  product: string;
+  country?: string;
+  comment?: string;
+  tariff?: string | null;
+  locale: string;
+  sourcePath: string;
+  /** honeypot — odam uchun doim bo'sh */
+  website?: string;
+};
+
+/** Server xatosi: `code` — validation | rate | server; `fields` — maydon → xato kodi. */
+export class LeadError extends Error {
+  constructor(public code: 'validation' | 'rate' | 'server', public fields: Record<string, string> = {}) {
+    super(code);
+  }
+}
+
+/** Ommaviy forma — admin token yuborilmaydi. */
+export async function submitLead(payload: LeadPayload): Promise<void> {
+  let res: Response;
+  try {
+    res = await fetch(`${API_BASE}/leads`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+  } catch {
+    throw new LeadError('server');
+  }
+  if (res.ok) return;
+  if (res.status === 429) throw new LeadError('rate');
+  const data = await res.json().catch(() => ({}));
+  if (res.status === 400 && data?.fields) throw new LeadError('validation', data.fields);
+  throw new LeadError('server');
+}
+
+export type LeadStatus = 'new' | 'contacted' | 'closed';
+export type Lead = {
+  id: number;
+  name: string;
+  phone: string;
+  product: string | null;
+  country: string | null;
+  comment: string | null;
+  tariff: string | null;
+  source_path: string | null;
+  locale: string | null;
+  status: LeadStatus;
+  telegram_sent: number;
+  created_at: string;
+};
+
+export async function getLeads(page = 1, status?: LeadStatus): Promise<{ data: Lead[]; pagination: { total: number; page: number; totalPages: number } }> {
+  const q = new URLSearchParams({ page: String(page), limit: '50' });
+  if (status) q.set('status', status);
+  const res = await apiFetch(`/leads?${q}`);
+  if (!res.ok) throw new Error('Arizalarni yuklab bo\'lmadi');
+  return res.json();
+}
+
+export async function updateLeadStatus(id: number, status: LeadStatus): Promise<void> {
+  const res = await apiFetch(`/leads/${id}`, { method: 'PATCH', body: JSON.stringify({ status }) });
+  if (!res.ok) throw new Error('Holatni saqlab bo\'lmadi');
+}
