@@ -2,7 +2,7 @@
   "seo": {
     "home": {
       "title": "PRO DEKLARANT — Customs clearance for fruit and vegetable export",
-      "description": "Professional customs brokerage for fruit and vegetable exporters. GTD clearance, certificates, logistics. Fergana region, Uzbekistan."
+      "description": "Professional customs brokerage for fruit and vegetable exporters. Customs cargo declaration clearance, certificates, logistics. Fergana region, Uzbekistan."
     },
     "services": {
       "title": "Services — PRO DEKLARANT",
@@ -72,19 +72,19 @@
       "title": "Our Advantages",
       "fast": {
         "title": "Fast Clearance",
-        "desc": "Document preparation in the shortest time and customs control clearance."
+        "desc": "Currently, preparing one document takes 3 hours 20 minutes on average."
       },
       "legal": {
-        "title": "Legal Guarantee",
-        "desc": "All processes fully comply with the legislation of the Republic of Uzbekistan."
+        "title": "Error-free documents",
+        "desc": "We keep documents in a digital system we built ourselves, not in Excel or Word. Thanks to it, we have automated the steps where mistakes could happen."
       },
-      "team": {
-        "title": "Professional Team",
-        "desc": "Experienced specialists with years of expertise at your service."
+      "focus": {
+        "title": "Fruit and vegetable specialization",
+        "desc": "We only handle export documentation. Our narrow specialization lets us understand the requirements of the export process, the documents and the needs of entrepreneurs in depth, and offer precise, fast solutions."
       },
-      "global": {
-        "title": "International Experience",
-        "desc": "Professional assistance exporting fruits and vegetables to Russia, Europe and Asian markets."
+      "night": {
+        "title": "Evening shift",
+        "desc": "Fruit is mostly loaded in the cool of the evening, and it spoils quickly. That is why we also work an evening shift."
       }
     },
     "stats": {
@@ -99,7 +99,7 @@
       "subtitle": "Complete customs services for fruit and vegetable exporters",
       "export": {
         "title": "Customs cargo declaration clearance",
-        "desc": "Filling out customs cargo declaration (GTD), document preparation and clearance for fruits, vegetables and agricultural produce."
+        "desc": "Filling out customs cargo declaration, document preparation and clearance for fruits, vegetables and agricultural produce."
       },
       "import": {
         "title": "Product traceability document preparation",
@@ -614,10 +614,10 @@
     },
     "hero": {
       "kicker": "Export customs broker · Fergana",
-      "l1": "Customs clearance",
-      "l2": "for fruit and vegetable",
-      "l3": "exports",
-      "lead": "We prepare declarations, phytosanitary certificates and cargo documents — fully compliant, fast and error-free. You focus on the produce; the paperwork is ours.",
+      "l1": "For fruit and vegetable",
+      "l2": "exporters",
+      "l3": "customs clearance",
+      "lead": "Hand all your export paperwork over to us. You prepare the produce — we take care of the documents.",
       "cta": "Free consultation",
       "photoAlt": "Fresh harvest — fruit and vegetable market",
       "card": {
@@ -633,12 +633,12 @@
       },
       "trust": {
         "legal": {
-          "title": "Legal assurance",
-          "desc": "Fully compliant with the law"
+          "title": "Error-free documents",
+          "desc": "Automated document filling and tracking system"
         },
         "online": {
-          "title": "24/7 online",
-          "desc": "Declaration filing"
+          "title": "Evening shift",
+          "desc": "We work at night too"
         },
         "global": {
           "title": "International markets",
@@ -649,7 +649,7 @@
     "why": {
       "label": "Advantages",
       "title": "Why exporters choose us",
-      "lede": "We run the customs process for you: documents, certificates and declaration — one team, one responsibility.",
+      "lede": "We run the customs process for you: transport documents, certificates and declaration — one team, one responsibility.",
       "photoAlt": "The Pro Deklarant team meeting clients",
       "capLabel": "Team",
       "caption": "Every contract is discussed with the client in detail."
@@ -739,6 +739,42 @@
     },
     "blog": {
       "label": "Blog"
+    },
+    "system": {
+      "label": "Our system",
+      "title": "Our own in-house system is our main edge in the market",
+      "lede": "We keep documents in a digital system we built ourselves, not in notebooks. Fewer mistakes, a transparent process, and you always know where your cargo is.",
+      "note": "The figures in the Results section on this site are pulled from this system automatically.",
+      "items": {
+        "check": {
+          "title": "Automatic document checks",
+          "desc": "Data from the invoice, ST-1, CMR, TIR and phytosanitary documents is compared with the records in our system, so mismatches are caught before filing."
+        },
+        "fill": {
+          "title": "Auto-filled applications",
+          "desc": "Applications on the Single Window, quarantine, expertise and customs portals are filled in from invoice data: less manual entry, fewer errors."
+        },
+        "cabinet": {
+          "title": "Client cabinet",
+          "desc": "The stage of every shipment, export statistics and settlements are visible online. No need to call and ask."
+        },
+        "stages": {
+          "title": "Stage-by-stage control",
+          "desc": "Who completed each stage, and when, is recorded. The process is transparent and accountability is clear."
+        },
+        "qr": {
+          "title": "QR code verification",
+          "desc": "The status of a vehicle's documents opens via QR code, for a quick check on the spot."
+        }
+      },
+      "cabinet": {
+        "title": "Client cabinet",
+        "sub": "Shipment status",
+        "done": "Ready",
+        "doing": "In progress",
+        "wait": "Queued",
+        "foot": "Every stage is tracked online"
+      }
     }
   }
 }

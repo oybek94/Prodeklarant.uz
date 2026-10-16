@@ -1,12 +1,12 @@
-import { Globe, ShieldCheck, Users, Zap } from 'lucide-react';
+import { Cherry, Moon, ShieldCheck, Zap } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Photo, SectionLabel, type CssVars } from './shared';
 
 const ITEMS = [
   { icon: Zap, key: 'fast' },
   { icon: ShieldCheck, key: 'legal' },
-  { icon: Users, key: 'team' },
-  { icon: Globe, key: 'global' },
+  { icon: Cherry, key: 'focus' },
+  { icon: Moon, key: 'night' },
 ] as const;
 
 export default function Why() {

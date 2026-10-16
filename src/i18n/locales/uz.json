@@ -2,7 +2,7 @@
   "seo": {
     "home": {
       "title": "PRO DEKLARANT — Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv",
-      "description": "Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. GTD rasmiylashtirish, sertifikatlar, logistika. Farg'ona viloyati."
+      "description": "Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. Bojxona yuk deklaratsiyasi, sertifikatlar, logistika. Farg'ona viloyati."
     },
     "services": {
       "title": "Xizmatlar — PRO DEKLARANT",
@@ -72,19 +72,19 @@
       "title": "Bizning Afzalliklarimiz",
       "fast": {
         "title": "Tezkor Rasmiylashtirish",
-        "desc": "Hujjatlarni eng qisqa muddatlarda tayyorlash va bojxona nazoratidan o'tkazish."
+        "desc": "Hozirda bir hujjatning tayyor bo'lishiga o'rtacha 3 soat 20 daqiqa vaqt sarflanmoqda."
       },
       "legal": {
-        "title": "Qonuniy Kafolat",
-        "desc": "Barcha jarayonlar O'zbekiston Respublikasi qonunchiligiga to'liq mos keladi."
+        "title": "Xatosiz hujjatlar",
+        "desc": "Biz hujjatlarni Excel/Word'da emas, o'zimiz ishlab chiqqan raqamli tizimda yuritamiz. Shu tizim tufayli xato bo'lishi mumkin bo'lgan jarayonlarni avtomatlashtirib chiqdik."
       },
-      "team": {
-        "title": "Professional Jamoa",
-        "desc": "Ko'p yillik tajribaga ega malakali mutaxassislar xizmatingizda."
+      "focus": {
+        "title": "Meva-sabzavotga ixtisoslashuv",
+        "desc": "Biz faqat eksport hujjatlarini rasmiylashtirish bilan shug'ullanamiz. Tor ixtisoslashuvimiz eksport jarayonidagi talablar, hujjatlar va tadbirkorlar ehtiyojini chuqur tushunib, aniq hamda tezkor yechim taklif qilishimizga yordam beradi."
       },
-      "global": {
-        "title": "Xalqaro Tajriba",
-        "desc": "Meva-sabzavotni Rossiya, Yevropa, Osiyo bozorlariga eksport qilishda professional yordam."
+      "night": {
+        "title": "Kechki smena",
+        "desc": "Mevalar asosan kechki payt, salqinda yuklanadi va meva tez buziladigan mahsulot. Shuni hisobga olib, biz kechki smenada ham ishlaymiz."
       }
     },
     "stats": {
@@ -99,7 +99,7 @@
       "subtitle": "Meva-sabzavot eksportchilari uchun to'liq bojxona xizmatlari majmui",
       "export": {
         "title": "Bojxona yuk deklaratsiyasini rasmiylashtirish",
-        "desc": "Meva, sabzavot va qishloq xo'jaligi mahsulotlari uchun bojxona yuk deklaratsiyasini (GTD) to'ldirish, hujjatlarni tayyorlash va rasmiylashtirish."
+        "desc": "Meva, sabzavot va qishloq xo'jaligi mahsulotlari uchun bojxona yuk deklaratsiyasini to'ldirish, hujjatlarni tayyorlash va rasmiylashtirish."
       },
       "import": {
         "title": "Tovar kuzatuv hujjatlari tayyorlash",
@@ -198,7 +198,7 @@
     "items": {
       "export": {
         "title": "Eksport bojxona rasmiylashtiruvi",
-        "desc": "Barcha zarur hujjatlarni tayyorlash, bojxona deklaratsiyasini (GTD) to'ldirish va tovarlarni eksport rejimiga o'tkazish. Eksportni tez va muammosiz amalga oshirishda yordam beramiz.",
+        "desc": "Barcha zarur hujjatlarni tayyorlash, bojxona yuk deklaratsiyasini to'ldirish va tovarlarni eksport rejimiga o'tkazish. Eksportni tez va muammosiz amalga oshirishda yordam beramiz.",
         "features": [
           "Eksport shartnomalarini tahlil qilish",
           "O'zbekiston bo'ylab xizmat",
@@ -615,9 +615,9 @@
     "hero": {
       "kicker": "Eksport bojxona brokeri · Farg'ona",
       "l1": "Meva-sabzavot",
-      "l2": "eksporti uchun bojxona",
-      "l3": "rasmiylashtiruvi",
-      "lead": "GTD, fitosanitar sertifikat va yuk hujjatlarini qonunchilikka to'liq mos, tez va xatosiz tayyorlaymiz. Eksportchi mahsulotga e'tibor beradi — hujjatlar bizda.",
+      "l2": "eksporti uchun",
+      "l3": "bojxona rasmiylashtiruvi",
+      "lead": "Eksport hujjatlari bilan bog'liq barcha ishlarni bizga topshiring. Siz mahsulotni tayyorlang — hujjatlar bilan biz shug'ullanamiz.",
       "cta": "Bepul maslahat",
       "photoAlt": "Yangi hosil — meva va sabzavotlar bozori",
       "card": {
@@ -633,12 +633,12 @@
       },
       "trust": {
         "legal": {
-          "title": "Huquqiy kafolat",
-          "desc": "Qonunchilikka to'liq mos"
+          "title": "Xatosiz hujjatlar",
+          "desc": "Avtomatlashtirilgan hujjatlarni to'ldirish va kuzatish tizimi"
         },
         "online": {
-          "title": "24/7 onlayn",
-          "desc": "Deklaratsiya topshirish"
+          "title": "Kechki smena",
+          "desc": "Kechasi ham xizmat ko'rsatamiz"
         },
         "global": {
           "title": "Xalqaro bozorlar",
@@ -648,8 +648,8 @@
     },
     "why": {
       "label": "Afzalliklar",
-      "title": "Nega eksportchilar bizni tanlaydi",
-      "lede": "Bojxona jarayonini sizning o'rningizga olib boramiz: hujjat, sertifikat va deklaratsiya — bir jamoa, bir mas'uliyat.",
+      "title": "Nega eksportchilar bizni tanlaydi?",
+      "lede": "Bojxona jarayonini sizning o'rningizga olib boramiz: Yo'l hujjatlari, sertifikatlar va deklaratsiya — bir jamoa, bir mas'uliyat.",
       "photoAlt": "Pro Deklarant jamoasi mijozlar bilan uchrashuvda",
       "capLabel": "Jamoa",
       "caption": "Mijoz bilan har bir shartnoma batafsil muhokama qilinadi."
@@ -686,7 +686,7 @@
       "cherry": {
         "title": "Gilos",
         "points": [
-          "Tezkor GTD rasmiylashtirish",
+          "Bojxona yuk deklaratsiyasini tez rasmiylashtirish",
           "Fitosanitar sertifikat",
           "Sovutgichli transport hujjatlari"
         ]
@@ -739,6 +739,42 @@
     },
     "blog": {
       "label": "Blog"
+    },
+    "system": {
+      "label": "Bizning tizim",
+      "title": "O'z ichki tizimimiz — bozordagi asosiy ustunligimiz",
+      "lede": "Biz hujjatlarni daftarda emas, o'zimiz ishlab chiqqan raqamli tizimda yuritamiz. Shu tufayli xato kamayadi, jarayon ochiq ko'rinadi, siz esa yukingiz qayerda ekanini doim bilasiz.",
+      "note": "Saytimizdagi «Natijalar» raqamlari ham shu tizimdan avtomatik olinadi.",
+      "items": {
+        "check": {
+          "title": "Hujjatlarni avtomatik tekshirish",
+          "desc": "Invoice, ST-1, CMR, TIR va fitosanitar hujjatlardagi ma'lumotlar tizimdagi yozuvlar bilan solishtiriladi — nomuvofiqlik topshirishdan oldin aniqlanadi."
+        },
+        "fill": {
+          "title": "Arizalarni avtomatik to'ldirish",
+          "desc": "Yagona darcha, karantin, ekspertiza va bojxona portallaridagi arizalar invoys ma'lumotidan to'ldiriladi: qo'lda kiritish va xato kamayadi."
+        },
+        "cabinet": {
+          "title": "Mijoz kabineti",
+          "desc": "Har bir yukingizning bosqichi, eksport statistikasi va hisob-kitoblar onlayn ko'rinadi — qo'ng'iroq qilib so'rash shart emas."
+        },
+        "stages": {
+          "title": "Bosqichma-bosqich nazorat",
+          "desc": "Har bir bosqichni kim va qachon bajargani qayd etiladi. Jarayon shaffof, mas'uliyat aniq."
+        },
+        "qr": {
+          "title": "QR kod orqali tekshiruv",
+          "desc": "Transport vositasi hujjatlarining holati QR kod orqali ochiladi — joyida tez tekshirish mumkin."
+        }
+      },
+      "cabinet": {
+        "title": "Mijoz kabineti",
+        "sub": "Yuk holati",
+        "done": "Tayyor",
+        "doing": "Jarayonda",
+        "wait": "Navbatda",
+        "foot": "Har bir bosqich onlayn kuzatiladi"
+      }
     }
   }
 }

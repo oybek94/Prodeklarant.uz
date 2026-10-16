@@ -13,7 +13,7 @@ export default function Products() {
     <section style={{ background: '#fff', padding: '120px 0' }}>
       <div className="wrap">
         <div className="rv">
-          <SectionLabel num="04">{t('pd.products.label')}</SectionLabel>
+          <SectionLabel num="05">{t('pd.products.label')}</SectionLabel>
           <h2 className="serif h2">{t('pd.products.title')}</h2>
           <p className="lede">{t('pd.products.lede')}</p>
         </div>

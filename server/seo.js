@@ -33,7 +33,7 @@ const STATIC_ROUTES = {
     '/': {
       title: 'PRO DEKLARANT — Meva va sabzavot eksporti uchun bojxona rasmiylashtiruv',
       description:
-        "Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. GTD rasmiylashtirish, sertifikatlar, logistika. Farg'ona viloyati.",
+        "Meva-sabzavot eksportchilari uchun professional bojxona brokerlik xizmatlari. Bojxona yuk deklaratsiyasi, sertifikatlar, logistika. Farg'ona viloyati.",
     },
     '/services': {
       title: 'Xizmatlar — PRO DEKLARANT',
@@ -60,7 +60,7 @@ const STATIC_ROUTES = {
     '/': {
       title: 'PRO DEKLARANT — Таможенное оформление для экспорта фруктов и овощей',
       description:
-        'Профессиональные таможенные брокерские услуги для экспортёров фруктов и овощей. Оформление ГТД, сертификаты, логистика. Ферганская область.',
+        'Профессиональные таможенные брокерские услуги для экспортёров фруктов и овощей. Оформление таможенной грузовой декларации, сертификаты, логистика. Ферганская область.',
     },
     '/services': {
       title: 'Услуги — PRO DEKLARANT',
@@ -87,7 +87,7 @@ const STATIC_ROUTES = {
     '/': {
       title: 'PRO DEKLARANT — Customs clearance for fruit and vegetable export',
       description:
-        'Professional customs brokerage for fruit and vegetable exporters. GTD clearance, certificates, logistics. Fergana region, Uzbekistan.',
+        'Professional customs brokerage for fruit and vegetable exporters. Customs cargo declaration clearance, certificates, logistics. Fergana region, Uzbekistan.',
     },
     '/services': {
       title: 'Services — PRO DEKLARANT',

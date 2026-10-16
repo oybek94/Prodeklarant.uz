@@ -185,7 +185,7 @@ export default function Results({ stats }: { stats: SiteStats | null }) {
       <div className="wrap">
         <div className="rv" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', justifyContent: 'space-between', gap: 28 }}>
           <div>
-            <SectionLabel num="05">{t('pd.results.label')}</SectionLabel>
+            <SectionLabel num="06">{t('pd.results.label')}</SectionLabel>
             <h2 id="results-heading" className="serif h2">{live ? t('pd.results.title') : t('home.stats.title')}</h2>
             {live && <p className="lede">{t('trust.stats.subtitle', { months: stats.periodMonths })}</p>}
           </div>

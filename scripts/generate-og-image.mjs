@@ -28,7 +28,7 @@ const svg = `
   <rect x="80" y="360" width="90" height="8" rx="4" fill="${ACCENT}"/>
   <text x="80" y="430" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" fill="#FFFFFF">Meva va sabzavot eksporti uchun</text>
   <text x="80" y="490" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" fill="#FFFFFF">bojxona rasmiylashtiruv xizmatlari</text>
-  <text x="80" y="552" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" fill="#CBD5E1">GTD • Sertifikatlar • Logistika — Farg'ona viloyati</text>
+  <text x="80" y="552" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" fill="#CBD5E1">Bojxona yuk deklaratsiyasi • Sertifikatlar • Logistika</text>
 </svg>`;
 
 const logoWidth = 520;
