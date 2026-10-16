@@ -1,5 +1,6 @@
 import type { LoaderFunctionArgs } from 'react-router';
 import { getPosts, getPost, getPostBySlug, type BlogPost } from './api';
+import { getSiteStats, type SiteStats } from './utils/siteStats';
 
 /**
  * Route loader'lar — sahifa ma'lumotlari render'dan OLDIN tayyor bo'lishi uchun.
@@ -11,11 +12,14 @@ import { getPosts, getPost, getPostBySlug, type BlogPost } from './api';
 export type DataContext = {
   listPosts: (limit: number) => BlogPost[] | Promise<BlogPost[]>;
   findPost: (slug: string) => BlogPost | null | Promise<BlogPost | null>;
+  /** CRM statistikasi (ixtiyoriy). Yo'q yoki null bo'lsa "Raqamlarda" bloki chizilmaydi. */
+  getStats?: () => SiteStats | null | Promise<SiteStats | null>;
 };
 
 /** Ro'yxat sahifalari uchun — to'liq matn (body) kerak emas. */
 export type PostSummary = Omit<BlogPost, 'body'>;
 export type PostsData = { posts: PostSummary[] };
+export type HomeData = PostsData & { stats: SiteStats | null };
 export type PostData = { post: BlogPost | null };
 
 function serverData(context: unknown): DataContext | null {
@@ -34,8 +38,19 @@ async function loadPosts(context: unknown, limit: number): Promise<PostsData> {
   }
 }
 
-export function homeLoader({ context }: LoaderFunctionArgs): Promise<PostsData> {
-  return loadPosts(context, 3);
+export async function homeLoader({ context }: LoaderFunctionArgs): Promise<HomeData> {
+  const [{ posts }, stats] = await Promise.all([loadPosts(context, 3), loadStats(context)]);
+  return { posts, stats };
+}
+
+async function loadStats(context: unknown): Promise<SiteStats | null> {
+  try {
+    const server = serverData(context);
+    if (server) return (await server.getStats?.()) ?? null;
+    return await getSiteStats();
+  } catch {
+    return null;
+  }
 }
 
 export function blogLoader({ context }: LoaderFunctionArgs): Promise<PostsData> {

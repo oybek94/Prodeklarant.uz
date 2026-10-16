@@ -16,6 +16,7 @@ const uploadRoutes = require('./routes/upload');
 const translateRoutes = require('./routes/translate');
 const contactRoutes = require('./routes/contact');
 const leadsRoutes = require('./routes/leads');
+const { getSiteStats } = require('./services/siteStats');
 
 const SITE_URL = config.SITE_URL;
 
@@ -76,6 +77,15 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/translate', translateRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/leads', leadsRoutes);
+
+// Bosh sahifadagi "Raqamlarda" bloki: CRM'dan jamlangan statistika (kalit brauzerga chiqmaydi).
+// Mavjud bo'lmasa 204 — sahifa blokni chizmaydi.
+app.get('/api/stats', async (req, res) => {
+  const stats = await getSiteStats();
+  if (!stats) return res.status(204).end();
+  res.set('Cache-Control', 'public, max-age=300');
+  res.json(stats);
+});
 
 app.get('/sitemap.xml', (req, res) => {
   let posts = [];

@@ -485,6 +485,212 @@
     "currency": {
       "UZS": "so'm",
       "USD": "USD"
+    },
+    "stats": {
+      "title": "Raqamlarda ishimiz",
+      "subtitle": "So'nggi {{months}} oy bo'yicha Prodeklarant tizimidagi bajarilgan ishlardan avtomatik hisoblangan ko'rsatkichlar.",
+      "kpi": {
+        "declarations": "Rasmiylashtirilgan deklaratsiyalar",
+        "declarationsNote": "Shu oyda: {{count}}",
+        "cargo": "Eksport qilingan yuk",
+        "cargoNote": "Hisob-fakturalardagi sof vazn",
+        "countries": "Yo'nalish davlatlari",
+        "countriesNote": "Shartnomalardagi manzil davlatlari",
+        "clients": "Faol mijozlar",
+        "clientsNote": "Shu davrda ishlagan mijozlar"
+      },
+      "unitTonne": "tonna",
+      "monthlyTitle": "Oylik deklaratsiyalar",
+      "legendPast": "Oldingi oylar",
+      "legendCurrent": "Joriy oy (to'liq emas)",
+      "productsTitle": "Mahsulotlar bo'yicha, tonna",
+      "countriesTitle": "Yo'nalishlar bo'yicha, deklaratsiya",
+      "source": "Manba: Prodeklarant CRM (topshiriqlar, hisob-fakturalar, shartnomalar). Yangilangan: {{date}}. Faqat jamlangan ma'lumotlar; mijoz nomlari va summalar ko'rsatilmaydi.",
+      "months": {
+        "1": "Yan",
+        "2": "Fev",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "May",
+        "6": "Iyun",
+        "7": "Iyul",
+        "8": "Avg",
+        "9": "Sen",
+        "10": "Okt",
+        "11": "Noy",
+        "12": "Dek"
+      },
+      "products": {
+        "cherry": "Gilos",
+        "grape": "Uzum",
+        "apricot": "O'rik",
+        "onion": "Piyoz",
+        "peach": "Shaftoli",
+        "plum": "Olxo'ri",
+        "tomato": "Pomidor",
+        "apple": "Olma va nok",
+        "citrus": "Sitrus",
+        "tropical": "Tropik mevalar",
+        "berries": "Rezavor mevalar",
+        "other": "Boshqa"
+      },
+      "countries": {
+        "RU": "Rossiya",
+        "KZ": "Qozog'iston",
+        "KG": "Qirg'iziston",
+        "TJ": "Tojikiston",
+        "TM": "Turkmaniston",
+        "BY": "Belarus",
+        "AM": "Armaniston",
+        "AZ": "Ozarbayjon",
+        "GE": "Gruziya",
+        "MD": "Moldova",
+        "UA": "Ukraina",
+        "CN": "Xitoy",
+        "TR": "Turkiya",
+        "IR": "Eron",
+        "IN": "Hindiston",
+        "PK": "Pokiston",
+        "AF": "Afg'oniston",
+        "MN": "Mo'g'uliston",
+        "KR": "Janubiy Koreya",
+        "AE": "BAA",
+        "DE": "Germaniya",
+        "PL": "Polsha",
+        "LT": "Litva",
+        "LV": "Latviya",
+        "EE": "Estoniya",
+        "other": "Boshqa"
+      }
+    }
+  },
+  "pd": {
+    "header": {
+      "cta": "Maslahat olish"
+    },
+    "hero": {
+      "kicker": "Eksport bojxona brokeri · Farg'ona",
+      "l1": "Meva-sabzavot",
+      "l2": "eksporti uchun bojxona",
+      "l3": "rasmiylashtiruvi",
+      "lead": "GTD, fitosanitar sertifikat va yuk hujjatlarini qonunchilikka to'liq mos, tez va xatosiz tayyorlaymiz. Eksportchi mahsulotga e'tibor beradi — hujjatlar bizda.",
+      "cta": "Bepul maslahat",
+      "photoAlt": "Yangi hosil — meva va sabzavotlar bozori",
+      "card": {
+        "title": "Hujjatlar nazorati",
+        "gtd": "Deklaratsiya (GTD)",
+        "phyto": "Fitosanitar sertifikat",
+        "tir": "TIR · SMR",
+        "ready": "Tayyor"
+      },
+      "trust": {
+        "legal": {
+          "title": "Huquqiy kafolat",
+          "desc": "Qonunchilikka to'liq mos"
+        },
+        "online": {
+          "title": "24/7 onlayn",
+          "desc": "Deklaratsiya topshirish"
+        },
+        "global": {
+          "title": "Xalqaro bozorlar",
+          "desc": "Rossiya, Yevropa, Osiyo"
+        }
+      }
+    },
+    "why": {
+      "label": "Afzalliklar",
+      "title": "Nega eksportchilar bizni tanlaydi",
+      "lede": "Bojxona jarayonini sizning o'rningizga olib boramiz: hujjat, sertifikat va deklaratsiya — bir jamoa, bir mas'uliyat.",
+      "photoAlt": "Pro Deklarant jamoasi mijozlar bilan uchrashuvda",
+      "capLabel": "Jamoa",
+      "caption": "Mijoz bilan har bir shartnoma batafsil muhokama qilinadi."
+    },
+    "services": {
+      "label": "Xizmatlar",
+      "title": "Eksport uchun to'liq xizmatlar to'plami",
+      "lede": "Har bir mijozga individual yondashuv — hujjat tayyorlashdan to'liq rasmiylashtirishgacha."
+    },
+    "process": {
+      "label": "Ish jarayoni",
+      "title": "Uch qadamda yuk chegaradan o'tadi",
+      "step": "Qadam",
+      "steps": {
+        "1": {
+          "title": "Ariza",
+          "desc": "Hujjatlarni yuboring va bepul maslahat oling."
+        },
+        "2": {
+          "title": "Tahlil",
+          "desc": "Mutaxassislarimiz hujjatlarni ko'rib chiqib, kodlarni aniqlaydi."
+        },
+        "3": {
+          "title": "Rasmiylashtirish",
+          "desc": "Deklaratsiya to'ldirilib, bojxona organiga topshiriladi."
+        }
+      }
+    },
+    "products": {
+      "label": "Mahsulotlar",
+      "title": "Har bir mahsulot uchun to'g'ri hujjatlar to'plami",
+      "lede": "Mahsulot turiga qarab bojxona va sertifikat talablarini oldindan bilamiz.",
+      "item": "Mahsulot",
+      "cherry": {
+        "title": "Gilos",
+        "points": [
+          "Tezkor GTD rasmiylashtirish",
+          "Fitosanitar sertifikat",
+          "Sovutgichli transport hujjatlari"
+        ]
+      },
+      "fruits": {
+        "title": "Uzum, o'rik va mevalar",
+        "points": [
+          "Fitosanitar sertifikat",
+          "Kelib chiqish guvohnomasi",
+          "TIF TN kodini aniqlash"
+        ]
+      },
+      "veg": {
+        "title": "Piyoz va sabzavotlar",
+        "points": [
+          "Invoys va packing list",
+          "TIR · SMR hujjatlari",
+          "Katta hajmli yuk deklaratsiyasi"
+        ]
+      }
+    },
+    "results": {
+      "label": "Natijalar",
+      "title": "Raqamlar — to'g'ridan-to'g'ri CRM'dan",
+      "synced": "CRM bilan sinxron",
+      "company": "Kompaniya ko'rsatkichlari"
+    },
+    "tariffs": {
+      "label": "Tariflar",
+      "title": "Biznesingizga mos tarifni tanlang",
+      "tier": "Tarif",
+      "taglines": {
+        "start": "Oddiy eksport uchun",
+        "optimal": "Eng ko'p tanlanadigan",
+        "vip": "To'liq xizmat"
+      }
+    },
+    "contact": {
+      "label": "Aloqa",
+      "title": "Meva va sabzavotlaringizni jahon bozoriga olib chiqing",
+      "lede": "Barcha bojxona ishlarini biz bajaramiz. Siz faqat sifatli mahsulot tayyorlang — qolganini bizga qoldiring.",
+      "phone": "Telefon",
+      "telegram": "Telegram",
+      "write": "Yozish",
+      "address": "Manzil",
+      "addressText": "Farg'ona viloyati, Oltiariq tumani, Mustaqillik ko'chasi, 124",
+      "formKicker": "Bepul maslahat",
+      "formTitle": "So'rov qoldiring",
+      "formSub": "Mutaxassisimiz siz bilan tez orada bog'lanadi."
+    },
+    "blog": {
+      "label": "Blog"
     }
   }
 }

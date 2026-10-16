@@ -1,15 +1,11 @@
 import { useState, type FormEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CheckCircle2, Loader2, Send } from 'lucide-react';
+import { ArrowRight, Check, Loader2 } from 'lucide-react';
 import products from '../../content/products.json';
 import { submitLead, LeadError } from '../api';
 import type { Tariff } from '../utils/contactModal';
 
 type FieldErrors = Partial<Record<'name' | 'phone' | 'product' | 'country' | 'comment', string>>;
-
-const inputClass =
-  'w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 transition-all font-medium text-slate-800 placeholder:text-slate-400';
-const labelClass = 'block text-xs font-bold text-slate-700 uppercase tracking-wide mb-1.5';
 
 /** Kiritilgan qatordan 9 ta mahalliy raqamni ajratadi (+998 prefiksi alohida ko'rsatiladi). */
 function toLocalDigits(raw: string): string {
@@ -23,7 +19,22 @@ function formatLocal(d: string): string {
   return [d.slice(0, 2), d.slice(2, 5), d.slice(5, 7), d.slice(7, 9)].filter(Boolean).join(' ');
 }
 
-export default function LeadForm({ tariff, onClose }: { tariff: Tariff | null; onClose: () => void }) {
+/**
+ * Ariza formasi (dizayn: .field uslubi). `compact` — faqat ism, telefon, mahsulot (bosh sahifa);
+ * aks holda davlat va izoh maydonlari ham bor (modal). `idPrefix` — bir sahifada ikki forma
+ * bo'lganda id'lar to'qnashmasligi uchun.
+ */
+export default function LeadForm({
+  tariff,
+  onClose,
+  compact = false,
+  idPrefix = 'lead',
+}: {
+  tariff: Tariff | null;
+  onClose?: () => void;
+  compact?: boolean;
+  idPrefix?: string;
+}) {
   const { t, i18n } = useTranslation();
   const [name, setName] = useState('');
   const [phoneDigits, setPhoneDigits] = useState('');
@@ -36,6 +47,7 @@ export default function LeadForm({ tariff, onClose }: { tariff: Tariff | null; o
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
   const errorText = (code?: string) => (code ? t(`leadForm.errors.${code}`) : '');
+  const id = (field: string) => `${idPrefix}-${field}`;
 
   function validate(): FieldErrors {
     const e: FieldErrors = {};
@@ -78,55 +90,51 @@ export default function LeadForm({ tariff, onClose }: { tariff: Tariff | null; o
 
   if (status === 'success') {
     return (
-      <div className="py-6 text-center" role="status">
-        <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle2 size={32} />
+      <div className="spanel" role="status" style={{ padding: '24px 0' }}>
+        <div className="ibox" style={{ background: 'var(--blue)', color: '#fff', borderColor: 'var(--blue)' }}>
+          <Check size={26} strokeWidth={2} aria-hidden />
         </div>
-        <h4 className="text-xl font-extrabold text-slate-900 mb-2">{t('leadForm.success.title')}</h4>
-        <p className="text-slate-500 text-sm font-medium mb-6">{t('leadForm.success.desc')}</p>
-        <button
-          type="button"
-          onClick={onClose}
-          className="bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 px-8 rounded-xl text-sm transition-colors"
-        >
-          {t('home.tariffs.close')}
-        </button>
+        <h3 className="serif" style={{ margin: '24px 0 10px', fontSize: 32, lineHeight: 1.15 }}>{t('leadForm.success.title')}</h3>
+        <p style={{ margin: 0, color: 'var(--mut)' }}>{t('leadForm.success.desc')}</p>
+        {onClose && (
+          <button type="button" onClick={onClose} className="btn btn-line-l" style={{ marginTop: 28 }}>
+            {t('home.tariffs.close')}
+          </button>
+        )}
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-4 text-left">
+    <form onSubmit={handleSubmit} noValidate style={{ display: 'grid', gap: 18 }}>
       {tariff && (
-        <p className="text-xs font-bold uppercase tracking-wider text-brand bg-brand/10 rounded-full px-3 py-1.5 inline-block">
+        <p className="mono" style={{ margin: 0, color: 'var(--gold-d)', fontSize: 12 }}>
           {t('leadForm.tariffLabel')}: {t(`home.tariffs.${tariff}.name`)}
         </p>
       )}
 
-      <div>
-        <label htmlFor="lead-name" className={labelClass}>{t('leadForm.name')}</label>
+      <div className="field">
+        <label htmlFor={id('name')}>{t('leadForm.name')}</label>
         <input
-          id="lead-name"
+          id={id('name')}
           type="text"
           autoComplete="name"
           maxLength={100}
           value={name}
           onChange={(e) => setName(e.target.value)}
           aria-invalid={!!errors.name}
-          aria-describedby={errors.name ? 'lead-name-err' : undefined}
-          className={inputClass}
+          aria-describedby={errors.name ? id('name-err') : undefined}
         />
-        {errors.name && <p id="lead-name-err" className="text-red-600 text-xs font-semibold mt-1">{errorText(errors.name)}</p>}
+        {errors.name && <span id={id('name-err')} className="err">{errorText(errors.name)}</span>}
       </div>
 
-      <div>
-        <label htmlFor="lead-phone" className={labelClass}>{t('leadForm.phone')}</label>
-        <div className="flex">
-          <span className="inline-flex items-center px-3 bg-slate-100 border border-r-0 border-slate-200 rounded-l-xl font-bold text-slate-600">
-            +998
-          </span>
+      <div className="field">
+        <label htmlFor={id('phone')}>{t('leadForm.phone')}</label>
+        <div style={{ display: 'flex' }}>
+          <span className="phone-pre">+998</span>
           <input
-            id="lead-phone"
+            id={id('phone')}
+            className="phone-in"
             type="tel"
             inputMode="tel"
             autoComplete="tel-national"
@@ -134,74 +142,64 @@ export default function LeadForm({ tariff, onClose }: { tariff: Tariff | null; o
             value={formatLocal(phoneDigits)}
             onChange={(e) => setPhoneDigits(toLocalDigits(e.target.value))}
             aria-invalid={!!errors.phone}
-            aria-describedby={errors.phone ? 'lead-phone-err' : undefined}
-            className={`${inputClass} rounded-l-none`}
+            aria-describedby={errors.phone ? id('phone-err') : undefined}
           />
         </div>
-        {errors.phone && <p id="lead-phone-err" className="text-red-600 text-xs font-semibold mt-1">{errorText(errors.phone)}</p>}
+        {errors.phone && <span id={id('phone-err')} className="err">{errorText(errors.phone)}</span>}
       </div>
 
-      <div>
-        <label htmlFor="lead-product" className={labelClass}>{t('leadForm.product')}</label>
+      <div className="field">
+        <label htmlFor={id('product')}>{t('leadForm.product')}</label>
         <select
-          id="lead-product"
+          id={id('product')}
           value={product}
           onChange={(e) => setProduct(e.target.value)}
           aria-invalid={!!errors.product}
-          aria-describedby={errors.product ? 'lead-product-err' : undefined}
-          className={inputClass}
+          aria-describedby={errors.product ? id('product-err') : undefined}
         >
           <option value="">{t('leadForm.productPlaceholder')}</option>
           {products.map((p) => (
             <option key={p.key} value={p.key}>{t(`leadForm.products.${p.key}`)}</option>
           ))}
         </select>
-        {errors.product && <p id="lead-product-err" className="text-red-600 text-xs font-semibold mt-1">{errorText(errors.product)}</p>}
+        {errors.product && <span id={id('product-err')} className="err">{errorText(errors.product)}</span>}
       </div>
 
-      <div>
-        <label htmlFor="lead-country" className={labelClass}>{t('leadForm.country')}</label>
-        <input
-          id="lead-country"
-          type="text"
-          autoComplete="country-name"
-          maxLength={80}
-          placeholder={t('leadForm.countryPlaceholder')}
-          value={country}
-          onChange={(e) => setCountry(e.target.value)}
-          className={inputClass}
-        />
-        {errors.country && <p className="text-red-600 text-xs font-semibold mt-1">{errorText(errors.country)}</p>}
-      </div>
+      {!compact && (
+        <>
+          <div className="field">
+            <label htmlFor={id('country')}>{t('leadForm.country')}</label>
+            <input
+              id={id('country')}
+              type="text"
+              autoComplete="country-name"
+              maxLength={80}
+              placeholder={t('leadForm.countryPlaceholder')}
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+            />
+            {errors.country && <span className="err">{errorText(errors.country)}</span>}
+          </div>
 
-      <div>
-        <label htmlFor="lead-comment" className={labelClass}>{t('leadForm.comment')}</label>
-        <textarea
-          id="lead-comment"
-          rows={2}
-          maxLength={1000}
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-          className={`${inputClass} resize-none`}
-        />
-        {errors.comment && <p className="text-red-600 text-xs font-semibold mt-1">{errorText(errors.comment)}</p>}
-      </div>
+          <div className="field">
+            <label htmlFor={id('comment')}>{t('leadForm.comment')}</label>
+            <textarea id={id('comment')} rows={2} maxLength={1000} value={comment} onChange={(e) => setComment(e.target.value)} />
+            {errors.comment && <span className="err">{errorText(errors.comment)}</span>}
+          </div>
+        </>
+      )}
 
       {/* Honeypot: odamlarga ko'rinmaydi, botlar to'ldiradi — server bunday arizani saqlamaydi */}
-      <div aria-hidden="true" className="absolute -left-[9999px] w-px h-px overflow-hidden">
-        <label htmlFor="lead-website">Website</label>
-        <input id="lead-website" type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+      <div aria-hidden="true" style={{ position: 'absolute', left: -9999, width: 1, height: 1, overflow: 'hidden' }}>
+        <label htmlFor={id('website')}>Website</label>
+        <input id={id('website')} type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
       </div>
 
-      {formError && <p className="text-red-600 text-sm font-semibold" role="alert">{formError}</p>}
+      {formError && <p role="alert" style={{ margin: 0, color: '#B3261E', fontSize: 15, fontWeight: 500 }}>{formError}</p>}
 
-      <button
-        type="submit"
-        disabled={status === 'submitting'}
-        className="w-full flex items-center justify-center gap-2 bg-accent hover:bg-accent-light text-brand-dark font-bold py-3.5 px-6 rounded-xl uppercase tracking-wider text-sm transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
-      >
-        {status === 'submitting' ? <Loader2 size={18} className="animate-spin" /> : <Send size={18} />}
+      <button type="submit" disabled={status === 'submitting'} className="btn btn-ink" style={{ marginTop: 6, width: '100%' }}>
         {status === 'submitting' ? t('leadForm.sending') : t('leadForm.submit')}
+        {status === 'submitting' ? <Loader2 size={20} className="animate-spin" aria-hidden /> : <ArrowRight size={20} strokeWidth={1.8} aria-hidden />}
       </button>
     </form>
   );

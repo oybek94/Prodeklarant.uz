@@ -1,6 +1,5 @@
 import { Outlet, Link, useLocation, useNavigate } from 'react-router';
-import { motion, AnimatePresence } from 'motion/react';
-import { Menu, X, Phone, Mail, MapPin, Send, MessageCircle } from 'lucide-react';
+import { Menu, X, Phone, MapPin, Send, MessageCircle, ArrowRight } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
@@ -174,139 +173,105 @@ export default function Layout() {
     <div className="min-h-screen flex flex-col font-sans text-slate-800 bg-white">
       <JsonLd id="json-ld-organization" data={jsonLd} />
       <ContactModal />
-      {/* Top Bar - Official Info */}
-      <div className="bg-brand-dark text-slate-300 text-xs py-2 border-b border-brand-dark/80 hidden md:block">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="flex space-x-6">
-            <a href="tel:+998911187007" className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-              <Phone size={14} className="text-accent" /> +998 91 118 70 07
+
+      {/* Yuqori yordamchi panel: manzil, telefon, til */}
+      <div className="pd" style={{ background: 'var(--deep)', color: 'rgba(255, 255, 255, .78)', fontSize: 14 }}>
+        <div className="wrap" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, minHeight: 42, flexWrap: 'wrap' }}>
+          <span className="util-addr" style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            <MapPin size={16} strokeWidth={1.6} style={{ color: 'var(--gold)' }} aria-hidden />
+            {t('layout.address')}
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 26, marginLeft: 'auto' }}>
+            <a href="tel:+998911187007" className="lnk" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#fff' }}>
+              <Phone size={16} strokeWidth={1.6} style={{ color: 'var(--gold)' }} aria-hidden />
+              +998 91 118 70 07
             </a>
-            <a href="mailto:info@prodeklarant.uz" className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-              <Mail size={14} className="text-accent" /> info@prodeklarant.uz
-            </a>
-            <span className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer">
-              <MapPin size={14} className="text-accent" /> {t('layout.address')}
+            <span style={{ display: 'inline-flex', gap: 14, fontWeight: 500 }}>
+              {LANGUAGES.map(({ code, label }) => (
+                <button
+                  key={code}
+                  type="button"
+                  onClick={() => changeLanguage(code)}
+                  aria-pressed={currentLang === code}
+                  aria-label={label}
+                  lang={code}
+                  className={`lang${currentLang === code ? ' on' : ''}`}
+                >
+                  {code.toUpperCase()}
+                </button>
+              ))}
             </span>
-          </div>
-          <div className="flex space-x-4">
-            {LANGUAGES.map(({ code, label }) => (
-              <button
-                key={code}
-                type="button"
-                onClick={() => changeLanguage(code)}
-                aria-pressed={currentLang === code}
-                lang={code}
-                className={`hover:text-white cursor-pointer transition-colors ${currentLang === code ? 'text-white font-semibold' : 'opacity-70 hover:opacity-100'}`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
+          </span>
         </div>
       </div>
 
-      {/* Main Navbar */}
-      <header className="sticky top-0 z-50 bg-white shadow-md border-b border-slate-100">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center h-20">
-            {/* Logo: 768px palitrali PNG (~6 KB, 4x); width/height haqiqiy nisbatda (4.8:1) — layout shift yo'q */}
-            <Link to={lp('/')} className="flex items-center gap-2 group">
-              <picture>
-                <img src="/logo.png" alt="PRO DEKLARANT - Bojxonadagi ishonchli vakilingiz" width={192} height={40} className="h-10 w-auto object-contain" decoding="async" />
-              </picture>
-            </Link>
+      {/* Asosiy navigatsiya */}
+      <header className="pd hdr">
+        <div className="wrap hdr-row">
+          {/* Logo: 768px palitrali PNG (~6 KB, 4x); width/height haqiqiy nisbatda (4.8:1) — layout shift yo'q */}
+          <Link to={lp('/')} aria-label="PRO DEKLARANT — Bojxonadagi ishonchli vakilingiz">
+            <img src="/logo.png" alt="PRO DEKLARANT" width={192} height={40} style={{ height: 40, width: 'auto' }} decoding="async" />
+          </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8">
+          <nav className="nav-links" aria-label={t('layout.menu')}>
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={lp(link.path)}
+                aria-current={activePath === link.path ? 'page' : undefined}
+                className={`nl${activePath === link.path ? ' on' : ''}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          <button
+            type="button"
+            onClick={() => openContactModal()}
+            className="btn btn-blue nav-cta"
+            style={{ minHeight: 50, padding: '0 26px', fontSize: 16, whiteSpace: 'nowrap' }}
+          >
+            {t('pd.header.cta')} <ArrowRight size={18} strokeWidth={1.8} aria-hidden />
+          </button>
+
+          <button
+            type="button"
+            className="burger"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label={t('layout.menu')}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+        <div className="sprog" />
+
+        {isMenuOpen && (
+          <div id="mobile-menu" className="mnav">
+            <nav aria-label={t('layout.menu')}>
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={lp(link.path)}
-                  className={`text-sm font-semibold uppercase tracking-wide py-2 border-b-2 transition-colors duration-300 ${activePath === link.path
-                    ? 'text-brand border-accent'
-                    : 'text-slate-600 border-transparent hover:text-brand hover:border-brand'
-                    }`}
-                >
+                <Link key={link.path} to={lp(link.path)} className={`ml${activePath === link.path ? ' on' : ''}`}>
                   {link.name}
+                  <ArrowRight size={18} strokeWidth={1.6} aria-hidden />
                 </Link>
               ))}
             </nav>
-
-            {/* CTA Button */}
-            <div className="hidden md:block">
-              <button type="button" onClick={() => openContactModal()} className="bg-accent hover:bg-accent-light text-brand-dark font-bold py-2.5 px-6 rounded-xl transition-all duration-300 uppercase text-xs tracking-wider flex items-center gap-2 shadow-[0_0_10px_rgba(232,168,56,0.3)] hover:shadow-[0_0_20px_rgba(232,168,56,0.6)] hover:-translate-y-1">
-                {t('layout.contactBtn')} <Phone size={14} />
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
             <button
               type="button"
-              className="md:hidden text-slate-900 p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              aria-label={t('layout.menu')}
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
+              onClick={() => {
+                setIsMenuOpen(false);
+                openContactModal();
+              }}
+              className="btn btn-blue"
+              style={{ width: '100%', marginTop: 22 }}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {t('pd.header.cta')} <ArrowRight size={18} strokeWidth={1.8} aria-hidden />
             </button>
           </div>
-        </div>
-      </header>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div
-            id="mobile-menu"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            className="md:hidden fixed top-20 left-0 right-0 bg-white border-b border-slate-200 shadow-md z-40 overflow-hidden"
-          >
-            <nav className="flex flex-col p-4 space-y-4">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={lp(link.path)}
-                  className={`text-base font-medium py-2 px-4 rounded-md transition-colors ${activePath === link.path
-                    ? 'bg-brand/10 text-brand'
-                    : 'text-slate-700 hover:bg-slate-50'
-                    }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-
-              {/* Til almashtirgich — mobil (yuqori panel mobilda yashirin) */}
-              <div className="flex items-center gap-2 pt-4 mt-2 border-t border-slate-100">
-                {LANGUAGES.map(({ code, label }) => (
-                  <button
-                    key={code}
-                    type="button"
-                    onClick={() => changeLanguage(code)}
-                    aria-pressed={currentLang === code}
-                    className={`flex-1 py-2 rounded-lg text-sm font-semibold transition-colors ${currentLang === code
-                      ? 'bg-brand text-white'
-                      : 'bg-slate-50 text-slate-600 hover:bg-slate-100'
-                      }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={() => openContactModal()}
-                className="bg-accent text-brand-dark font-bold py-3 px-4 rounded-xl text-center mt-2 flex items-center justify-center gap-2"
-              >
-                <Phone size={18} /> {t('layout.contactBtn')}
-              </button>
-            </nav>
-          </motion.div>
         )}
-      </AnimatePresence>
+      </header>
 
       {/* Main Content */}
       <main className="flex-grow">
@@ -314,106 +279,64 @@ export default function Layout() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-brand-dark text-slate-300 pt-16 pb-8 border-t-4 border-accent">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            {/* Column 1: About */}
-            <div>
-              <div className="flex items-center gap-2 mb-6">
-                <picture>
-                  <img
-                    src="/logo.png"
-                    alt="PRO DEKLARANT"
-                    width={154}
-                    height={32}
-                    className="h-8 w-auto object-contain brightness-0 invert"
-                    decoding="async"
-                  />
-                </picture>
-              </div>
-              <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                {t('layout.footer.aboutDesc')}
-              </p>
-              <div className="flex space-x-4">
-                <a
-                  href="https://t.me/+998911187007"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Telegram"
-                  className="w-9 h-9 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors"
-                >
-                  <Send size={16} />
-                </a>
-                <a
-                  href="https://wa.me/998911187007"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="WhatsApp"
-                  className="w-9 h-9 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors"
-                >
-                  <MessageCircle size={16} />
-                </a>
-                <a
-                  href="tel:+998911187007"
-                  aria-label={t('contact.modal.call')}
-                  className="w-9 h-9 bg-brand rounded-full flex items-center justify-center hover:bg-accent hover:text-brand-dark transition-colors"
-                >
-                  <Phone size={16} />
-                </a>
-              </div>
-            </div>
-
-            {/* Column 2: Sahifalar — navdagi mavjud sahifalar */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-6 uppercase">{t('layout.footer.pages')}</h3>
-              <ul className="space-y-3 text-sm">
-                {navLinks.map((link) => (
-                  <li key={link.path}>
-                    <Link to={lp(link.path)} className="hover:text-accent transition-colors">
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Column 3: Services — Xizmatlar sahifasidagi nomlar bilan bir xil */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-6 uppercase">{t('layout.footer.services')}</h3>
-              <ul className="space-y-3 text-sm">
-                {(['export', 'import', 'transit', 'certification', 'warehouse', 'consulting'] as const).map((key) => (
-                  <li key={key}>
-                    <Link to={lp(servicePath(key))} className="hover:text-accent transition-colors">
-                      {t(`services.items.${key}.title`)}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Column 4: Contact */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-6 uppercase">{t('layout.footer.contactTitle')}</h3>
-              <ul className="space-y-4 text-sm">
-                <li className="flex items-start gap-3">
-                  <MapPin size={18} className="text-accent mt-0.5 flex-shrink-0" />
-                  <span>{t('layout.footer.address')}</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Phone size={18} className="text-accent flex-shrink-0" />
-                  <a href="tel:+998911187007" className="hover:text-accent transition-colors">+998 91 118 70 07</a>
-                </li>
-                <li className="flex items-center gap-3">
-                  <Mail size={18} className="text-accent flex-shrink-0" />
-                  <a href="mailto:info@prodeklarant.uz" className="hover:text-accent transition-colors">info@prodeklarant.uz</a>
-                </li>
-              </ul>
+      <footer className="pd" style={{ background: '#041224', color: 'rgba(255, 255, 255, .72)', padding: '72px 0 36px', fontSize: 15.5 }}>
+        <div className="wrap" style={{ display: 'flex', flexWrap: 'wrap', gap: '48px 64px', justifyContent: 'space-between' }}>
+          <div style={{ flex: '1.4 1 320px', maxWidth: 420 }}>
+            <img
+              src="/logo.png"
+              alt="PRO DEKLARANT"
+              width={154}
+              height={32}
+              style={{ height: 34, width: 'auto', filter: 'brightness(0) invert(1)' }}
+              decoding="async"
+            />
+            <p style={{ margin: '22px 0 0', lineHeight: 1.65 }}>{t('layout.footer.aboutDesc')}</p>
+            <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
+              <a className="ibox ibox-d" style={{ width: 44, height: 44 }} href="https://t.me/+998911187007" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+                <Send size={18} strokeWidth={1.6} aria-hidden />
+              </a>
+              <a className="ibox ibox-d" style={{ width: 44, height: 44 }} href="https://wa.me/998911187007" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <MessageCircle size={18} strokeWidth={1.6} aria-hidden />
+              </a>
+              <a className="ibox ibox-d" style={{ width: 44, height: 44 }} href="tel:+998911187007" aria-label={t('contact.modal.call')}>
+                <Phone size={18} strokeWidth={1.6} aria-hidden />
+              </a>
             </div>
           </div>
 
-          <div className="border-t border-brand/50 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-500">
-            <p>{t('layout.footer.copyright', { year: new Date().getFullYear() })}</p>
+          <div style={{ flex: '1 1 140px' }}>
+            <div className="mono" style={{ color: 'var(--gold)', marginBottom: 20 }}>{t('layout.footer.pages')}</div>
+            <div style={{ display: 'grid', gap: 10 }}>
+              {navLinks.map((link) => (
+                <Link key={link.path} to={lp(link.path)} className="lnk" style={{ width: 'fit-content' }}>
+                  {link.name}
+                </Link>
+              ))}
+            </div>
           </div>
+
+          <div style={{ flex: '1 1 220px' }}>
+            <div className="mono" style={{ color: 'var(--gold)', marginBottom: 20 }}>{t('layout.footer.services')}</div>
+            <div style={{ display: 'grid', gap: 10 }}>
+              {(['export', 'import', 'transit', 'certification', 'warehouse', 'consulting'] as const).map((key) => (
+                <Link key={key} to={lp(servicePath(key))} className="lnk" style={{ width: 'fit-content' }}>
+                  {t(`services.items.${key}.title`)}
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ flex: '1 1 240px' }}>
+            <div className="mono" style={{ color: 'var(--gold)', marginBottom: 20 }}>{t('layout.footer.contactTitle')}</div>
+            <div style={{ display: 'grid', gap: 12 }}>
+              <a href="tel:+998911187007" style={{ color: '#fff', width: 'fit-content' }}>+998 91 118 70 07</a>
+              <a href="mailto:info@prodeklarant.uz" className="lnk" style={{ width: 'fit-content' }}>info@prodeklarant.uz</a>
+              <span>{t('layout.footer.address')}</span>
+            </div>
+          </div>
+        </div>
+        <div className="wrap" style={{ marginTop: 56, paddingTop: 24, borderTop: '1px solid rgba(255, 255, 255, .12)', fontSize: 14, color: 'rgba(255, 255, 255, .55)' }}>
+          {t('layout.footer.copyright', { year: new Date().getFullYear() })}
         </div>
       </footer>
     </div>

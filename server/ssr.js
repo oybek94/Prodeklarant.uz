@@ -14,6 +14,7 @@ const path = require('path');
 const { pathToFileURL } = require('url');
 const config = require('./config');
 const posts = require('./services/posts');
+const { getSiteStats } = require('./services/siteStats');
 
 const ENTRY = path.join(__dirname, '..', 'dist-ssr', 'entry-server.js');
 const ENABLED = config.SSR_ENABLED;
@@ -51,6 +52,7 @@ async function getRender() {
 const dataContext = {
   listPosts: (limit) => posts.listPosts(limit),
   findPost: (slug) => posts.findPost(slug),
+  getStats: () => getSiteStats(),
 };
 
 /**

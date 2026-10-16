@@ -63,6 +63,10 @@ module.exports = {
   TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
   TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
   CORS_ORIGIN: process.env.CORS_ORIGIN,
+  // Bosh sahifadagi "Raqamlarda" bloki: Prodeklarant CRM'ning jamlangan statistikasi.
+  // Ikkalasi ham bo'lmasa blok saytda ko'rinmaydi (qarang: services/siteStats.js).
+  CRM_STATS_URL: process.env.CRM_STATS_URL,
+  CRM_STATS_KEY: process.env.CRM_STATS_KEY,
   // Server-side render (dist-ssr). Favqulodda holatda SSR=off bilan o'chirish mumkin.
   SSR_ENABLED: String(process.env.SSR || 'on').toLowerCase() !== 'off',
 };

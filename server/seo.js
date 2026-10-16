@@ -211,11 +211,11 @@ function buildSeoBlock({ siteUrl, title, description, canonical, ogType, ogImage
 }
 
 // Bosh sahifa LCP hero rasmi — faqat bosh sahifada preload qilinadi. imagesrcset
-// Home.tsx'dagi hero <source srcSet> bilan AYNAN bir xil bo'lishi shart.
+// components/home/Hero.tsx dagi <Photo id="264537"> (shared.tsx: IMG_WIDTHS) bilan AYNAN bir xil bo'lishi shart.
 const HOME_HERO_PRELOAD = [
-  '<link rel="preload" as="image" fetchpriority="high" href="/images/p1132047-1280.webp"' +
-    ' imagesrcset="/images/p1132047-640.webp 640w, /images/p1132047-960.webp 960w, /images/p1132047-1280.webp 1280w, /images/p1132047-1920.webp 1920w"' +
-    ' imagesizes="100vw" type="image/webp" />',
+  '<link rel="preload" as="image" fetchpriority="high" href="/images/p264537-1280.webp"' +
+    ' imagesrcset="/images/p264537-640.webp 640w, /images/p264537-800.webp 800w, /images/p264537-1280.webp 1280w, /images/p264537-1920.webp 1920w"' +
+    ' imagesizes="(max-width: 1000px) 100vw, 42vw" type="image/webp" />',
 ];
 
 /**

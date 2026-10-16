@@ -485,6 +485,212 @@
     "currency": {
       "UZS": "UZS",
       "USD": "USD"
+    },
+    "stats": {
+      "title": "Our work in numbers",
+      "subtitle": "Figures for the last {{months}} months, calculated automatically from completed work in the Prodeklarant system.",
+      "kpi": {
+        "declarations": "Declarations processed",
+        "declarationsNote": "This month: {{count}}",
+        "cargo": "Cargo exported",
+        "cargoNote": "Net weight from invoices",
+        "countries": "Destination countries",
+        "countriesNote": "Destinations listed in contracts",
+        "clients": "Active clients",
+        "clientsNote": "Clients served in this period"
+      },
+      "unitTonne": "tonnes",
+      "monthlyTitle": "Declarations per month",
+      "legendPast": "Previous months",
+      "legendCurrent": "Current month (incomplete)",
+      "productsTitle": "By product, tonnes",
+      "countriesTitle": "By destination, declarations",
+      "source": "Source: Prodeklarant CRM (tasks, invoices, contracts). Updated: {{date}}. Aggregated data only; client names and amounts are never shown.",
+      "months": {
+        "1": "Jan",
+        "2": "Feb",
+        "3": "Mar",
+        "4": "Apr",
+        "5": "May",
+        "6": "Jun",
+        "7": "Jul",
+        "8": "Aug",
+        "9": "Sep",
+        "10": "Oct",
+        "11": "Nov",
+        "12": "Dec"
+      },
+      "products": {
+        "cherry": "Cherries",
+        "grape": "Grapes",
+        "apricot": "Apricots",
+        "onion": "Onions",
+        "peach": "Peaches",
+        "plum": "Plums",
+        "tomato": "Tomatoes",
+        "apple": "Apples and pears",
+        "citrus": "Citrus",
+        "tropical": "Tropical fruit",
+        "berries": "Berries",
+        "other": "Other"
+      },
+      "countries": {
+        "RU": "Russia",
+        "KZ": "Kazakhstan",
+        "KG": "Kyrgyzstan",
+        "TJ": "Tajikistan",
+        "TM": "Turkmenistan",
+        "BY": "Belarus",
+        "AM": "Armenia",
+        "AZ": "Azerbaijan",
+        "GE": "Georgia",
+        "MD": "Moldova",
+        "UA": "Ukraine",
+        "CN": "China",
+        "TR": "Türkiye",
+        "IR": "Iran",
+        "IN": "India",
+        "PK": "Pakistan",
+        "AF": "Afghanistan",
+        "MN": "Mongolia",
+        "KR": "South Korea",
+        "AE": "UAE",
+        "DE": "Germany",
+        "PL": "Poland",
+        "LT": "Lithuania",
+        "LV": "Latvia",
+        "EE": "Estonia",
+        "other": "Other"
+      }
+    }
+  },
+  "pd": {
+    "header": {
+      "cta": "Get advice"
+    },
+    "hero": {
+      "kicker": "Export customs broker · Fergana",
+      "l1": "Customs clearance",
+      "l2": "for fruit and vegetable",
+      "l3": "exports",
+      "lead": "We prepare declarations, phytosanitary certificates and cargo documents — fully compliant, fast and error-free. You focus on the produce; the paperwork is ours.",
+      "cta": "Free consultation",
+      "photoAlt": "Fresh harvest — fruit and vegetable market",
+      "card": {
+        "title": "Document control",
+        "gtd": "Declaration (GTD)",
+        "phyto": "Phytosanitary certificate",
+        "tir": "TIR · SMR",
+        "ready": "Ready"
+      },
+      "trust": {
+        "legal": {
+          "title": "Legal assurance",
+          "desc": "Fully compliant with the law"
+        },
+        "online": {
+          "title": "24/7 online",
+          "desc": "Declaration filing"
+        },
+        "global": {
+          "title": "International markets",
+          "desc": "Russia, Europe, Asia"
+        }
+      }
+    },
+    "why": {
+      "label": "Advantages",
+      "title": "Why exporters choose us",
+      "lede": "We run the customs process for you: documents, certificates and declaration — one team, one responsibility.",
+      "photoAlt": "The Pro Deklarant team meeting clients",
+      "capLabel": "Team",
+      "caption": "Every contract is discussed with the client in detail."
+    },
+    "services": {
+      "label": "Services",
+      "title": "A complete set of export services",
+      "lede": "An individual approach to every client — from preparing documents to full clearance."
+    },
+    "process": {
+      "label": "How it works",
+      "title": "Cargo crosses the border in three steps",
+      "step": "Step",
+      "steps": {
+        "1": {
+          "title": "Request",
+          "desc": "Send your documents and get a free consultation."
+        },
+        "2": {
+          "title": "Review",
+          "desc": "Our specialists review the documents and determine the codes."
+        },
+        "3": {
+          "title": "Clearance",
+          "desc": "The declaration is completed and filed with the customs authority."
+        }
+      }
+    },
+    "products": {
+      "label": "Products",
+      "title": "The right document set for every product",
+      "lede": "We know the customs and certification requirements for each type of produce in advance.",
+      "item": "Product",
+      "cherry": {
+        "title": "Cherries",
+        "points": [
+          "Fast declaration clearance",
+          "Phytosanitary certificate",
+          "Refrigerated transport documents"
+        ]
+      },
+      "fruits": {
+        "title": "Grapes, apricots and other fruit",
+        "points": [
+          "Phytosanitary certificate",
+          "Certificate of origin",
+          "HS code determination"
+        ]
+      },
+      "veg": {
+        "title": "Onions and vegetables",
+        "points": [
+          "Invoice and packing list",
+          "TIR · SMR documents",
+          "Large-volume cargo declaration"
+        ]
+      }
+    },
+    "results": {
+      "label": "Results",
+      "title": "Numbers — straight from the CRM",
+      "synced": "Synced with CRM",
+      "company": "Company figures"
+    },
+    "tariffs": {
+      "label": "Tariffs",
+      "title": "Choose the plan that fits your business",
+      "tier": "Plan",
+      "taglines": {
+        "start": "For simple exports",
+        "optimal": "Most popular",
+        "vip": "Full service"
+      }
+    },
+    "contact": {
+      "label": "Contact",
+      "title": "Take your fruit and vegetables to the world market",
+      "lede": "We handle all customs work. You just grow quality produce — leave the rest to us.",
+      "phone": "Phone",
+      "telegram": "Telegram",
+      "write": "Message us",
+      "address": "Address",
+      "addressText": "Fergana region, Oltiariq district, 124 Mustaqillik street",
+      "formKicker": "Free consultation",
+      "formTitle": "Leave a request",
+      "formSub": "Our specialist will contact you shortly."
+    },
+    "blog": {
+      "label": "Blog"
     }
   }
 }
