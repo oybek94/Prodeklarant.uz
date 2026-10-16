@@ -622,9 +622,13 @@
       "photoAlt": "Fresh harvest — fruit and vegetable market",
       "card": {
         "title": "Document control",
-        "gtd": "Declaration (GTD)",
-        "phyto": "Phytosanitary certificate",
-        "tir": "TIR · SMR",
+        "invoice": "Invoice",
+        "packing": "Packing list",
+        "certs": "Required certificates",
+        "tir": "TIR CARNET / CMR",
+        "analysis": "Document check",
+        "declaration": "Declaration",
+        "submit": "Document submission",
         "ready": "Ready"
       },
       "trust": {

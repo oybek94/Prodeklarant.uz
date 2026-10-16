@@ -1,13 +1,17 @@
 import { Link } from 'react-router';
-import { ArrowRight, BadgeCheck, Clock, FileCheck2, Globe, ShieldCheck, Truck } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Clock, FileCheck2, FlaskConical, Globe, Package, Receipt, Send, ShieldCheck, Truck } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../../utils/locale';
 import { Photo } from './shared';
 
 const DOC_ROWS = [
-  { icon: FileCheck2, key: 'gtd', delay: '1.9s' },
-  { icon: BadgeCheck, key: 'phyto', delay: '2.4s' },
-  { icon: Truck, key: 'tir', delay: '2.9s' },
+  { icon: Receipt, key: 'invoice', delay: '1.9s' },
+  { icon: Package, key: 'packing', delay: '2.3s' },
+  { icon: BadgeCheck, key: 'certs', delay: '2.7s' },
+  { icon: Truck, key: 'tir', delay: '3.1s' },
+  { icon: FlaskConical, key: 'analysis', delay: '3.5s' },
+  { icon: FileCheck2, key: 'declaration', delay: '3.9s' },
+  { icon: Send, key: 'submit', delay: '4.3s' },
 ] as const;
 
 const TRUST = [
@@ -36,13 +40,13 @@ export default function Hero() {
           {DOC_ROWS.map((row, i) => (
             <div
               key={row.key}
-              style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '15px 20px', borderBottom: i < DOC_ROWS.length - 1 ? '1px solid var(--line)' : undefined }}
+              style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '11px 20px', borderBottom: i < DOC_ROWS.length - 1 ? '1px solid var(--line)' : undefined }}
             >
               <row.icon size={22} strokeWidth={1.6} style={{ color: 'var(--blue)', flex: 'none' }} aria-hidden />
               <span style={{ fontWeight: 500, flex: 1 }}>{t(`pd.hero.card.${row.key}`)}</span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 6, color: '#17783F', fontSize: 14, fontWeight: 600 }}>
                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                  <path className="tk" pathLength={1} style={{ animationDelay: row.delay }} d="M20 6 9 17l-5-5" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+                  <path className="tk" pathLength={1} style={{ animationDelay: row.delay }} d="M4 12l5 5L20 6" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
                 {t('pd.hero.card.ready')}
               </span>

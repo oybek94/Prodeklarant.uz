@@ -622,9 +622,13 @@
       "photoAlt": "Yangi hosil — meva va sabzavotlar bozori",
       "card": {
         "title": "Hujjatlar nazorati",
-        "gtd": "Deklaratsiya (GTD)",
-        "phyto": "Fitosanitar sertifikat",
-        "tir": "TIR · SMR",
+        "invoice": "Invoice",
+        "packing": "Qadoq listi",
+        "certs": "Kerakli sertifikatlar",
+        "tir": "TIR CARNET / CMR",
+        "analysis": "Hujjatlarni tekshirish",
+        "declaration": "Deklaratsiya",
+        "submit": "Hujjatlarni topshirish",
         "ready": "Tayyor"
       },
       "trust": {

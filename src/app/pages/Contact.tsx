@@ -104,7 +104,7 @@ export default function Contact() {
 
       {/* Main Content Area */}
       <section className="py-20 relative -mt-10 md:-mt-20 z-20">
-        <div className="container mx-auto px-4 max-w-7xl">
+        <div className="container mx-auto px-4 max-w-[1520px]">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12">
 
             {/* Contact Info Sidebar */}

@@ -99,7 +99,7 @@ export default function Services() {
         <div className="absolute right-0 top-0 w-[500px] h-[500px] bg-brand/5 rounded-full blur-[100px] pointer-events-none"></div>
         <div className="absolute left-0 bottom-40 w-[400px] h-[400px] bg-accent/10 rounded-full blur-[80px] pointer-events-none"></div>
 
-        <div className="container mx-auto px-4 relative z-10 max-w-7xl">
+        <div className="container mx-auto px-4 relative z-10 max-w-[1520px]">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {services.map((service, index) => (
               <motion.div
