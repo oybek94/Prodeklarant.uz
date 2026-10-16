@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import type { HomeData } from '../data';
 import { fallbackBlogImage } from '../utils/blogImages';
 import Testimonials from '../components/Testimonials';
-import ProductsDestinations from '../components/ProductsDestinations';
 import Hero from '../components/home/Hero';
 import Partners from '../components/home/Partners';
 import Why from '../components/home/Why';
@@ -45,8 +44,7 @@ export default function Home() {
       <Results stats={stats} />
       <Tariffs />
 
-      {/* site-data.json'dan: mahsulotlar/yo'nalishlar va mijozlar fikri — bo'sh bo'lsa chizilmaydi */}
-      <ProductsDestinations />
+      {/* site-data.json'dan: mijozlar fikri — bo'sh bo'lsa chizilmaydi */}
       <Testimonials />
 
       {/* Maqola bo'lmasa blok chizilmaydi; raqamlash shunga moslashadi */}
