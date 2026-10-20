@@ -562,6 +562,8 @@ html:has(.pd-home) { scroll-behavior: smooth; }
 .pd .bp-shr:hover { background: var(--ink); color: #fff; border-color: var(--ink); }
 .pd .bp-art { min-width: 0; font-family: 'Source Serif 4', Georgia, serif; font-size: 20px; line-height: 1.78; color: #24344A; overflow-wrap: anywhere; }
 .pd .bp-art p { margin: 0 0 1.5em; }
+.pd .bp-art p, .pd .bp-art li { text-align: justify; text-justify: inter-word; hyphens: auto; }
+.pd .bp-art blockquote p { text-align: left; }
 .pd .bp-art strong { font-weight: 600; color: var(--ink); }
 .pd .bp-art a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
 .pd .bp-art h1, .pd .bp-art h2, .pd .bp-art h3, .pd .bp-art h4 { color: var(--ink); font-weight: 600; letter-spacing: -.012em; }
