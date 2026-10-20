@@ -80,10 +80,14 @@
 .pd .why-ph { height: clamp(260px, 30vw, 420px); }
 .pd .why-cap { position: absolute; left: 0; bottom: 0; max-width: 520px; display: flex; gap: 14px; align-items: baseline; padding: 20px 28px; background: var(--ink); color: #fff; font-size: 15px; line-height: 1.45; }
 .pd .why-grid { display: flex; flex-wrap: wrap; gap: 24px; }
-.pd .why-card { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 24px; padding: 36px 32px 40px; background: #fff; border: 1px solid var(--line); transition: transform .4s cubic-bezier(.2, .8, .2, 1), box-shadow .4s; }
+.pd .why-card { flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 24px; padding: 36px 32px 40px; background: #fff; border: 1px solid var(--line); transition: transform .7s cubic-bezier(.22, 1, .36, 1), box-shadow .7s cubic-bezier(.22, 1, .36, 1), border-color .7s ease; will-change: transform; }
 .pd .why-card p { color: var(--mut); }
-.pd .why-card:hover { transform: translateY(-6px); box-shadow: 0 28px 40px -28px rgba(6, 27, 51, .45); }
+.pd .why-card .ibox { transition-duration: .7s; transition-timing-function: cubic-bezier(.22, 1, .36, 1); }
+.pd .why-num { transition: color .7s ease; }
+.pd .why-card:hover { transform: translateY(-4px); box-shadow: 0 26px 44px -28px rgba(6, 27, 51, .3); border-color: #B9C5D6; }
 .pd .why-card:hover .ibox { background: var(--blue); color: #fff; border-color: var(--blue); }
+.pd .why-card:hover .why-num { color: #B9C5D6; }
+@media (prefers-reduced-motion: reduce) { .pd .why-card, .pd .why-card .ibox, .pd .why-num { transition: none; } .pd .why-card:hover { transform: none; } }
 .pd .why-ibox { width: 56px; height: 56px; }
 .pd .why-top { display: flex; justify-content: space-between; align-items: flex-start; }
 .pd .why-num { font-size: 64px; line-height: 1; color: var(--line); }
@@ -92,6 +96,8 @@
 .pd .why-card-d .ibox { border-color: rgba(255, 255, 255, .28); color: var(--gold); background: transparent; }
 .pd .why-card-d:hover .ibox { background: var(--gold); color: var(--deep); border-color: var(--gold); }
 .pd .why-card-d .why-num { color: rgba(255, 255, 255, .28); }
+.pd .why-card-d:hover { border-color: var(--ink); box-shadow: 0 26px 44px -28px rgba(6, 27, 51, .55); }
+.pd .why-card-d:hover .why-num { color: rgba(255, 255, 255, .45); }
 
 /* ---------- Xizmatlar (ServicesPicker) ---------- */
 .pd .xz-wrap { display: flex; flex-wrap: wrap; align-items: stretch; border: 1px solid var(--xz-line, rgba(255, 255, 255, .16)); }
@@ -131,12 +137,12 @@
 .pd .pr-col { flex: 1 1 340px; min-width: 0; }
 .pd .pr-track { position: relative; height: 11px; }
 .pd .pr-track::before { content: ""; position: absolute; top: 5px; left: 0; right: 0; height: 1px; background: rgba(255, 255, 255, .2); }
-.pd .pr-fill { position: absolute; top: 5px; left: 0; right: 0; height: 1px; background: var(--gold); transform-origin: left; animation: 24s linear infinite both; }
-.pd .pr-dia { position: absolute; top: 0; left: 0; width: 11px; height: 11px; box-sizing: border-box; border: 1px solid var(--gold); background: var(--deep); transform: rotate(45deg); animation: 24s step-end infinite both; }
+.pd .pr-fill { position: absolute; top: 5px; left: 0; right: 0; height: 1px; background: var(--gold); transform-origin: left; animation-duration: 24s; animation-timing-function: linear; animation-iteration-count: infinite; animation-fill-mode: both; }
+.pd .pr-dia { position: absolute; top: 0; left: 0; width: 11px; height: 11px; box-sizing: border-box; border: 1px solid var(--gold); background: var(--deep); transform: rotate(45deg); animation-duration: 24s; animation-timing-function: step-end; animation-iteration-count: infinite; animation-fill-mode: both; }
 .pd .pr-body { padding: 22px 40px 0 0; }
 .pd .pr-body h3 { margin: 10px 0 24px; font-size: 28px; line-height: 1.2; }
 .pd .pr-list { list-style: none; margin: 0; padding: 0; }
-.pd .pr-task { display: flex; gap: 18px; align-items: stretch; animation: 24s linear infinite both; }
+.pd .pr-task { display: flex; gap: 18px; align-items: stretch; animation-duration: 24s; animation-timing-function: linear; animation-iteration-count: infinite; animation-fill-mode: both; }
 .pd .pr-left { flex: none; display: flex; flex-direction: column; align-items: center; }
 .pd .pr-ico { position: relative; width: 44px; height: 44px; }
 .pd .pr-ico > svg:first-child { position: absolute; left: 0; top: 0; }

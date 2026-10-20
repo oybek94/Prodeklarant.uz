@@ -332,6 +332,17 @@ Serverni yangilaganda (git pull) `node_modules` ni Windows’dan nusxalamang —
 
 ## Keyingi deploylar (kod yangilanganda)
 
+**Tavsiya etilgan yo'l — `scripts/deploy.sh`** (lokal build, serverga yuklash, `pm2 restart`, tekshiruv; xato bo'lsa eski build avtomatik qaytadi). Serverda `vite`/`sharp` o'rnatilmagan va RAM kam, shuning uchun build lokalda qilinadi:
+
+```bash
+# oldin o'zgarishlarni commit qilib, main'ga push qiling
+DEPLOY_HOST=root@<server-ip> bash scripts/deploy.sh
+```
+
+Sozlamalarni `scripts/deploy.env` ga ham yozish mumkin (gitignore'da): `DEPLOY_HOST`, `DEPLOY_KEY`, `DEPLOY_DIR`, `DEPLOY_PM2`, `SITE_URL`.
+
+Quyida — serverda qo'lda yangilash usuli:
+
 Kodni yangilangach (git pull yoki fayllarni almashtirgach), serverda:
 
 ```bash
