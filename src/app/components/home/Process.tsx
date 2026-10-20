@@ -9,14 +9,14 @@ const STEPS: { n: 1 | 2 | 3; icons: LucideIcon[] }[] = [
   { n: 3, icons: [Truck] },
 ];
 
-export default function Process() {
+export default function Process({ num = '03' }: { num?: string }) {
   const { t } = useTranslation();
   let taskNo = 0; // CSS animatsiyasi vazifalarni 0..7 tartibida ketma-ket bajaradi (.pr-t0 … .pr-t7)
   return (
     <section className="pr-sec">
       <div className="wrap">
         <div className="rv">
-          <SectionLabel num="03" dark>{t('pd.process.label')}</SectionLabel>
+          <SectionLabel num={num} dark>{t('pd.process.label')}</SectionLabel>
           <h2 className="serif h2 h2-d" style={{ maxWidth: 'none' }}>{t('pd.process.title')}</h2>
         </div>
         <div className="pr-grid">

@@ -195,6 +195,7 @@
   "services": {
     "title": "Bizning Xizmatlar",
     "subtitle": "Biznesingiz uchun to'liq bojxona va logistika yechimlari. Har bir mijozga individual yondashuv.",
+    "count": "{{count}} ta yo'nalish",
     "items": {
       "export": {
         "title": "Eksport bojxona rasmiylashtiruvi",

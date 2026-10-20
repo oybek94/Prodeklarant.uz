@@ -195,6 +195,7 @@
   "services": {
     "title": "Our Services",
     "subtitle": "Complete customs and logistics solutions for your business. Individual approach to each client.",
+    "count": "{{count}} services",
     "items": {
       "export": {
         "title": "Export Customs Clearance",

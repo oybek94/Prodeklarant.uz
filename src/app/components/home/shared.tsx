@@ -52,10 +52,10 @@ export function Photo({
 }
 
 /** "01 — Afzalliklar" yorlig'i (qoida chizig'i scroll bilan chiziladi) */
-export function SectionLabel({ num, children, dark = false }: { num: string; children: ReactNode; dark?: boolean }) {
+export function SectionLabel({ num, children, dark = false }: { num?: string; children: ReactNode; dark?: boolean }) {
   return (
     <div className={`mono lab${dark ? ' lab-d' : ''}`} style={dark ? { color: 'var(--gold)' } : undefined}>
-      <span className="num">{num}</span>
+      {num && <span className="num">{num}</span>}
       <span className="rule rule-s" />
       {children}
     </div>
