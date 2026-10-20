@@ -20,7 +20,7 @@ export type DataContext = {
 export type PostSummary = Omit<BlogPost, 'body'>;
 export type PostsData = { posts: PostSummary[] };
 export type HomeData = PostsData & { stats: SiteStats | null };
-export type PostData = { post: BlogPost | null };
+export type PostData = { post: BlogPost | null; related: PostSummary[] };
 
 function serverData(context: unknown): DataContext | null {
   const c = context as Partial<DataContext> | null | undefined;
@@ -59,14 +59,22 @@ export function blogLoader({ context }: LoaderFunctionArgs): Promise<PostsData> 
 
 export async function blogPostLoader({ context, params }: LoaderFunctionArgs): Promise<PostData> {
   const slug = String(params.slug || '').trim().toLowerCase();
-  if (!slug) return { post: null };
+  if (!slug) return { post: null, related: [] };
   try {
     const server = serverData(context);
-    if (server) return { post: await server.findPost(slug) };
-    // Eski format: "<id>-..." → id bo'yicha
-    const legacy = slug.match(/^(\d+)-(.+)$/);
-    return { post: legacy ? await getPost(Number(legacy[1])) : await getPostBySlug(slug) };
+    let post: BlogPost | null;
+    if (server) {
+      post = await server.findPost(slug);
+    } else {
+      // Eski format: "<id>-..." → id bo'yicha
+      const legacy = slug.match(/^(\d+)-(.+)$/);
+      post = legacy ? await getPost(Number(legacy[1])) : await getPostBySlug(slug);
+    }
+    if (!post) return { post: null, related: [] };
+    // "O'xshash maqolalar": joriy maqoladan boshqa eng yangi 2 tasi
+    const { posts } = await loadPosts(context, 4);
+    return { post, related: posts.filter((p) => p.id !== post!.id).slice(0, 2) };
   } catch {
-    return { post: null };
+    return { post: null, related: [] };
   }
 }

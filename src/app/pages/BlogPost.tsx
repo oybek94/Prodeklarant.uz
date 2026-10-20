@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLoaderData } from 'react-router';
-import { ArrowLeft, Calendar, User, Tag, Share2, Eye } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Eye, Share2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -8,12 +8,13 @@ import { incrementView } from '../api';
 import type { PostData } from '../data';
 import { useLocalePath, withLocale, type Locale } from '../utils/locale';
 import { fallbackBlogImage } from '../utils/blogImages';
+import { blogPostPath } from '../utils/slugify';
 
 export default function BlogPost() {
   const { t, i18n } = useTranslation();
   const lp = useLocalePath();
   // Loader (data.ts: blogPostLoader) — serverda DB'dan, brauzerda /api orqali
-  const { post } = useLoaderData() as PostData;
+  const { post, related } = useLoaderData() as PostData;
   const [sharedFeedback, setSharedFeedback] = useState(false);
   const lang = (i18n.language?.split('-')[0] || 'uz') as 'uz' | 'ru' | 'en';
 
@@ -131,10 +132,10 @@ export default function BlogPost() {
 
   if (!post) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-50">
-        <h1 className="text-4xl font-bold text-slate-900 mb-4">{t('blogPost.notFound')}</h1>
-        <Link to={lp('/blog')} className="text-brand font-bold hover:underline flex items-center gap-2">
-          <ArrowLeft size={20} /> {t('blogPost.back')}
+      <div className="pd bp-nf">
+        <h1 className="serif">{t('blogPost.notFound')}</h1>
+        <Link to={lp('/blog')} className="bp-back">
+          <ArrowLeft size={18} aria-hidden /> {t('blogPost.back')}
         </Link>
       </div>
     );
@@ -145,6 +146,8 @@ export default function BlogPost() {
   const category = post.category[lang];
   const body = post.body[lang];
   const image = post.image || fallbackBlogImage(post.id);
+  const author = post.author || 'Prodeklarant';
+  const initials = author.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
 
   const handleShare = async () => {
     const url = window.location.href;
@@ -175,59 +178,103 @@ export default function BlogPost() {
     }
   }
 
+  const shareBtn = (
+    <button type="button" className="bp-shr" onClick={handleShare} title={t('blogPost.share')} aria-label={t('blogPost.share')}>
+      <Share2 size={20} strokeWidth={1.8} aria-hidden />
+    </button>
+  );
+
   return (
-    <div className="bg-white min-h-screen pb-20">
-      <div className="h-[400px] relative">
-        <img src={image} alt={title} width={1200} height={600} className="absolute inset-0 w-full h-full object-cover" loading="eager" decoding="async" />
-        <div className="absolute inset-0 bg-brand-dark/50"></div>
-        <div className="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-brand-dark to-transparent">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <Link to={lp('/blog')} className="text-accent hover:text-white mb-4 inline-flex items-center gap-2 font-bold uppercase text-xs tracking-wider transition-colors">
-              <ArrowLeft size={16} /> {t('blogPost.back')}
-            </Link>
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight max-w-4xl">{title}</h1>
-            <div className="flex flex-wrap gap-6 text-white text-sm font-medium">
-              <span className="flex items-center gap-2"><Calendar size={16} className="text-accent" /> {post.date}</span>
-              <span className="flex items-center gap-2"><User size={16} className="text-accent" /> {post.author || 'Prodeklarant'}</span>
-              <span className="flex items-center gap-2"><Tag size={16} className="text-accent" /> {category}</span>
-              <span className="flex items-center gap-2"><Eye size={16} className="text-accent" /> {post.views ?? 0} {t('blogPost.views')}</span>
-            </div>
+    <div className="pd bp">
+      <div className="bp-top">
+        <div className="bp-w">
+          <Link to={lp('/blog')} className="bp-back">
+            <ArrowLeft size={18} strokeWidth={2} aria-hidden /> {t('blogPost.back')}
+          </Link>
+        </div>
+      </div>
+
+      <header className="bp-head">
+        <div className="bp-hin">
+          <div className="bp-meta">
+            <span className="mono bp-cat">{category}</span>
+            <span className="mono bp-date">{post.date}</span>
+          </div>
+          <h1 className="serif bp-h1">{title}</h1>
+          {excerpt && <p className="bp-lede">{excerpt}</p>}
+          <div className="bp-by">
+            <span className="bp-au"><span className="bp-av mono" aria-hidden>{initials}</span>{author}</span>
+            <span className="bp-vw"><Eye size={18} strokeWidth={1.8} aria-hidden />{post.views ?? 0} {t('blogPost.views')}</span>
+          </div>
+        </div>
+      </header>
+
+      <div className="bp-cover">
+        <div className="bp-w">
+          <div className="bp-cimg">
+            <img src={image} alt={title} width={1200} height={600} loading="eager" decoding="async" />
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-4xl mx-auto">
-          <article className="markdown-body">
-            <p className="lead text-xl font-medium text-slate-900 mb-8 italic border-l-4 border-accent pl-4">{excerpt}</p>
+      <div className="bp-main">
+        <div className="bp-w bp-grid">
+          <div className="bp-railc">
+            <div className="bp-rail">
+              <span className="mono bp-rl">{t('blogPost.share')}</span>
+              {shareBtn}
+            </div>
+          </div>
+
+          <article className="bp-art">
             {body ? (
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {body}
-              </ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
             ) : (
               <p>{t('blogPost.quote')}</p>
             )}
-          </article>
-          <div className="mt-12 pt-8 border-t border-slate-200 flex items-center justify-between">
-            <span className="font-bold text-slate-900 uppercase text-sm">{t('blogPost.share')}</span>
-            <div className="flex items-center gap-3">
-              {sharedFeedback && (
-                <span className="text-sm text-green-600 font-medium">
-                  {t('blogPost.linkCopied')}
-                </span>
-              )}
-              <button
-                type="button"
-                onClick={handleShare}
-                className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-brand hover:text-white transition-colors"
-                title={t('blogPost.share')}
-              >
-                <Share2 size={18} />
-              </button>
+            <div className="bp-end">
+              <span className="mono bp-rl">{t('blogPost.share')}</span>
+              <div className="bp-endr">
+                {sharedFeedback && <span className="bp-ok" role="status">{t('blogPost.linkCopied')}</span>}
+                {shareBtn}
+              </div>
             </div>
-          </div>
+          </article>
+
+          <div className="bp-railc" />
         </div>
       </div>
+
+      {related && related.length > 0 && (
+        <section className="bp-rel">
+          <div className="bp-w">
+            <div className="bp-kick">
+              <span className="bp-kick-l" />
+              <span className="mono">{t('pd.blog.label')}</span>
+            </div>
+            <h2 className="serif bp-rh">{t('blogPost.related')}</h2>
+            <div className="bp-cards">
+              {related.map((p) => (
+                <article key={p.id} className="bp-pc">
+                  <div className="bp-pph">
+                    <img src={p.image || fallbackBlogImage(p.id)} alt={p.title[lang]} loading="lazy" decoding="async" />
+                  </div>
+                  <div className="bp-pm">
+                    <span className="mono bp-cat">{p.category[lang]}</span>
+                    <span className="mono bp-date">{p.date}</span>
+                  </div>
+                  <h3 className="serif bp-pt">
+                    <Link to={lp(blogPostPath({ id: p.id, slug: p.slug }))}>{p.title[lang]}</Link>
+                  </h3>
+                  <span className="bp-rd">
+                    {t('blog.readMore')} <ArrowRight size={16} aria-hidden />
+                  </span>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
