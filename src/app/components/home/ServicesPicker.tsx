@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useLocalePath } from '../../utils/locale';
 import { servicePath } from '../../utils/services';
-import { Photo, SectionLabel, TickRow } from './shared';
+import { Photo, SectionLabel, TickRow, type CssVars } from './shared';
 
 const SERVICES = [
   { key: 'export', photo: '264537' },
@@ -24,15 +24,30 @@ export default function ServicesPicker() {
   const pad = (n: number) => String(n).padStart(2, '0');
 
   return (
-    <section id="services" style={{ background: '#fff', padding: '120px 0' }}>
-      <div className="wrap">
-        <div className="rv">
-          <SectionLabel num="02">{t('pd.services.label')}</SectionLabel>
-          <h2 className="serif h2">{t('pd.services.title')}</h2>
-          <p className="lede">{t('pd.services.lede')}</p>
+    <section
+      id="services"
+      style={{
+        position: 'relative',
+        background: '#fff',
+        color: 'var(--ink)',
+        padding: '120px 0',
+        '--xz-line': 'var(--line)',
+        '--xz-row': 'var(--mut)',
+        '--xz-n': 'var(--gold-d)',
+        '--xz-hover': '#E8EDF4',
+      } as CssVars}
+    >
+      <div aria-hidden style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'var(--gold)', opacity: 0.6 }} />
+      <div className="wrap" style={{ display: 'flex', flexDirection: 'column', gap: 64 }}>
+        <div className="rv" style={{ display: 'flex', flexWrap: 'wrap', gap: '32px 80px', alignItems: 'flex-end', justifyContent: 'space-between' }}>
+          <div style={{ flex: '1 1 560px', minWidth: 0 }}>
+            <SectionLabel num="02">{t('pd.services.label')}</SectionLabel>
+            <h2 className="serif h2" style={{ maxWidth: 820 }}>{t('pd.services.title')}</h2>
+          </div>
+          <p className="lede"style={{ flex: '1 1 360px', maxWidth: 480, margin: 0 }}>{t('pd.services.lede')}</p>
         </div>
-        <div style={{ marginTop: 60, display: 'flex', flexWrap: 'wrap', gap: 0, border: '1px solid var(--line)', alignItems: 'stretch' }}>
-          <div role="tablist" aria-orientation="vertical" style={{ flex: '1 1 380px', minWidth: 0, background: 'var(--paper)', borderRight: '1px solid var(--line)' }}>
+        <div className="xz-wrap">
+          <div className="xz-list" role="tablist" aria-orientation="vertical">
             {SERVICES.map((s, i) => (
               <button
                 key={s.key}
@@ -41,29 +56,32 @@ export default function ServicesPicker() {
                 id={`svc-tab-${s.key}`}
                 aria-selected={sel === i}
                 aria-controls="svc-panel"
-                className={`srow${sel === i ? ' on' : ''}`}
+                className={`xz-row${sel === i ? ' on' : ''}`}
                 onClick={() => setSel(i)}
               >
                 <span className="mono n">{pad(i + 1)}</span>
-                <span>{t(`services.items.${s.key}.title`)}</span>
-                <ArrowRight className="arr" size={20} strokeWidth={1.8} aria-hidden />
+                <span className="serif t">{t(`services.items.${s.key}.title`)}</span>
+                <ArrowRight className="arr" size={22} strokeWidth={1.6} aria-hidden />
               </button>
             ))}
           </div>
-          <div id="svc-panel" role="tabpanel" aria-labelledby={`svc-tab-${active.key}`} style={{ flex: '1.5 1 560px', minWidth: 0, background: '#fff' }}>
-            <div className="spanel" key={active.key}>
-              <div className="im ph" style={{ aspectRatio: '16 / 8' }}>
-                <Photo id={active.photo} alt={t(`services.items.${active.key}.title`)} sizes="(max-width: 1000px) 100vw, 720px" />
+          <div id="svc-panel" className="xz-panel" role="tabpanel" aria-labelledby={`svc-tab-${active.key}`}>
+            <div className="spanel" key={active.key} style={{ display: 'flex', flexDirection: 'column', flex: '1 1 auto' }}>
+              <div className="im ph xz-ph">
+                <Photo id={active.photo} alt={t(`services.items.${active.key}.title`)} sizes="(max-width: 1000px) 100vw, 800px" />
+                <span className="serif xz-big" aria-hidden>{pad(sel + 1)}</span>
               </div>
-              <div className="tx" style={{ padding: '36px 40px 40px' }}>
-                <div className="mono" style={{ color: 'var(--gold-d)' }}>{pad(sel + 1)} / {pad(SERVICES.length)}</div>
-                <h3 className="serif" style={{ margin: '12px 0 0', fontSize: 34, lineHeight: 1.15 }}>{t(`services.items.${active.key}.title`)}</h3>
-                <p style={{ margin: '14px 0 22px', color: 'var(--mut)', maxWidth: 560 }}>{t(`services.items.${active.key}.desc`)}</p>
-                {Array.isArray(features) &&
-                  features.map((f, i) => (
-                    <TickRow key={f} size={20} last={i === features.length - 1}>{f}</TickRow>
-                  ))}
-                <Link className="lnk" to={lp(servicePath(active.key))} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, marginTop: 26, fontWeight: 600, color: 'var(--blue)' }}>
+              <div className="tx xz-body">
+                <div className="mono" style={{ color: 'var(--gold)' }}>{pad(sel + 1)} / {pad(SERVICES.length)}</div>
+                <h3 className="serif" style={{ margin: 0, fontSize: 38, lineHeight: 1.15 }}>{t(`services.items.${active.key}.title`)}</h3>
+                <p>{t(`services.items.${active.key}.desc`)}</p>
+                <div>
+                  {Array.isArray(features) &&
+                    features.map((f) => (
+                      <TickRow key={f} size={20} dark>{f}</TickRow>
+                    ))}
+                </div>
+                <Link className="btn btn-gold" to={lp(servicePath(active.key))}>
                   {t('home.services.more')} <ArrowRight size={18} strokeWidth={1.8} aria-hidden />
                 </Link>
               </div>

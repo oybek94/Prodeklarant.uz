@@ -19,7 +19,7 @@ function formatPostDate(dateStr: string): string {
 }
 
 /** So'nggi maqolalar — maqola bo'lmasa blok umuman chizilmaydi (Home chaqirmaydi). */
-export default function BlogPreview({ posts, num = '07' }: { posts: PreviewPost[]; num?: string }) {
+export default function BlogPreview({ posts, num = '06' }: { posts: PreviewPost[]; num?: string }) {
   const { t } = useTranslation();
   const lp = useLocalePath();
   return (

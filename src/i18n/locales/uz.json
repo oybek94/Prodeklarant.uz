@@ -75,7 +75,7 @@
         "desc": "Hozirda bir hujjatning tayyor bo'lishiga o'rtacha 3 soat 20 daqiqa vaqt sarflanmoqda."
       },
       "legal": {
-        "title": "Xatosiz hujjatlar",
+        "title": "Raqamli hujjat boshqaruvi",
         "desc": "Biz hujjatlarni Excel/Word'da emas, o'zimiz ishlab chiqqan raqamli tizimda yuritamiz. Shu tizim tufayli xato bo'lishi mumkin bo'lgan jarayonlarni avtomatlashtirib chiqdik."
       },
       "focus": {
@@ -661,58 +661,39 @@
     },
     "process": {
       "label": "Ish jarayoni",
-      "title": "Uch qadamda yuk chegaradan o'tadi",
+      "title": "Uch qadamda hujjatlar tayyor bo'ladi",
       "step": "Qadam",
       "steps": {
         "1": {
-          "title": "Ariza",
-          "desc": "Hujjatlarni yuboring va bepul maslahat oling."
+          "title": "Tayyorlov",
+          "tasks": [
+            "Shartnoma tahlil qilinadi.",
+            "Invoys va qadoq listi tayyorlanadi.",
+            "Sertifikatlarga elektron arizalar yuboriladi.",
+            "TIR/SMR to'ldiriladi."
+          ]
         },
         "2": {
-          "title": "Tahlil",
-          "desc": "Mutaxassislarimiz hujjatlarni ko'rib chiqib, kodlarni aniqlaydi."
+          "title": "Rasmiylashtirish",
+          "tasks": [
+            "Sertifikatlar qabul qilib olinadi.",
+            "Barcha hujjatlarning bir-biriga mutanosibligi va to'g'riligi tekshirib chiqiladi.",
+            "Deklaratsiya tayyorlanadi va bojxona organiga elektron tarzda yuboriladi."
+          ]
         },
         "3": {
-          "title": "Rasmiylashtirish",
-          "desc": "Deklaratsiya to'ldirilib, bojxona organiga topshiriladi."
+          "title": "Topshirish",
+          "tasks": [
+            "Tayyor bo'lgan hujjatlar yuk egasiga yoki shofyorga topshiriladi."
+          ]
         }
-      }
-    },
-    "products": {
-      "label": "Mahsulotlar",
-      "title": "Har bir mahsulot uchun to'g'ri hujjatlar to'plami",
-      "lede": "Mahsulot turiga qarab bojxona va sertifikat talablarini oldindan bilamiz.",
-      "item": "Mahsulot",
-      "cherry": {
-        "title": "Gilos",
-        "points": [
-          "Bojxona yuk deklaratsiyasini tez rasmiylashtirish",
-          "Fitosanitar sertifikat",
-          "Sovutgichli transport hujjatlari"
-        ]
-      },
-      "fruits": {
-        "title": "Uzum, o'rik va mevalar",
-        "points": [
-          "Fitosanitar sertifikat",
-          "Kelib chiqish guvohnomasi",
-          "TIF TN kodini aniqlash"
-        ]
-      },
-      "veg": {
-        "title": "Piyoz va sabzavotlar",
-        "points": [
-          "Invoys va packing list",
-          "TIR · SMR hujjatlari",
-          "Katta hajmli yuk deklaratsiyasi"
-        ]
       }
     },
     "results": {
       "label": "Natijalar",
       "title": "Raqamlar — to'g'ridan-to'g'ri CRM'dan",
       "synced": "CRM bilan sinxron",
-      "company": "Kompaniya ko'rsatkichlari"
+      "completed": "Yakunlangan invoyslar"
     },
     "tariffs": {
       "label": "Tariflar",
@@ -767,13 +748,10 @@
           "desc": "Transport vositasi hujjatlarining holati QR kod orqali ochiladi — joyida tez tekshirish mumkin."
         }
       },
-      "cabinet": {
-        "title": "Mijoz kabineti",
-        "sub": "Yuk holati",
-        "done": "Tayyor",
-        "doing": "Jarayonda",
-        "wait": "Navbatda",
-        "foot": "Har bir bosqich onlayn kuzatiladi"
+      "shots": {
+        "list": { "title": "Ichki tizim · Invoyslar", "alt": "Ichki tizim: invoyslar ro'yxati, statistika kartalari va har bir invoys bosqichlari" },
+        "edit": { "title": "Ichki tizim · Invoys tahrirlash", "alt": "Ichki tizim: invoysni tahrirlash — tovar jadvali, og'irliklar solishtiruvi va avto raqami" },
+        "caption": "Ichki tizimimizdan olingan haqiqiy ekranlar."
       }
     }
   }

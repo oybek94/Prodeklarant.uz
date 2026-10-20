@@ -75,7 +75,7 @@
         "desc": "Currently, preparing one document takes 3 hours 20 minutes on average."
       },
       "legal": {
-        "title": "Error-free documents",
+        "title": "Digital document management",
         "desc": "We keep documents in a digital system we built ourselves, not in Excel or Word. Thanks to it, we have automated the steps where mistakes could happen."
       },
       "focus": {
@@ -661,58 +661,39 @@
     },
     "process": {
       "label": "How it works",
-      "title": "Cargo crosses the border in three steps",
+      "title": "Documents are ready in three steps",
       "step": "Step",
       "steps": {
         "1": {
-          "title": "Request",
-          "desc": "Send your documents and get a free consultation."
+          "title": "Preparation",
+          "tasks": [
+            "The contract is analysed.",
+            "The invoice and packing list are prepared.",
+            "Electronic applications for certificates are submitted.",
+            "The TIR/CMR is completed."
+          ]
         },
         "2": {
-          "title": "Review",
-          "desc": "Our specialists review the documents and determine the codes."
+          "title": "Clearance",
+          "tasks": [
+            "Certificates are received.",
+            "All documents are checked for consistency and accuracy.",
+            "The declaration is prepared and submitted to customs electronically."
+          ]
         },
         "3": {
-          "title": "Clearance",
-          "desc": "The declaration is completed and filed with the customs authority."
+          "title": "Handover",
+          "tasks": [
+            "Finished documents are handed to the cargo owner or the driver."
+          ]
         }
-      }
-    },
-    "products": {
-      "label": "Products",
-      "title": "The right document set for every product",
-      "lede": "We know the customs and certification requirements for each type of produce in advance.",
-      "item": "Product",
-      "cherry": {
-        "title": "Cherries",
-        "points": [
-          "Fast declaration clearance",
-          "Phytosanitary certificate",
-          "Refrigerated transport documents"
-        ]
-      },
-      "fruits": {
-        "title": "Grapes, apricots and other fruit",
-        "points": [
-          "Phytosanitary certificate",
-          "Certificate of origin",
-          "HS code determination"
-        ]
-      },
-      "veg": {
-        "title": "Onions and vegetables",
-        "points": [
-          "Invoice and packing list",
-          "TIR · SMR documents",
-          "Large-volume cargo declaration"
-        ]
       }
     },
     "results": {
       "label": "Results",
       "title": "Numbers — straight from the CRM",
       "synced": "Synced with CRM",
-      "company": "Company figures"
+      "completed": "Completed invoices"
     },
     "tariffs": {
       "label": "Tariffs",
@@ -767,13 +748,10 @@
           "desc": "The status of a vehicle's documents opens via QR code, for a quick check on the spot."
         }
       },
-      "cabinet": {
-        "title": "Client cabinet",
-        "sub": "Shipment status",
-        "done": "Ready",
-        "doing": "In progress",
-        "wait": "Queued",
-        "foot": "Every stage is tracked online"
+      "shots": {
+        "list": { "title": "Internal system · Invoices", "alt": "Internal system: invoice list, statistics cards and the stages of each invoice" },
+        "edit": { "title": "Internal system · Edit invoice", "alt": "Internal system: invoice editing — goods table, weight reconciliation and vehicle number" },
+        "caption": "Real screens from our internal system."
       }
     }
   }

@@ -9,6 +9,8 @@ export type SiteStats = {
   cargo: { tonnes: number; byProduct: Array<{ key: string; tonnes: number }> };
   destinations: { countries: number; byCountry: Array<{ code: string; count: number }>; otherCount: number };
   clients: { active: number };
+  /** Ixtiyoriy: CRM bersa — yakunlangan va jami invoyslar (yo'q bo'lsa chiziq chizilmaydi). */
+  invoices?: { done: number; total: number };
 };
 
 /** Brauzerda (client-side navigatsiya) — server tayyor javobni /api/stats dan beradi; 204 → null. */

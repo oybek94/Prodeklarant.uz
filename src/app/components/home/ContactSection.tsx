@@ -6,7 +6,7 @@ import { SectionLabel } from './shared';
 const rowStyle = { display: 'flex', alignItems: 'center', gap: 18, padding: '20px 0', borderTop: '1px solid rgba(255, 255, 255, .16)' } as const;
 const kicker = { color: 'rgba(255, 255, 255, .55)', fontSize: 11.5 } as const;
 
-export default function ContactSection({ num = '07' }: { num?: string }) {
+export default function ContactSection({ num = '06' }: { num?: string }) {
   const { t } = useTranslation();
   return (
     <section id="contact" style={{ position: 'relative', overflow: 'hidden', background: 'var(--deep)', color: '#fff', padding: '120px 0' }}>

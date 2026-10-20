@@ -10,7 +10,6 @@ import Why from '../components/home/Why';
 import ServicesPicker from '../components/home/ServicesPicker';
 import Process from '../components/home/Process';
 import System from '../components/home/System';
-import Products from '../components/home/Products';
 import Results from '../components/home/Results';
 import Tariffs from '../components/home/Tariffs';
 import BlogPreview from '../components/home/BlogPreview';
@@ -42,7 +41,6 @@ export default function Home() {
       <ServicesPicker />
       <Process />
       <System />
-      <Products />
       <Results stats={stats} />
       <Tariffs />
 
@@ -50,8 +48,8 @@ export default function Home() {
       <Testimonials />
 
       {/* Maqola bo'lmasa blok chizilmaydi; raqamlash shunga moslashadi */}
-      {latestPosts.length > 0 && <BlogPreview posts={latestPosts} num="08" />}
-      <ContactSection num={latestPosts.length > 0 ? '09' : '08'} />
+      {latestPosts.length > 0 && <BlogPreview posts={latestPosts} num="07" />}
+      <ContactSection num={latestPosts.length > 0 ? '08' : '07'} />
     </div>
   );
 }

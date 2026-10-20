@@ -1,4 +1,4 @@
-import { Check, FileSearch, LayoutDashboard, ListChecks, QrCode, Wand2 } from 'lucide-react';
+import { FileSearch, LayoutDashboard, ListChecks, QrCode, Wand2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { SectionLabel, type CssVars } from './shared';
 
@@ -10,66 +10,56 @@ const FEATURES = [
   { icon: QrCode, key: 'qr' },
 ] as const;
 
-/** Mijoz kabinetidagi bosqichlar (Hero kartochkasi bilan bir xil nomlar). Ma'lumot emas, sxema. */
-const STAGES = ['invoice', 'packing', 'certs', 'tir', 'analysis', 'declaration', 'submit'] as const;
-const DONE = 5;
+/** Ichki tizimdan haqiqiy ekranlar (public/images). */
+const SHOTS = [
+  { key: 'list', cls: 'sys-a', src: '/images/tizim-invoyslar.webp', w: 1855, h: 976 },
+  { key: 'edit', cls: 'sys-b', src: '/images/tizim-invoys-tahrir.webp', w: 1859, h: 973 },
+] as const;
 
 export default function System({ num = '04' }: { num?: string }) {
   const { t } = useTranslation();
   return (
-    <section id="system" style={{ background: 'var(--paper)', padding: '120px 0' }}>
-      <div className="wrap" style={{ display: 'flex', flexWrap: 'wrap', gap: '64px 80px', alignItems: 'flex-start' }}>
-        <div style={{ flex: '1 1 460px', minWidth: 0 }}>
-          <div className="rv">
+    <section id="system" className="sys-sec">
+      <div className="wrap sys-wrap">
+        <div className="sys-head rv">
+          <div style={{ flex: '1 1 640px', minWidth: 0 }}>
             <SectionLabel num={num}>{t('pd.system.label')}</SectionLabel>
             <h2 className="serif h2">{t('pd.system.title')}</h2>
-            <p className="lede">{t('pd.system.lede')}</p>
           </div>
-          <div style={{ marginTop: 44, borderBottom: '1px solid var(--line)' }}>
-            {FEATURES.map((f, i) => (
-              <div key={f.key} className="adv rv" style={{ '--s': `${i * 5}%`, padding: '24px 0 24px 26px' } as CssVars}>
-                <div className="ibox"><f.icon size={24} strokeWidth={1.6} aria-hidden /></div>
-                <div>
-                  <h3 className="serif" style={{ margin: '0 0 6px', fontSize: 24, lineHeight: 1.2 }}>{t(`pd.system.items.${f.key}.title`)}</h3>
-                  <p style={{ margin: 0, color: 'var(--mut)', fontSize: 16 }}>{t(`pd.system.items.${f.key}.desc`)}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="rv" style={{ margin: '26px 0 0', color: 'var(--mut)', fontSize: 15 }}>{t('pd.system.note')}</p>
+          <p className="lede" style={{ flex: '1 1 360px', maxWidth: 470 }}>{t('pd.system.lede')}</p>
         </div>
 
-        <div className="sys-wrap rv" style={{ '--s': '8%' } as CssVars}>
-          <div className="sys-card" role="img" aria-label={t('pd.system.cabinet.title')}>
-            <div className="sys-bar">
-              <span className="mono" style={{ color: 'var(--gold-d)', fontSize: 12 }}>{t('pd.system.cabinet.title')}</span>
-              <span className="mono" style={{ color: 'var(--mut)', fontSize: 12 }}>{DONE} / {STAGES.length}</span>
-            </div>
-            <div className="sys-prog"><i style={{ width: `${(DONE / STAGES.length) * 100}%` }} /></div>
-            <div className="mono" style={{ padding: '16px 24px 4px', color: 'var(--mut)', fontSize: 11.5 }}>{t('pd.system.cabinet.sub')}</div>
-            <ol style={{ listStyle: 'none', margin: 0, padding: '0 24px 8px' }}>
-              {STAGES.map((st, i) => {
-                const state = i < DONE ? 'done' : i === DONE ? 'doing' : 'wait';
-                return (
-                  <li key={st} className={`sys-row sys-${state}`}>
-                    <span className="sys-dot" aria-hidden>
-                      {state === 'done' && (
-                        <svg viewBox="0 0 24 24" width="14" height="14">
-                          <path className="sys-tk" pathLength={1} style={{ '--s': `${i * 4}%` } as CssVars} d="M4 12l5 5L20 6" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      )}
-                    </span>
-                    <span className="sys-name">{t(`pd.hero.card.${st}`)}</span>
-                    <span className="sys-state">{t(`pd.system.cabinet.${state}`)}</span>
-                  </li>
-                );
-              })}
-            </ol>
-            <div className="sys-foot">
-              <Check size={16} strokeWidth={2} aria-hidden /> {t('pd.system.cabinet.foot')}
-            </div>
+        <div className="sys-stage rv" style={{ '--s': '6%' } as CssVars}>
+          <div className="sys-stg">
+            {SHOTS.map((s) => (
+              <div key={s.key} className={`sys-shot ${s.cls}`}>
+                <div className="sys-bar">
+                  <i /><i /><i />
+                  <span className="mono">{t(`pd.system.shots.${s.key}.title`)}</span>
+                </div>
+                <img src={s.src} width={s.w} height={s.h} loading="lazy" decoding="async" alt={t(`pd.system.shots.${s.key}.alt`)} />
+              </div>
+            ))}
+            <p className="sys-cap mono">
+              <span style={{ color: 'var(--gold)' }}>●</span> {t('pd.system.shots.caption')}
+            </p>
           </div>
         </div>
+
+        <div className="sys-feats">
+          {FEATURES.map((f, i) => (
+            <div key={f.key} className="sys-feat rv" style={{ '--s': `${i * 4}%` } as CssVars}>
+              <div className="sys-fh">
+                <span className="sys-n mono">{i + 1}</span>
+                <f.icon size={26} strokeWidth={1.6} aria-hidden />
+              </div>
+              <h3 className="serif">{t(`pd.system.items.${f.key}.title`)}</h3>
+              <p>{t(`pd.system.items.${f.key}.desc`)}</p>
+            </div>
+          ))}
+        </div>
+
+        <p className="rv" style={{ margin: '36px 0 0', color: 'var(--mut)', fontSize: 15 }}>{t('pd.system.note')}</p>
       </div>
     </section>
   );

@@ -9,7 +9,7 @@ export default function Tariffs() {
     <section id="tariffs" style={{ background: '#fff', padding: '120px 0' }}>
       <div className="wrap">
         <div className="rv">
-          <SectionLabel num="07">{t('pd.tariffs.label')}</SectionLabel>
+          <SectionLabel num="06">{t('pd.tariffs.label')}</SectionLabel>
           <h2 className="serif h2">{t('pd.tariffs.title')}</h2>
           <p className="lede">{t('home.tariffs.subtitle')}</p>
         </div>
