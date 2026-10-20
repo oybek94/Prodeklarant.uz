@@ -27,7 +27,6 @@ export default function Results({ stats }: { stats: SiteStats | null }) {
     ? [
         { label: t('trust.stats.kpi.declarations'), value: stats.declarations.total, note: t('trust.stats.kpi.declarationsNote', { count: stats.declarations.thisMonth }) },
         { label: t('trust.stats.kpi.cargo'), value: stats.cargo.tonnes, unit: t('trust.stats.unitTonne'), note: t('trust.stats.kpi.cargoNote') },
-        { label: t('trust.stats.kpi.countries'), value: stats.destinations.countries, note: t('trust.stats.kpi.countriesNote') },
         { label: t('trust.stats.kpi.clients'), value: stats.clients.active, note: t('trust.stats.kpi.clientsNote') },
       ]
     : [

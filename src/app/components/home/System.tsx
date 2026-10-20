@@ -32,12 +32,13 @@ export default function System({ num = '04' }: { num?: string }) {
         <div className="sys-stage rv" style={{ '--s': '6%' } as CssVars}>
           <div className="sys-stg">
             {SHOTS.map((s) => (
-              <div key={s.key} className={`sys-shot ${s.cls}`}>
+              <div key={s.key} className={`sys-shot ${s.cls}`} onContextMenu={(e) => e.preventDefault()}>
                 <div className="sys-bar">
                   <i /><i /><i />
                   <span className="mono">{t(`pd.system.shots.${s.key}.title`)}</span>
                 </div>
-                <img src={s.src} width={s.w} height={s.h} loading="lazy" decoding="async" alt={t(`pd.system.shots.${s.key}.alt`)} />
+                {/* <img> emas, fon rasmi: sichqoncha o'ng tugmasi, sudrash va "yangi oynada ochish" ishlamaydi */}
+                <div className="sys-img" role="img" aria-label={t(`pd.system.shots.${s.key}.alt`)} style={{ backgroundImage: `url(${s.src})`, aspectRatio: `${s.w} / ${s.h}` }} />
               </div>
             ))}
             <p className="sys-cap mono">
