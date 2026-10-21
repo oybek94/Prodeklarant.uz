@@ -78,7 +78,8 @@ router.post('/:id/view', (req, res) => {
 
     // Har bir IP uchun ma'lum bir postni faqat bir marta hisoblash
     if (!viewedPosts.has(viewKey)) {
-        const result = db.prepare('UPDATE posts SET views = COALESCE(views, 0) + 1 WHERE id = ?').run(id);
+        // Qoralama uchun 404: ommaviy endpoint qoralama ID'sining mavjudligini bildirmasin
+        const result = db.prepare("UPDATE posts SET views = COALESCE(views, 0) + 1 WHERE id = ? AND status = 'published'").run(id);
         if (result.changes > 0) {
            viewedPosts.add(viewKey);
            
@@ -89,7 +90,7 @@ router.post('/:id/view', (req, res) => {
         }
     }
     
-    const row = db.prepare('SELECT views FROM posts WHERE id = ?').get(id);
+    const row = db.prepare("SELECT views FROM posts WHERE id = ? AND status = 'published'").get(id);
     if (!row) return res.status(404).json({ error: 'Post not found' });
     
     res.json({ views: row.views });

@@ -73,6 +73,16 @@ test('admin tokeni bilan qoralama ko\'rinadi', async () => {
   assert.deepEqual(plain.data.map((p) => p.id), [pubId]);
 });
 
+test('view endpoint qoralama uchun 404 beradi va hisoblagichni oshirmaydi', async () => {
+  const draft = await fetch(`${base}/${draftId}/view`, { method: 'POST' });
+  assert.equal(draft.status, 404);
+  assert.equal(db.prepare('SELECT views FROM posts WHERE id = ?').get(draftId).views, 0);
+
+  const pub = await fetch(`${base}/${pubId}/view`, { method: 'POST' });
+  assert.equal(pub.status, 200);
+  assert.equal((await pub.json()).views, 1);
+});
+
 test('SSR servislari (listPosts/findPost) qoralamani qaytarmaydi', () => {
   assert.deepEqual(listPosts(50).map((p) => p.id), [pubId]);
   assert.equal(findPost(draftSlug), null);
