@@ -1,9 +1,12 @@
 const express = require('express');
 const db = require('../db');
 const authMiddleware = require('../middleware/auth');
+const { isAdminRequest } = authMiddleware;
 const { slugify } = require('../utils/slugify');
 const { rowToPost } = require('../services/posts');
 const router = express.Router();
+
+const VALID_STATUSES = ['published', 'draft'];
 
 // Xotirada saqlanadigan oddiy view cheklovi (IP bo'yicha)
 const viewedPosts = new Set();
@@ -14,9 +17,15 @@ router.get('/', (req, res) => {
     const limit = Math.min(50, Math.max(1, parseInt(req.query.limit) || 10)); // Max 50
     const offset = (page - 1) * limit;
 
-    const rows = db.prepare('SELECT * FROM posts ORDER BY created_at DESC LIMIT ? OFFSET ?').all(limit, offset);
-    const totalStmt = db.prepare('SELECT COUNT(*) as count FROM posts').get();
-    
+    // Ommaviy so'rov HECH QACHON qoralama ko'rmaydi. ?status=draft|all faqat admin tokeni bilan ishlaydi.
+    const wanted = String(req.query.status || '');
+    const where = isAdminRequest(req) && (wanted === 'draft' || wanted === 'all')
+      ? (wanted === 'draft' ? "WHERE status = 'draft'" : '')
+      : "WHERE status = 'published'";
+
+    const rows = db.prepare(`SELECT * FROM posts ${where} ORDER BY created_at DESC LIMIT ? OFFSET ?`).all(limit, offset);
+    const totalStmt = db.prepare(`SELECT COUNT(*) as count FROM posts ${where}`).get();
+
     res.json({
       data: rows.map(rowToPost),
       pagination: {
@@ -37,7 +46,7 @@ router.get('/slug/:slug', (req, res) => {
     const slug = String(req.params.slug || '').trim().toLowerCase();
     if (!slug) return res.status(404).json({ error: 'Post not found' });
     
-    const row = db.prepare('SELECT * FROM posts WHERE slug = ?').get(slug);
+    const row = db.prepare("SELECT * FROM posts WHERE slug = ? AND status = 'published'").get(slug);
     if (!row) return res.status(404).json({ error: 'Post not found' });
     res.json(rowToPost(row));
   } catch (err) {
@@ -52,6 +61,8 @@ router.get('/:id', (req, res) => {
     const id = Number(req.params.id);
     const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(id);
     if (!row) return res.status(404).json({ error: 'Post not found' });
+    // Qoralamani faqat admin ko'ra oladi (tahrirlash formasi shu endpointdan o'qiydi)
+    if (row.status === 'draft' && !isAdminRequest(req)) return res.status(404).json({ error: 'Post not found' });
     res.json(rowToPost(row));
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -94,9 +105,12 @@ router.post('/', authMiddleware, (req, res) => {
       excerpt_uz, excerpt_ru, excerpt_en,
       body_uz = '', body_ru = '', body_en = '',
       date, category_uz, category_ru, category_en,
-      image = '', author = ''
+      image = '', author = '', status = 'published'
     } = req.body;
 
+    if (!VALID_STATUSES.includes(status)) {
+      return res.status(400).json({ error: 'status published yoki draft bo\'lishi kerak' });
+    }
     if (!title_uz || !title_ru || !title_en || !excerpt_uz || !excerpt_ru || !excerpt_en || !date) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
@@ -110,8 +124,8 @@ router.post('/', authMiddleware, (req, res) => {
 
     const stmt = db.prepare(`
       INSERT INTO posts (title_uz, title_ru, title_en, slug, excerpt_uz, excerpt_ru, excerpt_en,
-        body_uz, body_ru, body_en, date, category_uz, category_ru, category_en, image, author, views)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0)
+        body_uz, body_ru, body_en, date, category_uz, category_ru, category_en, image, author, views, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 0, ?)
     `);
     const result = stmt.run(
       title_uz, title_ru, title_en, slug,
@@ -119,7 +133,7 @@ router.post('/', authMiddleware, (req, res) => {
       body_uz || '', body_ru || '', body_en || '',
       date,
       category_uz || 'Blog', category_ru || 'Блог', category_en || 'Blog',
-      image || '', author || ''
+      image || '', author || '', status
     );
     const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(result.lastInsertRowid);
     res.status(201).json(rowToPost(row));
@@ -139,8 +153,15 @@ router.put('/:id', authMiddleware, (req, res) => {
       excerpt_uz, excerpt_ru, excerpt_en,
       body_uz, body_ru, body_en,
       date, category_uz, category_ru, category_en,
-      image, author
+      image, author, status
     } = req.body;
+
+    if (status !== undefined && !VALID_STATUSES.includes(status)) {
+      return res.status(400).json({ error: 'status published yoki draft bo\'lishi kerak' });
+    }
+    const newStatus = status ?? row.status;
+    // Qoralama nashr qilinganda post "yangi" bo'lib ro'yxat tepasiga chiqadi (ro'yxat created_at bo'yicha tartiblanadi)
+    const justPublished = row.status === 'draft' && newStatus === 'published';
 
     let newSlug = row.slug;
     if (title_uz && title_uz !== row.title_uz) {
@@ -168,15 +189,17 @@ router.put('/:id', authMiddleware, (req, res) => {
         excerpt_uz = ?, excerpt_ru = ?, excerpt_en = ?,
         body_uz = ?, body_ru = ?, body_en = ?,
         date = ?, category_uz = ?, category_ru = ?, category_en = ?,
-        image = ?, author = ?
+        image = ?, author = ?, status = ?,
+        created_at = CASE WHEN ? THEN CURRENT_TIMESTAMP ELSE created_at END
       WHERE id = ?
     `).run(
       title_uz ?? row.title_uz, title_ru ?? row.title_ru, title_en ?? row.title_en, newSlug,
       excerpt_uz ?? row.excerpt_uz, excerpt_ru ?? row.excerpt_ru, excerpt_en ?? row.excerpt_en,
       body_uz ?? row.body_uz, body_ru ?? row.body_ru, body_en ?? row.body_en,
-      date ?? row.date,
+      justPublished ? new Date().toISOString().slice(0, 10) : (date ?? row.date),
       category_uz ?? row.category_uz, category_ru ?? row.category_ru, category_en ?? row.category_en,
-      image ?? row.image, author ?? row.author,
+      image ?? row.image, author ?? row.author, newStatus,
+      justPublished ? 1 : 0,
       id
     );
 

@@ -60,6 +60,8 @@ module.exports = {
   ADMIN_PASSWORD,
   JWT_SECRET,
   OPENAI_API_KEY: process.env.OPENAI_API_KEY,
+  // SI blog generatori (scripts/generate-post.js): maqola muqovasi uchun stok rasm. Yo'q bo'lsa rasm bo'sh qoladi.
+  PIXABAY_API_KEY: process.env.PIXABAY_API_KEY,
   TELEGRAM_BOT_TOKEN: process.env.TELEGRAM_BOT_TOKEN,
   TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
   CORS_ORIGIN: process.env.CORS_ORIGIN,

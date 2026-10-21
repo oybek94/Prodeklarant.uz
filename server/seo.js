@@ -359,13 +359,13 @@ function findPostBySlug(db, slug) {
   const legacy = slug.match(/^(\d+)-(.+)$/);
   if (legacy) {
     try {
-        const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(Number(legacy[1]));
+        const row = db.prepare("SELECT * FROM posts WHERE id = ? AND status = 'published'").get(Number(legacy[1]));
         if (row) return row;
     } catch(e) {}
   }
 
   try {
-      const row = db.prepare('SELECT * FROM posts WHERE slug = ?').get(slug);
+      const row = db.prepare("SELECT * FROM posts WHERE slug = ? AND status = 'published'").get(slug);
       return row || null;
   } catch (e) {
       return null;

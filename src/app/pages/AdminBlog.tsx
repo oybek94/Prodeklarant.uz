@@ -7,14 +7,15 @@ function useAuthGuard() {
     if (!localStorage.getItem('admin_token')) navigate('/admin', { replace: true });
   }, [navigate]);
 }
-import { Plus, Edit, Trash2, ArrowLeft, Eye } from 'lucide-react';
-import { getPosts, deletePost, type BlogPost } from '../api';
+import { Plus, Edit, Trash2, ArrowLeft, Eye, CheckCircle } from 'lucide-react';
+import { getPosts, deletePost, updatePost, type BlogPost } from '../api';
 
 export default function AdminBlog() {
   useAuthGuard();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [onlyDrafts, setOnlyDrafts] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +24,8 @@ export default function AdminBlog() {
 
   async function loadPosts() {
     try {
-      const data = await getPosts();
+      // 'all' — qoralamalar ham (faqat admin tokeni bilan ishlaydi)
+      const data = await getPosts(50, 'all');
       setPosts(data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to load');
@@ -41,6 +43,18 @@ export default function AdminBlog() {
       alert(err instanceof Error ? err.message : 'Failed');
     }
   }
+
+  async function handlePublish(id: number) {
+    try {
+      await updatePost(id, { status: 'published' });
+      await loadPosts();
+    } catch (err) {
+      alert(err instanceof Error ? err.message : 'Failed');
+    }
+  }
+
+  const draftCount = posts.filter((p) => p.status === 'draft').length;
+  const visiblePosts = onlyDrafts ? posts.filter((p) => p.status === 'draft') : posts;
 
   function handleLogout() {
     localStorage.removeItem('admin_token');
@@ -75,6 +89,21 @@ export default function AdminBlog() {
         </div>
       </div>
 
+      <div className="flex gap-2 mb-4">
+        <button
+          onClick={() => setOnlyDrafts(false)}
+          className={`px-4 py-1.5 text-sm font-medium border ${!onlyDrafts ? 'bg-brand text-white border-brand' : 'border-slate-300 text-slate-700 hover:bg-slate-50'}`}
+        >
+          Hammasi ({posts.length})
+        </button>
+        <button
+          onClick={() => setOnlyDrafts(true)}
+          className={`px-4 py-1.5 text-sm font-medium border ${onlyDrafts ? 'bg-brand text-white border-brand' : 'border-slate-300 text-slate-700 hover:bg-slate-50'}`}
+        >
+          Qoralamalar ({draftCount})
+        </button>
+      </div>
+
       <div className="bg-white rounded-sm shadow-sm border border-slate-100 overflow-hidden">
         <table className="w-full">
           <thead className="bg-slate-50 border-b border-slate-200">
@@ -87,22 +116,38 @@ export default function AdminBlog() {
             </tr>
           </thead>
           <tbody>
-            {posts.length === 0 ? (
+            {visiblePosts.length === 0 ? (
               <tr>
                 <td colSpan={5} className="py-12 text-center text-slate-500">
-                  Maqolalar yo'q. Yangi maqola qo'shing.
+                  {onlyDrafts ? "Qoralamalar yo'q." : "Maqolalar yo'q. Yangi maqola qo'shing."}
                 </td>
               </tr>
             ) : (
-              posts.map((post) => (
+              visiblePosts.map((post) => (
                 <tr key={post.id} className="border-b border-slate-100 hover:bg-slate-50">
                   <td className="py-4 px-4 text-slate-600">{post.id}</td>
-                  <td className="py-4 px-4 font-medium text-slate-900">{post.title.uz}</td>
+                  <td className="py-4 px-4 font-medium text-slate-900">
+                    {post.title.uz}
+                    {post.status === 'draft' && (
+                      <span className="ml-2 px-2 py-0.5 text-xs font-bold uppercase bg-amber-100 text-amber-800">
+                        Qoralama
+                      </span>
+                    )}
+                  </td>
                   <td className="py-4 px-4 text-slate-600">{post.date}</td>
                   <td className="py-4 px-4 text-slate-600 flex items-center gap-1">
                     <Eye size={14} /> {post.views ?? 0}
                   </td>
                   <td className="py-4 px-4 flex gap-2">
+                    {post.status === 'draft' && (
+                      <button
+                        onClick={() => handlePublish(post.id)}
+                        title="Nashr qilish"
+                        className="p-2 text-green-700 hover:bg-green-50"
+                      >
+                        <CheckCircle size={18} />
+                      </button>
+                    )}
                     <Link
                       to={`/admin/blog/${post.id}/edit`}
                       className="p-2 text-brand hover:bg-brand/10"

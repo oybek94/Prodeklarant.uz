@@ -90,7 +90,9 @@ app.get('/api/stats', async (req, res) => {
 app.get('/sitemap.xml', (req, res) => {
   let posts = [];
   try {
-    posts = db.prepare('SELECT id, slug, title_uz, created_at FROM posts ORDER BY created_at DESC').all();
+    posts = db
+      .prepare("SELECT id, slug, title_uz, created_at FROM posts WHERE status = 'published' ORDER BY created_at DESC")
+      .all();
   } catch (e) {
     // ignore
   }
@@ -195,7 +197,7 @@ if (fs.existsSync(indexHtml)) {
         if (!current) {
           const redir = db
             .prepare(
-              'SELECT p.slug AS slug FROM post_redirects r JOIN posts p ON p.id = r.post_id WHERE r.old_slug = ?'
+              "SELECT p.slug AS slug FROM post_redirects r JOIN posts p ON p.id = r.post_id WHERE r.old_slug = ? AND p.status = 'published'"
             )
             .get(reqSlug);
           if (redir && redir.slug && redir.slug !== reqSlug) {

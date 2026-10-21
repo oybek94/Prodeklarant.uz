@@ -13,26 +13,30 @@ function rowToPost(row) {
     image: row.image || '',
     author: row.author || '',
     views: row.views ?? 0,
+    status: row.status || 'published',
     created_at: row.created_at,
   };
 }
 
-/** Eng yangi postlar (SSR loader'lari uchun). */
+/** Eng yangi NASHR QILINGAN postlar (SSR loader'lari uchun). Qoralamalar chiqmaydi. */
 function listPosts(limit) {
   const n = Math.min(50, Math.max(1, Number(limit) || 10));
-  return db.prepare('SELECT * FROM posts ORDER BY created_at DESC LIMIT ?').all(n).map(rowToPost);
+  return db
+    .prepare("SELECT * FROM posts WHERE status = 'published' ORDER BY created_at DESC LIMIT ?")
+    .all(n)
+    .map(rowToPost);
 }
 
-/** Slug (yoki eski "<id>-..." formati) bo'yicha post; topilmasa null. */
+/** Slug (yoki eski "<id>-..." formati) bo'yicha nashr qilingan post; topilmasa null. */
 function findPost(slug) {
   const s = String(slug || '').trim().toLowerCase();
   if (!s) return null;
   const legacy = s.match(/^(\d+)-(.+)$/);
   if (legacy) {
-    const row = db.prepare('SELECT * FROM posts WHERE id = ?').get(Number(legacy[1]));
+    const row = db.prepare("SELECT * FROM posts WHERE id = ? AND status = 'published'").get(Number(legacy[1]));
     if (row) return rowToPost(row);
   }
-  const row = db.prepare('SELECT * FROM posts WHERE slug = ?').get(s);
+  const row = db.prepare("SELECT * FROM posts WHERE slug = ? AND status = 'published'").get(s);
   return row ? rowToPost(row) : null;
 }
 

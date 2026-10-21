@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useParams } from 'react-router';
 import MDEditor from '@uiw/react-md-editor';
 import '@uiw/react-md-editor/markdown-editor.css';
@@ -20,6 +20,7 @@ const emptyPost: Omit<BlogPost, 'id' | 'created_at'> = {
   category: { uz: 'Blog', ru: 'Блог', en: 'Blog' },
   image: '',
   author: '',
+  status: 'published',
 };
 
 const compressImage = async (file: File): Promise<File> => {
@@ -81,6 +82,8 @@ export default function AdminPostForm() {
   const [uploading, setUploading] = useState(false);
   const [translating, setTranslating] = useState<'uz' | 'ru' | 'en' | null>(null);
   const [error, setError] = useState('');
+  // Qaysi tugma bosildi: saqlash holatni o'zgartirmaydi, qolganlari holatni almashtiradi
+  const nextStatusRef = useRef<'published' | 'draft' | null>(null);
 
   useEffect(() => {
     if (isEdit && id) {
@@ -94,6 +97,7 @@ export default function AdminPostForm() {
             category: p.category,
             image: p.image,
             author: p.author,
+            status: p.status ?? 'published',
           })
         )
         .catch((e) => setError(e.message))
@@ -152,7 +156,7 @@ export default function AdminPostForm() {
     setError('');
     setSaving(true);
     try {
-      const payload = { ...form, date: form.date };
+      const payload = { ...form, date: form.date, status: nextStatusRef.current ?? form.status };
       if (isEdit && id) {
         await updatePost(Number(id), payload);
       } else {
@@ -313,14 +317,42 @@ export default function AdminPostForm() {
           </div>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-wrap items-center">
+          {isEdit && (
+            <span
+              className={`px-3 py-1 text-xs font-bold uppercase ${form.status === 'draft' ? 'bg-amber-100 text-amber-800' : 'bg-green-100 text-green-800'}`}
+            >
+              {form.status === 'draft' ? 'Qoralama (saytda ko\'rinmaydi)' : 'Nashr qilingan'}
+            </span>
+          )}
           <button
             type="submit"
             disabled={saving}
+            onClick={() => { nextStatusRef.current = null; }}
             className="bg-brand hover:bg-brand-light text-white font-bold py-3 px-8 uppercase disabled:opacity-50"
           >
             {saving ? 'Saqlanmoqda...' : 'Saqlash'}
           </button>
+          {isEdit && form.status === 'draft' && (
+            <button
+              type="submit"
+              disabled={saving}
+              onClick={() => { nextStatusRef.current = 'published'; }}
+              className="bg-green-700 hover:bg-green-800 text-white font-bold py-3 px-8 uppercase disabled:opacity-50"
+            >
+              Saqlash va nashr qilish
+            </button>
+          )}
+          {isEdit && form.status === 'published' && (
+            <button
+              type="submit"
+              disabled={saving}
+              onClick={() => { nextStatusRef.current = 'draft'; }}
+              className="border border-amber-600 text-amber-800 hover:bg-amber-50 font-bold py-3 px-8 uppercase disabled:opacity-50"
+            >
+              Qoralamaga qaytarish
+            </button>
+          )}
           <Link to="/admin/blog" className="bg-slate-200 hover:bg-slate-300 text-slate-900 font-bold py-3 px-8 uppercase">
             Bekor qilish
           </Link>

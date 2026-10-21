@@ -16,3 +16,6 @@ build_log.txt
 test-image.png
 *.log
 scripts/deploy.env
+
+# SI blog generatori ish holati (boshlang'ich ro'yxat: server/data/topics.seed.json)
+server/data/topics.json

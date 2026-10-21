@@ -41,12 +41,17 @@ export type BlogPost = {
   image: string;
   author: string;
   views?: number;
+  /** 'draft' — saytda ko'rinmaydi (SI yozgan, tasdiq kutadi). Eski postlarda yo'q = published. */
+  status?: 'published' | 'draft';
   created_at: string;
 };
 
-/** Postlar ro'yxati. Server `{ data, pagination }` qaytaradi (limit ≤ 50). */
-export async function getPosts(limit = 50): Promise<BlogPost[]> {
-  const res = await apiFetch(`/posts?limit=${limit}`);
+/**
+ * Postlar ro'yxati. Server `{ data, pagination }` qaytaradi (limit ≤ 50).
+ * `status: 'all' | 'draft'` faqat admin tokeni bilan ishlaydi (admin panel); ommaviy sahifalar buni ishlatmaydi.
+ */
+export async function getPosts(limit = 50, status?: 'all' | 'draft'): Promise<BlogPost[]> {
+  const res = await apiFetch(`/posts?limit=${limit}${status ? `&status=${status}` : ''}`);
   if (!res.ok) throw new Error('Failed to fetch posts');
   const json = await res.json();
   return Array.isArray(json) ? json : Array.isArray(json?.data) ? json.data : [];
@@ -81,6 +86,7 @@ export async function createPost(data: Omit<BlogPost, 'id' | 'created_at'>): Pro
     date: data.date,
     category_uz: data.category.uz, category_ru: data.category.ru, category_en: data.category.en,
     image: data.image, author: data.author,
+    ...(data.status ? { status: data.status } : {}),
   };
   const res = await apiFetch('/posts', { method: 'POST', body: JSON.stringify(payload) });
   if (!res.ok) {
@@ -99,6 +105,7 @@ export async function updatePost(id: number, data: Partial<Omit<BlogPost, 'id' |
   if (data.category) Object.assign(payload, { category_uz: data.category.uz, category_ru: data.category.ru, category_en: data.category.en });
   if (data.image !== undefined) payload.image = data.image;
   if (data.author !== undefined) payload.author = data.author;
+  if (data.status) payload.status = data.status;
 
   const res = await apiFetch(`/posts/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
   if (!res.ok) {

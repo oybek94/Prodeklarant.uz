@@ -2,7 +2,8 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const { slugify } = require('./utils/slugify');
 
-const db = new Database(path.join(__dirname, 'blog.db'));
+// BLOG_DB_PATH faqat testlar uchun (masalan ':memory:'); productionda default fayl ishlatiladi.
+const db = new Database(process.env.BLOG_DB_PATH || path.join(__dirname, 'blog.db'));
 
 // WAL mode yoqish (yuqori unumdorlik va lock muammolarini oldini olish uchun)
 db.pragma('journal_mode = WAL');
@@ -32,6 +33,14 @@ db.exec(`
 
 try {
   db.exec('ALTER TABLE posts ADD COLUMN views INTEGER DEFAULT 0');
+} catch (e) {
+  if (!e.message?.includes('duplicate column name')) throw e;
+}
+
+// Maqola holati: 'published' (saytda ko'rinadi) yoki 'draft' (faqat admin ko'radi).
+// Mavjud postlar DEFAULT orqali 'published' bo'lib qoladi. SI generator 'draft' yozadi.
+try {
+  db.exec("ALTER TABLE posts ADD COLUMN status TEXT NOT NULL DEFAULT 'published'");
 } catch (e) {
   if (!e.message?.includes('duplicate column name')) throw e;
 }

@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node index.js",
+    "generate:post": "node scripts/generate-post.js",
     "test": "node --test \"test/**/*.test.js\""
   },
   "dependencies": {

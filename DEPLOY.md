@@ -357,6 +357,35 @@ Yoki Windows’dan: `deploy/deploy-from-local.ps1` ni o'zgaruvchilarni sozlab is
 
 ---
 
+## SI blog generatori (qoralama yaratish)
+
+Skript jadval bo'yicha OpenAI bilan o'zbekcha maqola yozadi, ru/en ga tarjima qiladi, Pixabay'dan muqova rasm oladi va **qoralama** (`status='draft'`) sifatida bazaga saqlaydi. Qoralama saytda, sitemapda va SEO'da **ko'rinmaydi**; Telegramga havola keladi, `/admin/blog` da ko'rib chiqib "Nashr qilish" bosiladi.
+
+**Sozlash (bir marta):**
+
+1. `server/.env` ga `OPENAI_API_KEY`, ixtiyoriy `PIXABAY_API_KEY` (rasm uchun), `TELEGRAM_BOT_TOKEN` + `TELEGRAM_CHAT_ID` (xabar uchun) yozing.
+2. Serverda `pm2 restart prodeklarant` — baza migratsiyasi (`status` ustuni) `db.js` yuklanganda o'zi bajariladi. **Oldin `server/blog.db` ning nusxasini oling.**
+3. Jadval (`crontab -e`), haftada 2 marta, Dushanba va Chorshanba 09:00 Toshkent (04:00 UTC):
+
+```cron
+0 4 * * 1,3 cd /var/www/prodeklarant.uz/server && /usr/bin/npm run generate:post >> /var/log/prodeklarant-blog.log 2>&1
+```
+
+**Qo'lda ishga tushirish:**
+
+```bash
+cd /var/www/prodeklarant.uz/server
+npm run generate:post -- --dry-run   # DB'ga yozmaydi, natijani chop etadi
+npm run generate:post                # 1 ta qoralama yaratadi
+npm run generate:post -- --suggest   # avval SI'dan yangi mavzular ham so'raydi
+```
+
+**Mavzular:** boshlang'ich ro'yxat `server/data/topics.seed.json` (git'da). Ish holati `server/data/topics.json` (gitignore'da, avtomatik yaratiladi): ishlatilgan mavzularga `usedAt` qo'yiladi, ro'yxat tugasa SI mavjud sarlavhalarni hisobga olib yangilarini qo'shadi. Mavzu qo'shish uchun `topics.json` ga `{ "topic": "...", "imageQuery": "english search" }` qo'shing.
+
+**Chegaralar:** tekshirilmagan 5 ta qoralama yig'ilsa generator to'xtaydi (Telegramga xabar yuboradi). Xato bo'lsa hech narsa saqlanmaydi, Telegramga xato yuboriladi, log: `/var/log/prodeklarant-blog.log`.
+
+---
+
 ## Google indekslashi va "Sahifa indekslanmadi"
 
 Agar Google Search Console da **"Страницы, которые не удалось проиндексировать"** / **"Sahifa indekslanmadi"** ko'rsatilsa, odatda quyidagilar sabab bo'ladi:
